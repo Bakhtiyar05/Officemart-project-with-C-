@@ -1,0 +1,991 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="content" class="site-content">
+
+    <div id="primary" class="content-area">
+        <main id="main" class="site-main">
+            <div class="cont maincont">
+
+                <div class="section-top">
+
+                    <h1 class="maincont-ttl">Shop</h1>
+                    <ul class="b-crumbs">
+                        <li><a href="index.html">Home</a></li>
+                        <li>Catalog - List</li>
+                    </ul>
+                    <div class="section-top-sort">
+                        <div class="section-view">
+                            <p>View</p>
+                            <div class="dropdown-wrap">
+                                <p class="dropdown-title section-view-ttl">Gallery</p>
+                                <ul class="dropdown-list">
+                                    <li>
+                                        <a href="catalog-list.html">List</a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="catalog-gallery.html">Gallery</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="section-sort">
+                            <p>Sort</p>
+                            <div class="dropdown-wrap">
+                                <p class="dropdown-title section-sort-ttl">Newness</p>
+                                <ul class="dropdown-list">
+                                    <li>
+                                        <a href="#">Popularity</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Average rating</a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="#">Newness</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Price: low to high</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Price: high to low</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <form method="post" class="products-per-page">
+                            <p>Per Page</p>
+                            <select>
+                                <option value="12" selected="selected">12</option>
+                                <option value="24">24</option>
+                                <option value="48">48</option>
+                                <option value="-1">All</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- To make Sidebar "Not Sticky" just remove  id="section-list-withsb" -->
+                <div class="section-wrap-withsb">
+                    <aside class="blog-sb-widgets section-sb" id="section-sb">
+
+                        <div class="theiaStickySidebar">
+
+                            <div class="section-filter">
+
+                                <div class="section-filter">
+
+                                    <div class="blog-sb-widget multishopcategories_widget">
+
+                                        <h3 class="widgettitle">Categories</h3>
+
+                                        <div class="section-sb-current">
+
+                                            <ul class="section-sb-list">
+
+                                                <li>
+
+                                                    <a href="#"><span class="section-sb-label">Electricity <span class="count">6</span></span></a>
+
+                                                </li>
+
+                                                <li>
+
+                                                    <a href="#"><span class="section-sb-label">Fasteners <span class="count">8</span></span></a>
+
+                                                </li>
+
+                                                <li>
+
+                                                    <a href="#"><span class="section-sb-label">Lighting <span class="count">6</span></span></a>
+
+                                                </li>
+
+                                                <li>
+
+                                                    <a href="#"><span class="section-sb-label">Other <span class="count">9</span></span></a>
+
+                                                </li>
+
+                                                <li>
+
+                                                    <a href="#"><span class="section-sb-label">Pipes <span class="count">9</span></span></a>
+
+                                                </li>
+
+                                                <li>
+
+                                                    <a href="#"><span class="section-sb-label">Sanitary Engineering <span class="count">7</span></span></a>
+
+                                                </li>
+
+                                                <li>
+
+                                                    <a href="#"><span class="section-sb-label">Tools <span class="count">21</span></span></a>
+
+                                                </li>
+
+                                            </ul>
+
+                                        </div>
+
+                                    </div>
+
+
+
+
+
+
+                                    <div class="blog-sb-widget multishopfeaturedproducts_widget">
+
+                                        <h3 class="widgettitle">Featured</h3>
+
+                                        <div class="products-featured-wrap">
+
+                                            <div class="products-featured">
+
+                                                <p class="products-featured-categ">
+
+                                                    <a href="#">Tools</a>
+
+                                                </p>
+
+                                                <h5 class="products-featured-ttl"><a href="product.html">Rechargeable Battery</a></h5>
+
+                                                <p class="products-featured-price">$201.00</p>
+
+                                            </div>
+
+                                            <div class="products-featured">
+
+                                                <p class="products-featured-categ">
+
+                                                    <a href="#">Pipes</a>
+
+                                                </p>
+
+                                                <h5 class="products-featured-ttl"><a href="product.html">Wholesale Brass</a></h5>
+
+                                                <p class="products-featured-price">$15.00</p>
+
+                                            </div>
+
+                                            <div class="products-featured">
+
+                                                <p class="products-featured-categ">
+
+                                                    <a href="#">Pipes</a>
+
+                                                </p>
+
+                                                <h5 class="products-featured-ttl"><a href="product.html">Fittings Pipe</a></h5>
+
+                                                <p class="products-featured-price">$77.00</p>
+
+                                            </div>
+
+                                            <div class="products-featured">
+
+                                                <p class="products-featured-categ">
+
+                                                    <a href="#">Pipes</a>
+
+                                                </p>
+
+                                                <h5 class="products-featured-ttl"><a href="product.html">Fittings Pipe</a></h5>
+
+                                                <p class="products-featured-price">$105.00</p>
+
+                                            </div>
+
+                                            <div class="products-featured">
+
+                                                <p class="products-featured-categ">
+
+                                                    <a href="#">Fasteners</a>
+
+                                                </p>
+
+                                                <h5 class="products-featured-ttl"><a href="product.html">Flat Bolt</a></h5>
+
+                                                <p class="products-featured-price">$45.00</p>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="blog-sb-widget multishopbrands_widget">
+
+                                        <h3 class="widgettitle">Brands</h3>
+
+                                        <ul class="brands-list-sb">
+
+                                            <li>
+
+                                                <a href="#">HOOK <span class="count">5</span></a>
+
+                                            </li>
+
+                                            <li>
+
+                                                <a href="#">Fuel Tank <span class="count">7</span></a>
+
+                                            </li>
+
+                                            <li>
+
+                                                <a href="#">BMP <span class="count">17</span></a>
+
+                                            </li>
+
+                                            <li>
+
+                                                <a href="#">BISON <span class="count">9</span></a>
+
+                                            </li>
+
+                                            <li>
+
+                                                <a href="#">AIR <span class="count">6</span></a>
+
+                                            </li>
+
+                                        </ul>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </aside>        <div class="section-list-withsb" id="section-list-withsb">
+                        <div class="theiaStickySidebar">
+
+                            <div class="prod-litems section-list">
+                                <article class="prod-li sectls">
+                                    <div class="prod-li-inner">
+                                        <a href="product.html" class="prod-li-img">
+                                            <img src="img/1/products/1.jpg" alt="">
+                                        </a>
+                                        <div class="prod-li-cont">
+                                            <div class="prod-li-ttl-wrap">
+                                                <p>
+                                                    <a href="#">Lighting</a>
+                                                </p>
+                                                <h3><a href="product.html">Searchlight Portable</a></h3>
+                                            </div>
+                                            <!--
+                                            No Space
+                                            -->
+                                            <div class="prod-li-prices">
+                                                <div class="prod-li-price-wrap">
+                                                    <p>Price</p>
+                                                    <p class="prod-li-price">$120.00</p>
+                                                </div>
+                                                <div class="prod-li-qnt-wrap">
+                                                    <p class="qnt-wrap prod-li-qnt">
+                                                        <a href="#" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
+                                                        <input type="text" value="1">
+                                                        <a href="#" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
+                                                    </p>
+                                                </div>
+                                                <div class="prod-li-total-wrap">
+                                                    <p>Total</p>
+                                                    <p class="prod-li-total">$120.00</p>
+                                                </div>
+                                            </div>
+                                            <!--
+                                                No Space
+                                            -->
+                                        </div>
+                                        <div class="prod-li-info">
+                                            <div class="prod-li-rating-wrap">
+                                                <p data-rating="5" class="prod-li-rating">
+                                                    <i class="rating-ico" title="1"></i><i class="rating-ico" title="2"></i><i class="rating-ico" title="3"></i><i class="rating-ico" title="4"></i><i class="rating-ico" title="5"></i>
+                                                </p>
+                                                <p class="prod-li-rating-count">12</p>
+                                            </div>
+                                            <p class="prod-li-add">
+                                                <a href="#" class="button hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Add to cart</span></a>
+                                            </p>
+                                            <p class="prod-li-compare">
+                                                <a href="compare.html" class="hover-label prod-li-compare-btn"><span>Compare</span><i class="icon ion-arrow-swap"></i></a>
+                                            </p>
+                                            <p class="prod-quickview">
+                                                <a href="#" class="hover-label quick-view"><i class="icon ion-plus"></i><span>Quick View</span></a>
+                                            </p>
+                                            <div class="prod-li-favorites">
+                                                <a href="wishlist.html" class="hover-label add_to_wishlist"><i class="icon ion-heart"></i><span>Add to Wishlist</span></a>
+                                            </div>
+                                            <p class="prod-li-information">
+                                                <a href="#" class="hover-label"><i class="icon ion-more"></i><span>Show Information</span></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="page-styling prod-li-informations">
+
+                                        <dl class="prod-li-props">
+                                            <dt>Brand:</dt>
+                                            <dd><a href="#">AIR</a></dd>
+                                            <dt>Weight:</dt>
+                                            <dd>1 kg</dd>
+                                            <dt>Dimensions:</dt>
+                                            <dd>4 x 50 cm</dd>
+                                            <dt>Сolor:</dt>
+                                            <dd><a href="#" rel="tag">Black</a>, <a href="#" rel="tag">Green</a></dd>
+                                            <dt>Manufacturer:</dt>
+                                            <dd><a href="#">France</a></dd>
+                                            <dt>Material:</dt>
+                                            <dd><a href="#" rel="tag">Metall</a>, <a href="#" rel="tag">Plastic</a>, <a href="#" rel="tag">Rubber</a></dd>
+                                        </dl>
+                                    </div>
+                                </article>
+                                <article class="prod-li sectls">
+                                    <div class="prod-li-inner">
+                                        <a href="product.html" class="prod-li-img">
+                                            <img src="img/1/products/2.jpg" alt="">
+                                        </a>
+                                        <div class="prod-li-cont">
+                                            <div class="prod-li-ttl-wrap">
+                                                <p>
+                                                    <a href="#">Other</a>
+                                                </p>
+                                                <h3><a href="product.html">Flooring</a></h3>
+                                            </div>
+                                            <!--
+                                            No Space
+                                            -->
+                                            <div class="prod-li-prices">
+                                                <div class="prod-li-price-wrap">
+                                                    <p>Price</p>
+                                                    <p class="prod-li-price"><del>$15.00</del> $20.00</p>
+                                                </div>
+                                                <div class="prod-li-qnt-wrap">
+                                                    <p class="qnt-wrap prod-li-qnt">
+                                                        <a href="#" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
+                                                        <input type="text" value="1">
+                                                        <a href="#" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
+                                                    </p>
+                                                </div>
+                                                <div class="prod-li-total-wrap">
+                                                    <p>Total</p>
+                                                    <p class="prod-li-total"><del>$15.00</del> $20.00</p>
+                                                </div>
+                                            </div>
+                                            <!--
+                                                No Space
+                                            -->
+                                        </div>
+                                        <div class="prod-li-info">
+                                            <div class="prod-li-rating-wrap">
+                                                <p data-rating="4" class="prod-li-rating">
+                                                    <i class="rating-ico" title="1"></i><i class="rating-ico" title="2"></i><i class="rating-ico" title="3"></i><i class="rating-ico" title="4"></i><i class="rating-ico" title="5"></i>
+                                                </p>
+                                                <p class="prod-li-rating-count">10</p>
+                                            </div>
+                                            <p class="prod-li-add">
+                                                <a href="#" class="button hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Add to cart</span></a>
+                                            </p>
+                                            <p class="prod-li-compare">
+                                                <a href="compare.html" class="hover-label prod-li-compare-btn"><span>Compare</span><i class="icon ion-arrow-swap"></i></a>
+                                            </p>
+                                            <p class="prod-quickview">
+                                                <a href="#" class="hover-label quick-view"><i class="icon ion-plus"></i><span>Quick View</span></a>
+                                            </p>
+                                            <div class="prod-li-favorites">
+                                                <a href="wishlist.html" class="hover-label add_to_wishlist"><i class="icon ion-heart"></i><span>Add to Wishlist</span></a>
+                                            </div>
+                                            <p class="prod-li-information">
+                                                <a href="#" class="hover-label"><i class="icon ion-more"></i><span>Show Information</span></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="page-styling prod-li-informations">
+
+                                        <dl class="prod-li-props">
+                                            <dt>Brand:</dt>
+                                            <dd><a href="#">Fuel Tank</a></dd>
+                                            <dt>Weight:</dt>
+                                            <dd>1 kg</dd>
+                                            <dt>Dimensions:</dt>
+                                            <dd>4 x 50 cm</dd>
+                                            <dt>Сolor:</dt>
+                                            <dd><a href="#">Black</a>, <a href="#">Green</a></dd>
+                                            <dt>Manufacturer:</dt>
+                                            <dd><a href="#">China</a></dd>
+                                            <dt>Material:</dt>
+                                            <dd><a href="#">Metall</a></dd>
+                                        </dl>
+                                    </div>
+                                </article>
+                                <article class="prod-li sectls">
+                                    <div class="prod-li-inner">
+                                        <a href="product.html" class="prod-li-img">
+                                            <img src="img/1/products/3.jpg" alt="">
+                                        </a>
+                                        <div class="prod-li-cont">
+                                            <div class="prod-li-ttl-wrap">
+                                                <p>
+                                                    <a href="#">Other</a>
+                                                </p>
+                                                <h3><a href="product.html">Pneumatic Coil Hose</a></h3>
+                                            </div>
+                                            <!--
+                                            No Space
+                                            -->
+                                            <div class="prod-li-prices">
+                                                <div class="prod-li-price-wrap">
+                                                    <p>Price</p>
+                                                    <p class="prod-li-price">$18.00</p>
+                                                </div>
+                                                <div class="prod-li-qnt-wrap">
+                                                    <p class="qnt-wrap prod-li-qnt">
+                                                        <a href="#" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
+                                                        <input type="text" value="1">
+                                                        <a href="#" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
+                                                    </p>
+                                                </div>
+                                                <div class="prod-li-total-wrap">
+                                                    <p>Total</p>
+                                                    <p class="prod-li-total">$18.00</p>
+                                                </div>
+                                            </div>
+                                            <!--
+                                                No Space
+                                            -->
+                                        </div>
+                                        <div class="prod-li-info">
+                                            <div class="prod-li-rating-wrap">
+                                                <p data-rating="4" class="prod-li-rating">
+                                                    <i class="rating-ico" title="1"></i><i class="rating-ico" title="2"></i><i class="rating-ico" title="3"></i><i class="rating-ico" title="4"></i><i class="rating-ico" title="5"></i>
+                                                </p>
+                                                <p class="prod-li-rating-count">8</p>
+                                            </div>
+                                            <p class="prod-li-add">
+                                                <a href="#" class="button hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Add to cart</span></a>
+                                            </p>
+                                            <p class="prod-li-compare">
+                                                <a href="compare.html" class="hover-label prod-li-compare-btn"><span>Compare</span><i class="icon ion-arrow-swap"></i></a>
+                                            </p>
+                                            <p class="prod-quickview">
+                                                <a href="#" class="hover-label quick-view"><i class="icon ion-plus"></i><span>Quick View</span></a>
+                                            </p>
+                                            <div class="prod-li-favorites">
+                                                <a href="wishlist.html" class="hover-label add_to_wishlist"><i class="icon ion-heart"></i><span>Add to Wishlist</span></a>
+                                            </div>
+                                            <p class="prod-li-information">
+                                                <a href="#" class="hover-label"><i class="icon ion-more"></i><span>Show Information</span></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="page-styling prod-li-informations">
+
+                                        <dl class="prod-li-props">
+                                            <dt>Brand:</dt>
+                                            <dd><a href="#">HOOK</a></dd>
+                                            <dt>Weight:</dt>
+                                            <dd>1 kg</dd>
+                                            <dt>Dimensions:</dt>
+                                            <dd>4 x 50 cm</dd>
+                                            <dt>Сolor:</dt>
+                                            <dd><a href="#">Black</a>, <a href="#">Green</a></dd>
+                                            <dt>Manufacturer:</dt>
+                                            <dd><a href="#">France</a></dd>
+                                            <dt>Material:</dt>
+                                            <dd><a href="#">Metal</a></dd>
+                                        </dl>
+                                    </div>
+                                </article>
+                                <article class="prod-li sectls">
+                                    <div class="prod-li-inner">
+                                        <a href="product.html" class="prod-li-img">
+                                            <img src="img/1/products/4.jpg" alt="">
+                                        </a>
+                                        <div class="prod-li-cont">
+                                            <div class="prod-li-ttl-wrap">
+                                                <p>
+                                                    <a href="#">Other</a>
+                                                </p>
+                                                <h3><a href="product.html">Door Hinge Metal</a></h3>
+                                            </div>
+                                            <!--
+                                            No Space
+                                            -->
+                                            <div class="prod-li-prices">
+                                                <div class="prod-li-price-wrap">
+                                                    <p>Price</p>
+                                                    <p class="prod-li-price">$45.00</p>
+                                                </div>
+                                                <div class="prod-li-qnt-wrap">
+                                                    <p class="qnt-wrap prod-li-qnt">
+                                                        <a href="#" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
+                                                        <input type="text" value="1">
+                                                        <a href="#" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
+                                                    </p>
+                                                </div>
+                                                <div class="prod-li-total-wrap">
+                                                    <p>Total</p>
+                                                    <p class="prod-li-total">$45.00</p>
+                                                </div>
+                                            </div>
+                                            <!--
+                                                No Space
+                                            -->
+                                        </div>
+                                        <div class="prod-li-info">
+                                            <div class="prod-li-rating-wrap">
+                                                <p data-rating="5" class="prod-li-rating">
+                                                    <i class="rating-ico" title="1"></i><i class="rating-ico" title="2"></i><i class="rating-ico" title="3"></i><i class="rating-ico" title="4"></i><i class="rating-ico" title="5"></i>
+                                                </p>
+                                                <p class="prod-li-rating-count">26</p>
+                                            </div>
+                                            <p class="prod-li-add">
+                                                <a href="#" class="button hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Add to cart</span></a>
+                                            </p>
+                                            <p class="prod-li-compare">
+                                                <a href="compare.html" class="hover-label prod-li-compare-btn"><span>Compare</span><i class="icon ion-arrow-swap"></i></a>
+                                            </p>
+                                            <p class="prod-quickview">
+                                                <a href="#" class="hover-label quick-view"><i class="icon ion-plus"></i><span>Quick View</span></a>
+                                            </p>
+                                            <div class="prod-li-favorites">
+                                                <a href="wishlist.html" class="hover-label add_to_wishlist"><i class="icon ion-heart"></i><span>Add to Wishlist</span></a>
+                                            </div>
+                                            <p class="prod-li-information">
+                                                <a href="#" class="hover-label"><i class="icon ion-more"></i><span>Show Information</span></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="page-styling prod-li-informations">
+
+                                        <dl class="prod-li-props">
+                                            <dt>Brand:</dt>
+                                            <dd><a href="#">HOOK</a></dd>
+                                            <dt>Weight:</dt>
+                                            <dd>1 kg</dd>
+                                            <dt>Dimensions:</dt>
+                                            <dd>4 x 50 cm</dd>
+                                            <dt>Сolor:</dt>
+                                            <dd><a href="#">Black</a>, <a href="#">Green</a></dd>
+                                            <dt>Manufacturer:</dt>
+                                            <dd><a href="#">Russia</a></dd>
+                                            <dt>Material:</dt>
+                                            <dd><a href="#">Metal</a></dd>
+                                        </dl>
+                                    </div>
+                                </article>
+                                <article class="prod-li sectls">
+                                    <div class="prod-li-inner">
+                                        <a href="product.html" class="prod-li-img">
+                                            <img src="img/1/products/5.jpg" alt="">
+                                        </a>
+                                        <div class="prod-li-cont">
+                                            <div class="prod-li-ttl-wrap">
+                                                <p>
+                                                    <a href="#">Electricity</a>
+                                                </p>
+                                                <h3><a href="product.html">Universal Plug</a></h3>
+                                            </div>
+                                            <!--
+                                            No Space
+                                            -->
+                                            <div class="prod-li-prices">
+                                                <div class="prod-li-price-wrap">
+                                                    <p>Price</p>
+                                                    <p class="prod-li-price">$70.00</p>
+                                                </div>
+                                                <div class="prod-li-qnt-wrap">
+                                                    <p class="qnt-wrap prod-li-qnt">
+                                                        <a href="#" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
+                                                        <input type="text" value="1">
+                                                        <a href="#" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
+                                                    </p>
+                                                </div>
+                                                <div class="prod-li-total-wrap">
+                                                    <p>Total</p>
+                                                    <p class="prod-li-total">$70.00</p>
+                                                </div>
+                                            </div>
+                                            <!--
+                                                No Space
+                                            -->
+                                        </div>
+                                        <div class="prod-li-info">
+                                            <div class="prod-li-rating-wrap">
+                                                <p data-rating="2" class="prod-li-rating">
+                                                    <i class="rating-ico" title="1"></i><i class="rating-ico" title="2"></i><i class="rating-ico" title="3"></i><i class="rating-ico" title="4"></i><i class="rating-ico" title="5"></i>
+                                                </p>
+                                                <p class="prod-li-rating-count">32</p>
+                                            </div>
+                                            <p class="prod-li-add">
+                                                <a href="#" class="button hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Add to cart</span></a>
+                                            </p>
+                                            <p class="prod-li-compare">
+                                                <a href="compare.html" class="hover-label prod-li-compare-btn"><span>Compare</span><i class="icon ion-arrow-swap"></i></a>
+                                            </p>
+                                            <p class="prod-quickview">
+                                                <a href="#" class="hover-label quick-view"><i class="icon ion-plus"></i><span>Quick View</span></a>
+                                            </p>
+                                            <div class="prod-li-favorites">
+                                                <a href="wishlist.html" class="hover-label add_to_wishlist"><i class="icon ion-heart"></i><span>Add to Wishlist</span></a>
+                                            </div>
+                                            <p class="prod-li-information">
+                                                <a href="#" class="hover-label"><i class="icon ion-more"></i><span>Show Information</span></a>
+                                            </p>
+                                        </div>
+                                        <p class="prod-li-badge"><span>Sale</span></p>
+                                    </div>
+                                    <div class="page-styling prod-li-informations">
+
+                                        <dl class="prod-li-props">
+                                            <dt>Brand:</dt>
+                                            <dd><a href="#">HOOK</a></dd>
+                                            <dt>Weight:</dt>
+                                            <dd>1 kg</dd>
+                                            <dt>Dimensions:</dt>
+                                            <dd>4 x 50 cm</dd>
+                                            <dt>Сolor:</dt>
+                                            <dd><a href="#">Black</a>, <a href="#">Green</a></dd>
+                                            <dt>Manufacturer:</dt>
+                                            <dd><a href="#">France</a></dd>
+                                            <dt>Material:</dt>
+                                            <dd><a href="#">Metall</a></dd>
+                                        </dl>
+                                    </div>
+                                </article>
+                                <article class="prod-li sectls">
+                                    <div class="prod-li-inner">
+                                        <a href="product.html" class="prod-li-img">
+                                            <img src="img/1/products/6.jpg" alt="">
+                                        </a>
+                                        <div class="prod-li-cont">
+                                            <div class="prod-li-ttl-wrap">
+                                                <p>
+                                                    <a href="#">Tools</a>
+                                                </p>
+                                                <h3><a href="product.html">Drill Tool Kit</a></h3>
+                                            </div>
+                                            <!--
+                                            No Space
+                                            -->
+                                            <div class="prod-li-prices">
+                                                <div class="prod-li-price-wrap">
+                                                    <p>Price</p>
+                                                    <p class="prod-li-price"><del>$12.00</del> $22.00</p>
+                                                </div>
+                                                <div class="prod-li-qnt-wrap">
+                                                    <p class="qnt-wrap prod-li-qnt">
+                                                        <a href="#" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
+                                                        <input type="text" value="1">
+                                                        <a href="#" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
+                                                    </p>
+                                                </div>
+                                                <div class="prod-li-total-wrap">
+                                                    <p>Total</p>
+                                                    <p class="prod-li-total"><del>$12.00</del> $22.00</p>
+                                                </div>
+                                            </div>
+                                            <!--
+                                                No Space
+                                            -->
+                                        </div>
+                                        <div class="prod-li-info">
+                                            <div class="prod-li-rating-wrap">
+                                                <p data-rating="3" class="prod-li-rating">
+                                                    <i class="rating-ico" title="1"></i><i class="rating-ico" title="2"></i><i class="rating-ico" title="3"></i><i class="rating-ico" title="4"></i><i class="rating-ico" title="5"></i>
+                                                </p>
+                                                <p class="prod-li-rating-count">17</p>
+                                            </div>
+                                            <p class="prod-li-add">
+                                                <a href="#" class="button hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Add to cart</span></a>
+                                            </p>
+                                            <p class="prod-li-compare">
+                                                <a href="compare.html" class="hover-label prod-li-compare-btn"><span>Compare</span><i class="icon ion-arrow-swap"></i></a>
+                                            </p>
+                                            <p class="prod-quickview">
+                                                <a href="#" class="hover-label quick-view"><i class="icon ion-plus"></i><span>Quick View</span></a>
+                                            </p>
+                                            <div class="prod-li-favorites">
+                                                <a href="wishlist.html" class="hover-label add_to_wishlist"><i class="icon ion-heart"></i><span>Add to Wishlist</span></a>
+                                            </div>
+                                            <p class="prod-li-information">
+                                                <a href="#" class="hover-label"><i class="icon ion-more"></i><span>Show Information</span></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="page-styling prod-li-informations">
+
+                                        <dl class="prod-li-props">
+                                            <dt>Weight:</dt>
+                                            <dd>1 kg</dd>
+                                            <dt>Dimensions:</dt>
+                                            <dd>4 x 50 cm</dd>
+                                            <dt>Сolor:</dt>
+                                            <dd><a href="#">Black</a>, <a href="#">Green</a></dd>
+                                            <dt>Manufacturer:</dt>
+                                            <dd><a href="#">Germany</a></dd>
+                                            <dt>Material:</dt>
+                                            <dd><a href="#">Metall</a></dd>
+                                        </dl>
+                                    </div>
+                                </article>
+                                <article class="prod-li sectls">
+                                    <div class="prod-li-inner">
+                                        <a href="product.html" class="prod-li-img">
+                                            <img src="img/1/products/7.jpg" alt="">
+                                        </a>
+                                        <div class="prod-li-cont">
+                                            <div class="prod-li-ttl-wrap">
+                                                <p>
+                                                    <a href="#">Pipes</a>
+                                                </p>
+                                                <h3><a href="product.html">Metal-Plastic Pipes</a></h3>
+                                            </div>
+                                            <!--
+                                            No Space
+                                            -->
+                                            <div class="prod-li-prices">
+                                                <div class="prod-li-price-wrap">
+                                                    <p>Price</p>
+                                                    <p class="prod-li-price">$24.00</p>
+                                                </div>
+                                                <div class="prod-li-qnt-wrap">
+                                                    <p class="qnt-wrap prod-li-qnt">
+                                                        <a href="#" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
+                                                        <input type="text" value="1">
+                                                        <a href="#" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
+                                                    </p>
+                                                </div>
+                                                <div class="prod-li-total-wrap">
+                                                    <p>Total</p>
+                                                    <p class="prod-li-total">$24.00</p>
+                                                </div>
+                                            </div>
+                                            <!--
+                                                No Space
+                                            -->
+                                        </div>
+                                        <div class="prod-li-info">
+                                            <div class="prod-li-rating-wrap">
+                                                <p data-rating="4" class="prod-li-rating">
+                                                    <i class="rating-ico" title="1"></i><i class="rating-ico" title="2"></i><i class="rating-ico" title="3"></i><i class="rating-ico" title="4"></i><i class="rating-ico" title="5"></i>
+                                                </p>
+                                                <p class="prod-li-rating-count">39</p>
+                                            </div>
+                                            <p class="prod-li-add">
+                                                <a href="#" class="button hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Add to cart</span></a>
+                                            </p>
+                                            <p class="prod-li-compare">
+                                                <a href="compare.html" class="hover-label prod-li-compare-btn"><span>Compare</span><i class="icon ion-arrow-swap"></i></a>
+                                            </p>
+                                            <p class="prod-quickview">
+                                                <a href="#" class="hover-label quick-view"><i class="icon ion-plus"></i><span>Quick View</span></a>
+                                            </p>
+                                            <div class="prod-li-favorites">
+                                                <a href="wishlist.html" class="hover-label add_to_wishlist"><i class="icon ion-heart"></i><span>Add to Wishlist</span></a>
+                                            </div>
+                                            <p class="prod-li-information">
+                                                <a href="#" class="hover-label"><i class="icon ion-more"></i><span>Show Information</span></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="page-styling prod-li-informations">
+
+                                        <dl class="prod-li-props">
+                                            <dt>Brand:</dt>
+                                            <dd><a href="#">Fuel Tank</a></dd>
+                                            <dt>Weight:</dt>
+                                            <dd>1 kg</dd>
+                                            <dt>Dimensions:</dt>
+                                            <dd>4 x 50 cm</dd>
+                                            <dt>Сolor:</dt>
+                                            <dd><a href="#">Black</a>, <a href="#">Green</a></dd>
+                                            <dt>Manufacturer:</dt>
+                                            <dd><a href="#">Japan</a></dd>
+                                            <dt>Material:</dt>
+                                            <dd><a href="#">Metall</a>, <a href="#">Plastic</a></dd>
+                                        </dl>
+                                    </div>
+                                </article>
+                                <article class="prod-li sectls">
+                                    <div class="prod-li-inner">
+                                        <a href="product.html" class="prod-li-img">
+                                            <img src="img/1/products/8.jpg" alt="">
+                                        </a>
+                                        <div class="prod-li-cont">
+                                            <div class="prod-li-ttl-wrap">
+                                                <p>
+                                                    <a href="#">Electricity</a>
+                                                </p>
+                                                <h3><a href="product.html">LED Lamp</a></h3>
+                                            </div>
+                                            <!--
+                                            No Space
+                                            -->
+                                            <div class="prod-li-prices">
+                                                <div class="prod-li-price-wrap">
+                                                    <p>Price</p>
+                                                    <p class="prod-li-price">$31.00</p>
+                                                </div>
+                                                <div class="prod-li-qnt-wrap">
+                                                    <p class="qnt-wrap prod-li-qnt">
+                                                        <a href="#" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
+                                                        <input type="text" value="1">
+                                                        <a href="#" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
+                                                    </p>
+                                                </div>
+                                                <div class="prod-li-total-wrap">
+                                                    <p>Total</p>
+                                                    <p class="prod-li-total">$31.00</p>
+                                                </div>
+                                            </div>
+                                            <!--
+                                                No Space
+                                            -->
+                                        </div>
+                                        <div class="prod-li-info">
+                                            <div class="prod-li-rating-wrap">
+                                                <p data-rating="0" class="prod-li-rating">
+                                                    <i class="rating-ico" title="1"></i><i class="rating-ico" title="2"></i><i class="rating-ico" title="3"></i><i class="rating-ico" title="4"></i><i class="rating-ico" title="5"></i>
+                                                </p>
+                                                <p class="prod-li-rating-count">0</p>
+                                            </div>
+                                            <p class="prod-li-add">
+                                                <a href="#" class="button hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Add to cart</span></a>
+                                            </p>
+                                            <p class="prod-li-compare">
+                                                <a href="compare.html" class="hover-label prod-li-compare-btn"><span>Compare</span><i class="icon ion-arrow-swap"></i></a>
+                                            </p>
+                                            <p class="prod-quickview">
+                                                <a href="#" class="hover-label quick-view"><i class="icon ion-plus"></i><span>Quick View</span></a>
+                                            </p>
+                                            <div class="prod-li-favorites">
+                                                <a href="wishlist.html" class="hover-label add_to_wishlist"><i class="icon ion-heart"></i><span>Add to Wishlist</span></a>
+                                            </div>
+                                            <p class="prod-li-information">
+                                                <a href="#" class="hover-label"><i class="icon ion-more"></i><span>Show Information</span></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="page-styling prod-li-informations">
+
+                                        <dl class="prod-li-props">
+                                            <dt>Brand:</dt>
+                                            <dd><a href="#">BMP</a></dd>
+                                            <dt>Weight:</dt>
+                                            <dd>1 kg</dd>
+                                            <dt>Dimensions:</dt>
+                                            <dd>4 x 50 cm</dd>
+                                            <dt>Сolor:</dt>
+                                            <dd><a href="#">Black</a>, <a href="#">Green</a></dd>
+                                            <dt>Manufacturer:</dt>
+                                            <dd><a href="#">Germany</a></dd>
+                                            <dt>Material:</dt>
+                                            <dd><a href="#">Metall</a>, <a href="#">Plastic</a></dd>
+                                        </dl>
+                                    </div>
+                                </article>
+                                <article class="prod-li sectls">
+                                    <div class="prod-li-inner">
+                                        <a href="product.html" class="prod-li-img">
+                                            <img src="img/1/products/9.jpg" alt="">
+                                        </a>
+                                        <div class="prod-li-cont">
+                                            <div class="prod-li-ttl-wrap">
+                                                <p>
+                                                    <a href="#">Electricity</a>
+                                                </p>
+                                                <h3><a href="product.html">Power Socket</a></h3>
+                                            </div>
+                                            <!--
+                                            No Space
+                                            -->
+                                            <div class="prod-li-prices">
+                                                <div class="prod-li-price-wrap">
+                                                    <p>Price</p>
+                                                    <p class="prod-li-price">$10.00</p>
+                                                </div>
+                                                <div class="prod-li-qnt-wrap">
+                                                    <p class="qnt-wrap prod-li-qnt">
+                                                        <a href="#" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
+                                                        <input type="text" value="1">
+                                                        <a href="#" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
+                                                    </p>
+                                                </div>
+                                                <div class="prod-li-total-wrap">
+                                                    <p>Total</p>
+                                                    <p class="prod-li-total">$10.00</p>
+                                                </div>
+                                            </div>
+                                            <!--
+                                                No Space
+                                            -->
+                                        </div>
+                                        <div class="prod-li-info">
+                                            <div class="prod-li-rating-wrap">
+                                                <p data-rating="5" class="prod-li-rating">
+                                                    <i class="rating-ico" title="1"></i><i class="rating-ico" title="2"></i><i class="rating-ico" title="3"></i><i class="rating-ico" title="4"></i><i class="rating-ico" title="5"></i>
+                                                </p>
+                                                <p class="prod-li-rating-count">12</p>
+                                            </div>
+                                            <p class="prod-li-add">
+                                                <a href="#" class="button hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Add to cart</span></a>
+                                            </p>
+                                            <p class="prod-li-compare">
+                                                <a href="compare.html" class="hover-label prod-li-compare-btn"><span>Compare</span><i class="icon ion-arrow-swap"></i></a>
+                                            </p>
+                                            <p class="prod-quickview">
+                                                <a href="#" class="hover-label quick-view"><i class="icon ion-plus"></i><span>Quick View</span></a>
+                                            </p>
+                                            <div class="prod-li-favorites">
+                                                <a href="wishlist.html" class="hover-label add_to_wishlist"><i class="icon ion-heart"></i><span>Add to Wishlist</span></a>
+                                            </div>
+                                            <p class="prod-li-information">
+                                                <a href="#" class="hover-label"><i class="icon ion-more"></i><span>Show Information</span></a>
+                                            </p>
+                                        </div>
+                                        <p class="prod-li-badge"><span class="badge-1">Top seller</span></p>
+                                    </div>
+                                    <div class="page-styling prod-li-informations">
+
+                                        <dl class="prod-li-props">
+                                            <dt>Brand:</dt>
+                                            <dd><a href="#">BMP</a></dd>
+                                            <dt>Weight:</dt>
+                                            <dd>1 kg</dd>
+                                            <dt>Dimensions:</dt>
+                                            <dd>4 x 50 cm</dd>
+                                            <dt>Сolor:</dt>
+                                            <dd><a href="#">Black</a>, <a href="#">Green</a></dd>
+                                            <dt>Manufacturer:</dt>
+                                            <dd><a href="#">France</a></dd>
+                                            <dt>Material:</dt>
+                                            <dd><a href="#">Metall</a></dd>
+                                        </dl>
+                                    </div>
+                                </article>
+                            </div>
+
+                            <ul class="page-numbers">
+                                <li><span class="page-numbers current">1</span></li>
+                                <li><a class="page-numbers" href="#">2</a></li>
+                                <li><a class="page-numbers" href="#">3</a></li>
+                                <li><a class="page-numbers" href="#">4</a></li>
+                                <li><a class="next page-numbers" href="#"><i class="fa fa-angle-right"></i></a></li>
+                            </ul>
+                        </div><!-- .theiaStickySidebar -->
+                    </div><!-- .section-list-withsb -->
+                </div><!-- .section-wrap-withsb -->
+
+            </div>
+        </main><!-- #main -->
+    </div><!-- #primary -->
+
+</div><!-- #content -->
