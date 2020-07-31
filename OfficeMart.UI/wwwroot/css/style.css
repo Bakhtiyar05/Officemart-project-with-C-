@@ -987,7 +987,6 @@ body i.icon {
 
 .site-header {
 	margin: 0 0 25px;
-	padding: 15px 0;
 	background-color: #ffffff;
 	box-shadow: 0 3px 10px 0 rgba(0,0,0,0.03);
 	position: relative;
@@ -1009,7 +1008,6 @@ body .header-sticky .site-header.header_sticky {
 .site-header .h-logo {
 	display: inline-block;
 	vertical-align: middle;
-	width: 18%;
 	padding: 0 2.5% 0 2.5%;
 }
 .site-header .h-logo a {
@@ -1617,11 +1615,13 @@ body .widget_search .dgwt-wcas-si img {
 	display: block;
 	font-size: 14px;
 	font-weight: 600;
-	padding: 10px 35px;
+	padding: 10px 5px;
 	transition: all 0.2s;
 	border-radius: 80px;
 	text-transform: uppercase;
 	position: relative;
+	padding-left: 22px;
+	padding-right: 22px;
 }
 .mainmenu nav.menu > ul > li.menu-item-has-children > a:after,
 .site-header .h-menu > ul > li.menu-item-has-children > a:after {
@@ -1631,7 +1631,6 @@ body .widget_search .dgwt-wcas-si img {
 	/* top: 12px; */
 	font-size: 11px;
 	text-align: center;
-	content: '\f0d7';
 	font-family: FontAwesome;
 	margin: 0 0 2px 8px;
 	vertical-align: middle;
@@ -1784,15 +1783,8 @@ body .widget_search .dgwt-wcas-si img {
 
 
 @media only screen and (max-width : 1700px) {
-	.mainmenu nav.menu > ul > li > a,
-	.site-header .h-menu > ul > li > a {
-		padding-left: 27px;
-		padding-right: 27px;
-	}
-	/*.mainmenu nav.menu > ul > li.menu-item-has-children > a:after,
-	.site-header .h-menu > ul > li.menu-item-has-children > a:after {
-		right: 15px;
-	}*/
+
+
 }
 
 
@@ -1864,6 +1856,12 @@ body .widget_search .dgwt-wcas-si img {
 
 	.site-header .mainmenu {
 		width: 55%;
+	}
+}
+
+@media only screen and (max-width : 1024px){
+	.site-header{
+		padding:15px 0;
 	}
 }
 
