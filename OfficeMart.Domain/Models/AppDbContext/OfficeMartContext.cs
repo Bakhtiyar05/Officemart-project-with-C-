@@ -11,6 +11,7 @@ namespace OfficeMart.Domain.Models.AppDbContext
     public class OfficeMartContext : IdentityDbContext
     {
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -22,6 +23,7 @@ namespace OfficeMart.Domain.Models.AppDbContext
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CategoryConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductConfiguration).Assembly);
         }
     }
 }
