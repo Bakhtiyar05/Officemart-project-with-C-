@@ -12,4 +12,9 @@
     <ProjectReference Include="..\OfficeMart.Business\OfficeMart.Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+  </ItemGroup>
+
 </Project>
