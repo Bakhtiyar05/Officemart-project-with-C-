@@ -291,7 +291,6 @@ input:focus {
 
 .maincont {
 	padding-top: 0;
-	padding-bottom: 50px;
 	position: relative;
 }
 body .site-content .heading-multishop,
@@ -826,6 +825,7 @@ body i.icon {
 	text-decoration: none;
 	transition: background-color 0.2s;
 	cursor: pointer;
+	margin-left:-10px;
 }
 .btn:hover {
 	text-decoration: none;
@@ -2277,13 +2277,7 @@ body .widget_search .dgwt-wcas-si img {
 	position: relative;
 	margin-top: -25px;
 	margin-bottom: 50px;
-	padding-top: 120px;
-	padding-bottom: 170px;
 	text-align: center;
-	background-repeat: no-repeat;
-	background-position: center center;
-	-webkit-background-size: cover;
-	background-size: cover;
 }
 .heroblock:before {
 	position: absolute;
@@ -2468,7 +2462,6 @@ body .widget_search .dgwt-wcas-si img {
 	margin-bottom: 35px;
 }
 .front-title-block {
-	margin-bottom: 60px;
 	padding-top: 60px;
 	padding-bottom: 30px;
 	background-color: #2a2c3d;
@@ -11689,7 +11682,7 @@ Compare List
 28 - Footer
 ----------------------------------*/
 .site-footer {
-	padding: 55px 5% 25px;
+	padding: 37px 5% 0px;
 	background-color: #ffffff;
 }
 .site-footer .widget {
@@ -11744,7 +11737,6 @@ Compare List
 .site-footer .f-logo {
 	border: none;
 	display: block;
-	margin: 14px 0 0;
 }
 
 /*----------------------------------
