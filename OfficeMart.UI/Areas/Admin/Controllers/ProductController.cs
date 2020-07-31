@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OfficeMart.Business.Dtos;
 
 namespace OfficeMart.UI.Areas.Admin.Controllers
 {
@@ -17,6 +19,17 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Add(ProductDto productDto,List<IFormFile> Images)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(productDto);
+            }
+            return View();
+        }
+
 
         public IActionResult Edit()
         {

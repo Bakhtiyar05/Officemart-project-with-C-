@@ -10,12 +10,12 @@ namespace OfficeMart.Business.Dtos
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Sahə tələb olunandır")]
         [MaxLength(75,ErrorMessage ="Maksimum uzunluq 75 simvoldan ibarət ola bilər")]
         [MinLength(3, ErrorMessage = "Minumum uzunluq 3 simvoldan ibarət ola bilər")]
         public string ProductName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Sahə tələb olunandır")]
         [RegularExpression(@"^[0-9]*$", ErrorMessage = "Yalnız rəqəm daxil edə bilərsiz")]
         public decimal Price { get; set; }
 
@@ -25,7 +25,7 @@ namespace OfficeMart.Business.Dtos
         public DateTime RegDate { get; set; }
         public Category Category { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Sahə tələb olunandır")]
         [RegularExpression(@"^[0-9]*$", ErrorMessage = "Yalnız rəqəm daxil edə bilərsiz")]
         public int CategoryId { get; set; }
     }

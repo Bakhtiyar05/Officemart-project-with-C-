@@ -1,0 +1,24 @@
+.IMGthumbnail {
+    max-width: 168px;
+    margin: auto;
+    background-color: #ececec;
+    padding: 2px;
+}
+
+    .IMGthumbnail img {
+        max-width: 164px;
+        height: 170px;
+    }
+
+.imgThumbContainer {
+    margin: 4px;
+    border: solid;
+    display: inline-block;
+    float: left;
+}
+
+
+    .imgThumbContainer > .imgName {
+        text-align: center;
+        padding: 2px 6px;
+    }
