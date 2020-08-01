@@ -16,20 +16,28 @@ namespace OfficeMart.Business.Logic
     {
         public async Task Add(ProductDto productDto, string rootPath)
         {
-            foreach (var image in productDto.Images)
-            {
-                if (image.IsImage())
-                {
-                    await image.SaveImage(rootPath, "Products");
-                }
-            }
 
             using(var context = TransactionConfig.AppDbContext)
             {
                 var mappedProduct = TransactionConfig.Mapper.Map<Product>(productDto);
                 await context.Products.AddAsync(mappedProduct);
                 await context.SaveChangesAsync();
-            }   
+
+                foreach (var image in productDto.Images)
+                {
+                    if (image.IsImage())
+                    {
+                        var imagePath = await image.SaveImage(rootPath, "Products");
+                        var productImage = new ProductImage
+                        {
+                            ImageName = imagePath,
+                            ProductId = mappedProduct.Id
+                        };
+                        await context.ProductImages.AddAsync(productImage);
+                    }
+                }
+                await context.SaveChangesAsync();
+            }
         }
     }
 }
