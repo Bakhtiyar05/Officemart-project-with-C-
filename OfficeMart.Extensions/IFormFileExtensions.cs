@@ -21,6 +21,10 @@ namespace OfficeMart.Extensions
 
         public static async Task<string> SaveImage(this IFormFile image, string root, string subfolder)
         {
+            if (!Directory.Exists(Path.Combine(root,"img",subfolder)))
+            {
+                Directory.CreateDirectory(Path.Combine(root,"img",subfolder));
+            }
             string filename = Path.Combine(subfolder, Guid.NewGuid().ToString() + Path.GetFileName(image.FileName));
 
             string path = Path.Combine(root, "img", filename);

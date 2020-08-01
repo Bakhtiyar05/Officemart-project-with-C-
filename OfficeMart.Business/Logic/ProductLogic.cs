@@ -12,16 +12,15 @@ using static OfficeMart.Extensions.IFormFileExtensions;
 
 namespace OfficeMart.Business.Logic
 {
-    public static class ProductLogic
+    public class ProductLogic
     {
-
-        public static async Task Add(ProductDto productDto)
+        public async Task Add(ProductDto productDto, string rootPath)
         {
             foreach (var image in productDto.Images)
             {
                 if (image.IsImage())
                 {
-
+                    await image.SaveImage(rootPath, "Products");
                 }
             }
 

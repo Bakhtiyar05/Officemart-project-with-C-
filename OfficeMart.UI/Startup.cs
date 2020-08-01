@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Hosting.Internal;
 
 namespace OfficeMart.UI
 {
@@ -24,6 +25,7 @@ namespace OfficeMart.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            //services.AddSingleton<IHostEnvironment>(new HostingEnvironment());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
