@@ -31,15 +31,16 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(ProductDto productDto)
+        public async Task<IActionResult> Add(ProductDto productDto,List<string> src)
         {
-            if (!ModelState.IsValid)
+           
+            if (!ModelState.IsValid && src.Count==0)
             {
                 return View(productDto);
             }
 
-            await new ProductLogic().Add(productDto, _environment.WebRootPath);
-
+            await new ProductLogic().Add(productDto, _environment.WebRootPath,src);
+            ViewBag.IsSuccessAdded = true;
             return View();
         }
 
