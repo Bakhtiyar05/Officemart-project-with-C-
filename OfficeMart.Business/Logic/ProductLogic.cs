@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.EntityFrameworkCore;
 using OfficeMart.Business.Dtos;
 using OfficeMart.Business.Models;
 using OfficeMart.Domain.Models.AppDbContext;
@@ -41,6 +42,22 @@ namespace OfficeMart.Business.Logic
                 }
                 await context.SaveChangesAsync();
             }
+        }
+
+        public async Task<List<ProductDto>> GetProducts()
+        {
+            var productsDto = new List<ProductDto>();
+
+            using (var context =  TransactionConfig.AppDbContext)
+            {
+                var products = await context
+                    .Products
+                    .Include(m => m.Category)
+                    .Include(m => m.ProductImages)
+                    .ToListAsync();
+                productsDto = TransactionConfig.Mapper.Map<List<ProductDto>>(products);
+            }
+            return productsDto;
         }
     }
 }

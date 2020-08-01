@@ -1,0 +1,23 @@
+.customProductIndex {
+    padding-top: 100px;
+}
+
+    .customProductIndex table thead tr th {
+        color: black;
+        font-size: 23px;
+        text-align: center;
+    }
+
+    .customProductIndex table tbody tr td {
+        color: #000;
+        font-size: 20px;
+        font-weight: 500;
+        vertical-align:central !important;
+        text-align: center;
+        padding-bottom: 0 !important;
+        padding-top: 0 !important;
+    }
+    .customProductIndex table tbody tr td p{
+
+        margin-top:42px;
+    }

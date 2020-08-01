@@ -1,0 +1,80 @@
+﻿@model List<ProductDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Admin/css/productIndex.css" rel="stylesheet" />
+<div class="customProductIndex">
+    <h2>Index</h2>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("Şəkil")
+                </th>
+                <th>
+                    @Html.DisplayName("Ad")
+                </th>
+                <th>
+                    @Html.DisplayName("Qiymət")
+                </th>
+                <th>
+                    @Html.DisplayName("Köhne qiymət")
+                </th>
+                <th>
+                    @Html.DisplayName("Kateqoriya")
+                </th>
+                <th>
+                    @Html.DisplayName("Əməliyyatlar")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img width="120" height="110" src="~/img/@item.ProductImages.FirstOrDefault()" />
+                    </td>
+                    <td>
+                        <p>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </p>
+
+                    </td>
+                    <td>
+                        <p style="display:inline-block;">
+
+                            @Html.DisplayFor(modelItem => item.Price)
+                            <span>₼</span>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+
+                            @Html.DisplayFor(modelItem => item.DiscountPrice)
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+
+                            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                        </p>
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

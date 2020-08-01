@@ -9,12 +9,12 @@ h1, h2, h3 {margin: 0;}
 ul, ol {margin: 0;}
 p {margin: 0;}
 
-html, body{
-	font-family: 'Roboto', sans-serif;
+html, body {
+    font-family: 'Roboto', sans-serif;
     font-size: 100%;
     overflow-x: hidden;
-    background: url(../images/bg.jpg) no-repeat 0px 0px;
-	background-size:cover;
+    background: url("https://lh3.googleusercontent.com/proxy/8lH4pfSOH5FHBEioO0m94EG93-sejfR6jhlKLVpb7MBMK5_96vM6mPNVbnZ6DgOpK_g8owG2Hnk4nMDaRfEWzSvEUuXap-GtfyK9k7KbTs63OHrMUZsIw9LnjKSeySV0s-OkDxW_wT-BXpVHeM-dA6GhHVFzWFKHmhE") no-repeat 0px 0px;
+    background-size: cover;
 }
 body a{
 	transition: 0.5s all ease;
