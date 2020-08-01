@@ -24,8 +24,12 @@ namespace OfficeMart.Business.Logic
                 }
             }
 
-            var mappedProduct = TransactionConfig.Mapper.Map<Product>(productDto);
-            await TransactionConfig.AppDbContext.Products.AddAsync(mappedProduct);
+            using(var context = TransactionConfig.AppDbContext)
+            {
+                var mappedProduct = TransactionConfig.Mapper.Map<Product>(productDto);
+                await context.Products.AddAsync(mappedProduct);
+                await context.SaveChangesAsync();
+            }   
         }
     }
 }
