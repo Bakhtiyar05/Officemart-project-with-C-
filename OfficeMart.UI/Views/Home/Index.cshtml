@@ -2,6 +2,8 @@
     ViewData["Title"] = "Home Page";
 }
 
+@model List<OfficeMart.Business.Dtos.ProductDto>
+
 <div id="content" class="site-content">
     <div id="primary" class="content-area width-full">
         <main id="main" class="site-main">
@@ -27,32 +29,37 @@
                 <div class="container mb60 page-styling row-wrap-container row-wrap-nottl">
                     <h2 class="mb35 heading-multishop">Məhsullar</h2>
                     <div class="row prod-items prod-items-3">
-                        <article class="cf-sm-6 cf-md-4 cf-lg-4 col-xs-6 col-sm-6 col-md-4 col-lg-4 sectgl-item">
-                            <div class="sectgl prod-i">
-                                <div class="prod-i-top">
-                                    <a class="prod-i-img" href="product.html">
-                                        <img src="~/img/1/products/1.jpg" alt="">
-                                    </a>
-                                    <div class="prod-i-actions">
-                                        <div class="prod-i-actions-in">                             
-                                            <p class="prod-quickview">
-                                                <a href="#" class="hover-label quick-view"><i class="icon ion-plus"></i><span>Quick View</span></a>
-                                            </p>
-                                            <p class="prod-i-cart">
-                                                <a href="#" class="hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Add to Cart</span></a>
-                                            </p>
+                        @{
+                            foreach (var item in Model)
+                            {
+                                <article class="cf-sm-6 cf-md-4 cf-lg-4 col-xs-6 col-sm-6 col-md-4 col-lg-4 sectgl-item">
+                                    <div class="sectgl prod-i">
+                                        <div class="prod-i-top">
+                                            <a class="prod-i-img" href="product.html">
+                                                <img src="~/img/@item.ProductImages.FirstOrDefault()" alt="">
+                                            </a>
+                                            <div class="prod-i-actions">
+                                                <div class="prod-i-actions-in">
+                                                    <p class="prod-quickview">
+                                                        <a href="#" class="hover-label quick-view"><i class="icon ion-plus"></i><span>Quick View</span></a>
+                                                    </p>
+                                                    <p class="prod-i-cart">
+                                                        <a href="#" class="hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Add to Cart</span></a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="prod-i-bot">
+                                            <div class="prod-i-info">
+                                                <p class="prod-i-price">₼ @item.Price</p>
+                                                <p class="prod-i-categ"><a href="catalog-gallery.html">@item.Category.CategoryName</a></p>
+                                            </div>
+                                            <h3 class="prod-i-ttl"><a href="product.html">@item.ProductName</a></h3>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="prod-i-bot">
-                                    <div class="prod-i-info">
-                                        <p class="prod-i-price">₼ 120.00</p>
-                                        <p class="prod-i-categ"><a href="catalog-gallery.html">Lighting</a></p>
-                                    </div>
-                                    <h3 class="prod-i-ttl"><a href="product.html">Searchlight Portable</a></h3>
-                                </div>
-                            </div>
-                        </article>                    
+                                </article>
+                            }
+                        }
                     </div>
                     <p class="special-more">
                         <a class="special-more-btn" href="#">Daha Çox</a>

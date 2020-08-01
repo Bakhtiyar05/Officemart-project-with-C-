@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using OfficeMart.Business.Dtos;
 using OfficeMart.Domain.Models.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace OfficeMart.Business.Mappings
 {
@@ -12,7 +10,10 @@ namespace OfficeMart.Business.Mappings
         public MappingProfile()
         {
             CreateMap<Category, CategoryDto>().ReverseMap();
-            CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<Product, ProductDto>()
+                .ForMember(x=>x.ProductImages,y=>y.MapFrom(e=>e.ProductImages.Select(x=>x.ImageName).ToList()))
+                .ReverseMap();
+                
         }
     }
 }

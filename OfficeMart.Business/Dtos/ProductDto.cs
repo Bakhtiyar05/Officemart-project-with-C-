@@ -26,6 +26,7 @@ namespace OfficeMart.Business.Dtos
         [Required(ErrorMessage ="Səkil tələb olunandır")]
         public List<IFormFile> Images { get; set; }
         public DateTime RegDate { get; set; }
+        public List<string> ProductImages { get; set; }
         public Category Category { get; set; }
 
         [Required(ErrorMessage = "Sahə tələb olunandır")]
