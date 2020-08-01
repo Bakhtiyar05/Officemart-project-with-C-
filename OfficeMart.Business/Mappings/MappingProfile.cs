@@ -12,6 +12,7 @@ namespace OfficeMart.Business.Mappings
         public MappingProfile()
         {
             CreateMap<Category, CategoryDto>().ReverseMap();
+            CreateMap<Product, ProductDto>().ReverseMap();
         }
     }
 }

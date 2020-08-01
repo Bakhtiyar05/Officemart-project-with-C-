@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OfficeMart.Business.Dtos;
+using OfficeMart.Business.Logic;
 
 namespace OfficeMart.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class ProductController : Controller
     {
+
         public IActionResult Index()
         {
             return View();
@@ -21,12 +23,15 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(ProductDto productDto,List<IFormFile> Images)
+        public async Task<IActionResult> Add(ProductDto productDto)
         {
             if (!ModelState.IsValid)
             {
                 return View(productDto);
             }
+
+            await ProductLogic.Add(productDto);
+
             return View();
         }
 

@@ -1,4 +1,5 @@
-﻿using OfficeMart.Domain.Models.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using OfficeMart.Domain.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,7 +22,8 @@ namespace OfficeMart.Business.Dtos
 
         [RegularExpression(@"^[0-9]*$", ErrorMessage = "Yalnız rəqəm daxil edə bilərsiz")]
         public decimal DiscountPrice { get; set; }
-        public string ImageName { get; set; }
+        [Required(ErrorMessage ="Səkil tələb olunandır")]
+        public List<IFormFile> Images { get; set; }
         public DateTime RegDate { get; set; }
         public Category Category { get; set; }
 

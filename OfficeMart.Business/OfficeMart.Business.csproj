@@ -6,14 +6,12 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\OfficeMart.Domain\OfficeMart.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Logic\" />
+    <ProjectReference Include="..\OfficeMart.Extensions\OfficeMart.Extensions.csproj" />
   </ItemGroup>
 
 </Project>
