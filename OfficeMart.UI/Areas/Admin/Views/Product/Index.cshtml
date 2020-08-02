@@ -6,10 +6,9 @@
 }
 <link href="~/Admin/css/productIndex.css" rel="stylesheet" />
 <div class="customProductIndex">
-    <h2>Index</h2>
 
     <p>
-        <a asp-action="Create">Create New</a>
+        <a asp-action="Add" class="btn btn-large d-block btn-success"><i class="fa fa-plus"></i> Yeni Məhsul</a>
     </p>
     <table class="table table-bordered">
         <thead>
@@ -68,9 +67,10 @@
                     </td>
 
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <div class="operations">
+                            <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit btn btn-small btn-primary"></i></a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash btn btn-small btn-danger"></i></a>
+                        </div>
                     </td>
                 </tr>
             }
