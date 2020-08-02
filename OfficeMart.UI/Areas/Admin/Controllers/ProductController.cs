@@ -32,10 +32,10 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(ProductDto productDto,List<string> src)
+        public async Task<ActionResult> Add(ProductDto productDto,List<string> src)
         {
-           
-            if (!ModelState.IsValid && src.Count==0)
+
+            if (!ModelState.IsValid && src.Count == 0)
             {
                 return View(productDto);
             }

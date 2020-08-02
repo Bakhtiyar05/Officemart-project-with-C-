@@ -22,7 +22,7 @@
                     </header>
                     <div class="panel-body">
                         <div class="form">
-                            <form enctype="multipart/form-data" method="post">
+                            <form enctype="multipart/form-data">
                                 <div class="form-group col-md-5 col-md-offset-3">
                                     <label>Adı</label>
                                     <input id="ProductName" asp-for="ProductName" class="form-control" />
@@ -45,12 +45,15 @@
                                     <div id="imgThumbnailPreview"> </div>
                                     <div>
                                         <label for="files" class="btn btn-primary col-md-2" style="display:block">Seç</label>
-                                        <input id="files" accept="image/*" name="Images" type="file" style="display:none" multiple />
+                                        <input id="files" accept="image/*" name="Image" type="file" style="visibility:hidden" asp-for="Image" multiple />
                                     </div>
-                                    <span class="text-danger ml-1" asp-validation-for="Images"></span>
+
                                 </div>
                                 <div class="form-group col-md-5 col-md-offset-3">
-                                    <input id="saveBtn" type="submit" class="btn btn-success" value="Yadda Saxla" />
+                                    <span class="text-danger ml-1" asp-validation-for="Image"></span>
+                                </div>
+                                <div class="form-group col-md-5 col-md-offset-3">
+                                    <input id="saveBtn" class="btn btn-success" value="Yadda Saxla" />
                                 </div>
                             </form>
                         </div>
@@ -68,43 +71,40 @@
 
 <script>
     $(function () {
+       
         $(document).on("click", "#saveBtn", function () {
 
-            var Src = [];
-            $("img").each(function () {
-                var src = this.src;
-                if (src.includes('data')) {
-                    Src.push(src);
-                }
-            });
-
-
-            var ProductName = $("#ProductName").val();
-            var Price = $("#Price").val();
-            var CategoryId = $("#CategoryId").val();
-
-            $.ajax({
-                url: "/Admin/Product/Add",
-                data: { Price: Price, ProductName: ProductName, CategoryId: CategoryId, src: Src },
-                type: "POST",
-                success: function (res) {
-                   
-                }
-            })
-        })
-    })
-</script>
-@{ 
-    var isSucc =Convert.ToBoolean(ViewBag.IsSuccessAdded);
-    if (isSucc)
-    {
-        <script>
-            swal("Uğurlu", "Elan Uğurla əlavə edildi", "success")
-                .then(willRedirect => {
-                    if (willRedirect) {
-                        window.location.href = "/Admin/Product/Index";
+            $.validator.unobtrusive.parse($('form'));
+            $('form').validate();
+            if ($('form').valid()) {
+                var Src = [];
+                $("img").each(function () {
+                    var src = this.src;
+                    if (src.includes('data')) {
+                        Src.push(src);
                     }
                 });
-        </script>
-    }
-}
+
+
+                var ProductName = $("#ProductName").val();
+                var Price = $("#Price").val();
+                var CategoryId = $("#CategoryId").val();
+
+                $.ajax({
+                    url: "/Admin/Product/Add",
+                    data: { Price: Price, ProductName: ProductName, CategoryId: CategoryId, src: Src },
+                    type: "POST",
+                    success: function (res) {
+                        swal("Uğurlu", "Elan Uğurla əlavə edildi", "success")
+                            .then(willRedirect => {
+                                if (willRedirect) {
+                                    window.location.href = "/Admin/Product/Index";
+                                }
+                            });
+                    }
+                })
+            }          
+        })
+       
+    })
+</script>

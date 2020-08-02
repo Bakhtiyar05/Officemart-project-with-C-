@@ -23,8 +23,9 @@ namespace OfficeMart.Business.Dtos
 
         [RegularExpression(@"^[0-9]*$", ErrorMessage = "Yalnız rəqəm daxil edə bilərsiz")]
         public decimal DiscountPrice { get; set; }
+
         [Required(ErrorMessage ="Səkil tələb olunandır")]
-        public List<IFormFile> Images { get; set; }
+        public IFormFile Image { get; set; }
         public DateTime RegDate { get; set; }
         public List<string> ProductImages { get; set; }
         public Category Category { get; set; }
