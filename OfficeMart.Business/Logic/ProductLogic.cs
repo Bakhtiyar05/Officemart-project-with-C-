@@ -63,5 +63,21 @@ namespace OfficeMart.Business.Logic
             }
             return productsDto;
         }
+
+        public async Task<ProductDto> GetProductById(int id)
+        {
+            ProductDto productDto = new ProductDto();
+
+            using (var context = TransactionConfig.AppDbContext)
+            {
+                var product = await context
+                    .Products
+                    .Include(m => m.Category)
+                    .Include(m => m.ProductImages)
+                    .FirstOrDefaultAsync();
+                productDto = TransactionConfig.Mapper.Map<ProductDto>(product);
+            }
+            return productDto;
+        }
     }
 }

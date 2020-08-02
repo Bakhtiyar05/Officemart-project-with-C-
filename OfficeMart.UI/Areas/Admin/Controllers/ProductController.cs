@@ -44,10 +44,16 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
             ViewBag.IsSuccessAdded = true;
             return View();
         }
-
-
-        public IActionResult Edit()
+        [HttpGet("{id:int}")]
+        public IActionResult Edit(int id)
         {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Edit(ProductDto product)
+        {
+            
             return View();
         }
         public IActionResult Delete()
