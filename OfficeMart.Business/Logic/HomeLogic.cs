@@ -4,6 +4,7 @@ using OfficeMart.Business.Models;
 using OfficeMart.Domain.Models.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,5 +29,22 @@ namespace OfficeMart.Business.Logic
 
             return productsDto;
         } 
+
+        public async Task<ProductDto> GetProductForQuickView(int id)
+        {
+            using(var context = TransactionConfig.AppDbContext)
+            {
+                var product = await context
+                    .Products
+                    .Where(x => x.Id == id)
+                    .Include(x => x.ProductImages)
+                    .Include(x => x.Category)
+                    .ToListAsync();
+
+                var result = TransactionConfig.Mapper.Map<ProductDto>(product);
+
+                return result;
+            }
+        }
     }
 }

@@ -2,14 +2,14 @@
     ViewData["Title"] = "Home Page";
 }
 
-@model List<OfficeMart.Business.Dtos.ProductDto>
+@model IEnumerable<ProductDto>
 
 <div id="content" class="site-content">
     <div id="primary" class="content-area width-full">
         <main id="main" class="site-main">
             <div class="maincont page-styling page-full">
 
-                <div class="heroblock">                 
+                <div class="heroblock">
                     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
@@ -21,7 +21,7 @@
                             <div class="carousel-item">
                                 <img style="max-height:60vh" class="d-block w-100" src="https://www.lowyinstitute.org/sites/default/files/books-4515917_1920.jpg" alt="Third slide">
                             </div>
-                        </div>               
+                        </div>
                     </div>
                 </div>
 
@@ -32,16 +32,17 @@
                         @{
                             foreach (var item in Model)
                             {
+                                int viewCounter = 1;
                                 <article class="cf-sm-6 cf-md-4 cf-lg-4 col-xs-6 col-sm-6 col-md-4 col-lg-4 sectgl-item">
                                     <div class="sectgl prod-i">
                                         <div class="prod-i-top">
-                                            <a class="prod-i-img" href="product.html">
+                                            <a class="prod-i-img">
                                                 <img src="~/img/@item.ProductImages.FirstOrDefault()" alt="">
                                             </a>
                                             <div class="prod-i-actions">
                                                 <div class="prod-i-actions-in">
                                                     <p class="prod-quickview">
-                                                        <a href="#" class="hover-label quick-view"><i class="icon ion-plus"></i><span>Quick View</span></a>
+                                                        <a href="#" data-id="@item.Id" class="hover-label quick-view" id="btnView"><i class="icon ion-plus"></i><span>Baxış</span></a>
                                                     </p>
                                                     <p class="prod-i-cart">
                                                         <a href="#" class="hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Add to Cart</span></a>
@@ -58,6 +59,8 @@
                                         </div>
                                     </div>
                                 </article>
+
+                                viewCounter++;
                             }
                         }
                     </div>
@@ -77,7 +80,7 @@
                                     </p>
                                     <h3>Siz Seçin!</h3>
                                 </div>
-                               
+
                             </div>
                         </div>
                         <div class="cf-lg-4 col-sm-4">
@@ -88,7 +91,7 @@
                                     </p>
                                     <h3>Sifariş Edin!</h3>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="cf-lg-4 col-sm-4">
@@ -133,3 +136,179 @@
         </main>
     </div>
 </div>
+
+<div class="cont maincont quick-view-modal">
+
+    <article>
+
+        <div class="prod">
+
+            <div class="prod-slider-wrap prod-slider-shown">
+
+                <div class="flexslider prod-slider" id="prod-slider">
+
+                    @*<ul class="slides" id="slider-top">
+                      
+                    </ul>*@
+
+                    <div class="prod-slider-count">
+                        <p>
+                            <span class="count-cur">1</span>
+                            / <span class="count-all">3</span>
+                        </p><p class="hover-label prod-slider-zoom">
+                            <i class="icon ion-search"></i>
+                            <span>Zoom In</span>
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="flexslider prod-thumbs" id="prod-thumbs">
+
+                    @*<ul class="slides" id="slider-bottom">
+                      
+                    </ul>*@
+
+                </div>
+
+            </div>
+
+            <div class="prod-cont">
+
+                <div class="prod-rating-wrap">
+
+                    <p data-rating="4" class="prod-rating">
+
+                        <i class="rating-ico" title="1"></i><i class="rating-ico" title="2"></i><i class="rating-ico" title="3"></i><i class="rating-ico" title="4"></i><i class="rating-ico" title="5"></i>
+
+                    </p>
+
+                    <p class="prod-rating-count">7</p>
+
+                </div>
+
+                <p class="prod-categs"><a href="#">Lighting</a>, <a href="#">Tools</a></p>
+
+                <h2>Belt Sanders</h2>
+
+                <p class="prod-price">$25.00</p>
+
+                <p class="stock in-stock">7 in stock</p>
+
+                <p class="prod-excerpt">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget...</p>
+
+                <div class="prod-add">
+
+                    <button type="submit"
+                            class="button">
+                        <i class="icon ion-android-cart"></i> Add to cart
+
+                    </button>
+
+                    <p class="qnt-wrap prod-li-qnt">
+
+                        <a href="#" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
+
+                        <input type="text" value="1">
+
+                        <a href="#" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
+
+                    </p>
+
+                    <div class="prod-li-favorites">
+
+                        <a href="wishlist.html" class="hover-label add_to_wishlist"><i class="icon ion-heart"></i><span>Add to Wishlist</span></a>
+
+                    </div>
+
+                    <p class="prod-li-compare">
+
+                        <a href="compare.html" class="hover-label prod-li-compare-btn"><span>Compare</span><i class="icon ion-arrow-swap"></i></a>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </article>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<script>
+
+    $(function () {
+
+        $(document).on("click", ".quick-view", function (e) {
+            e.preventDefault();
+            var id = $(this).attr("data-id");
+            $(".slides").remove();
+            $.ajax({
+                url: "/Ajax/GetByIdForQuickView/" + id,
+                type: "GET",
+                success: function (res) {
+
+                    var bottomSliderParent = $("#prod-thumbs");
+                    var sliderParentTag = "<ul class='slides' id='slider-bottom'></ul>";
+                    bottomSliderParent.append(sliderParentTag);
+
+                    var topSliderParent = $("#prod-slider");
+                    var sliderParentTagTop = "<ul class='slides' id='slider-top'></ul>";
+                    topSliderParent.append(sliderParentTagTop);
+
+                    var sliderBottom = $("#slider-bottom");
+                    var sliderTop = $("#slider-top");
+
+                    let counter = 0;
+                    for (let photo of res.imagesBase64) {
+
+                        counter++;
+                        if (counter == 1) {
+                            var sliderElementBottom = "<li class='slider-li' style='width: 114.4px; margin-right: 0px; float: left; display: block;'><img src=" + photo + " alt='' class='slider-bottom-element'  data=" + counter + "/><li/>";
+                            sliderBottom.append(sliderElementBottom);
+                            var sliderElementTop = "<li class='slider-li' object-fit='cover' style='width: 100%; float: left; margin-right: -100%; position: relative; display: block; z-index: 2;'><img style='width:100%;display:block' src=" + photo + " alt='' class='top-photo' data-top=" + counter + "/><li/>";
+                            sliderTop.append(sliderElementTop);
+                        }
+                        else {
+                            var sliderElementBottom = "<li class='slider-li' style='width: 114.4px; margin-right: 0px; float: left; display: block;'><img src=" + photo + " alt='' class='slider-bottom-element'  data=" + counter + "/><li/>";
+                            sliderBottom.append(sliderElementBottom);
+                            var sliderElementTop = "<li class='slider-li' object-fit='cover' style='width: 100%; float: left; margin-right: -100%; position: relative; display: block; z-index: 2;'><img style='width:100%;display:none' src=" + photo + " alt='' class='top-photo' data-top=" + counter + "/><li/>";
+                            sliderTop.append(sliderElementTop);
+                        }
+                    }
+
+                
+                }
+            })
+
+        })
+
+        $(document).on("click", ".slider-bottom-element", function (e) {
+            e.preventDefault();
+            var data = $(this).attr("data");
+
+            $("img").each(function () {
+                var dataTop = $(this).attr("data-top");
+
+                
+                if (data == dataTop) {
+                    console.log($(this))
+
+                    $(this).css("display", "block");
+                }
+                else {
+                    if ($(this).hasClass("top-photo")) {
+                        $(this).css("display", "none");
+                    } 
+                }
+                
+            });
+        })
+    });
+
+
+</script>
