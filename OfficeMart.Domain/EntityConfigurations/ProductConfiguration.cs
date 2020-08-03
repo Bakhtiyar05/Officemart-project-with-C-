@@ -21,6 +21,11 @@ namespace OfficeMart.Domain.EntityConfigurations
             builder.Property(x => x.RegDate)
                 .IsRequired()
                 .HasDefaultValue(DateTime.Now.ToString("yyyy-MM-dd"));
+
+            builder.Property(x => x.IsActive)
+                .IsRequired()
+                .HasDefaultValue(true);
+                
         }
     }
 }

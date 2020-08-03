@@ -23,16 +23,15 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var productsDto =await new ProductLogic().GetProducts();
+            var productsDto = await new ProductLogic().GetProducts();
             return View(productsDto);
         }
         public IActionResult Add()
         {
             return View();
         }
-
         [HttpPost]
-        public async Task<ActionResult> Add(ProductDto productDto,List<string> src)
+        public async Task<ActionResult> Add(ProductDto productDto, List<string> src)
         {
 
             if (!ModelState.IsValid && src.Count == 0)
@@ -40,25 +39,44 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
                 return View(productDto);
             }
 
-            await new ProductLogic().Add(productDto, _environment.WebRootPath,src);
-            ViewBag.IsSuccessAdded = true;
+            await new ProductLogic().Add(productDto, _environment.WebRootPath, src);
             return View();
         }
-        [HttpGet("{id:int}")]
+        [HttpGet]
         public IActionResult Edit(int id)
         {
-            return View();
+            var product = new ProductLogic().GetProductById(id).Result;
+            return View(product);
         }
-
         [HttpPost]
-        public IActionResult Edit(ProductDto product)
+        public IActionResult Edit(ProductDto product, List<string> src)
         {
-            
-            return View();
+            bool dataOpsIsOkay = false;
+            bool imageOpsIsOkay = new ProductLogic().ProductEditOperations(product.Id, _environment.WebRootPath, src).Result;
+            if (imageOpsIsOkay)
+            {
+                dataOpsIsOkay = new ProductLogic().Edit(product).Result;
+            }
+            else
+            {
+                ModelState.AddModelError("ImageForEdit", "Səkil tələb olunandır");
+                return View(product);
+            }
+
+
+
+            return RedirectToAction("Index");
         }
-        public IActionResult Delete()
+        public async Task<IActionResult> Delete(int id)
         {
-            return View();
+            if (await new ProductLogic().DeleteProduct(id))
+            {
+                return Json(new { status = "200", data = "/Admin/Product/Index" });
+            }
+            else
+            {
+                return Json(new { status = "400"});
+            }
         }
     }
 }

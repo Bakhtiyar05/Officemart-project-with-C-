@@ -14,6 +14,7 @@ namespace OfficeMart.Domain.Models.Entities
         public string ProductName { get; set; }
         public decimal Price { get; set; }
         public decimal DiscountPrice { get; set; }
+        public bool IsActive { get; set; }
         public DateTime RegDate { get; set; }
         public Category Category { get; set; }
         public int CategoryId { get; set; }

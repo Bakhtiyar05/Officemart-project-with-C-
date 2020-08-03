@@ -47,4 +47,7 @@ function removeMe(id) {
     if (mainParent.childElementCount === 0) {
         mainParent.style.height = "0";
     }
+    if ($(".IMGthumbnail").length === 0) {
+        $("#files").val("");
+    } 
 }
