@@ -10,6 +10,10 @@ namespace OfficeMart.Business.Dtos
 {
     public class ProductDto : BaseDto
     {
+        public ProductDto()
+        {
+            ImagesBase64 = new List<string>();
+        }
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Sahə tələb olunandır")]
@@ -28,7 +32,8 @@ namespace OfficeMart.Business.Dtos
         public IFormFile Image { get; set; }
         public DateTime RegDate { get; set; }
         public List<string> ProductImages { get; set; }
-        public Category Category { get; set; }
+        public List<string> ImagesBase64 { get; set; }
+        public CategoryDto Category { get; set; }
 
         [Required(ErrorMessage = "Sahə tələb olunandır")]
         [RegularExpression(@"^[0-9]*$", ErrorMessage = "Yalnız rəqəm daxil edə bilərsiz")]

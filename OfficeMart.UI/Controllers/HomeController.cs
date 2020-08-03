@@ -16,5 +16,6 @@ namespace OfficeMart.UI.Controllers
             var productsDto = await new HomeLogic().GetProducts();
             return View(productsDto);
         }
+
     }
 }
