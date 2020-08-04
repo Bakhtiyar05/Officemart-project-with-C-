@@ -45,7 +45,7 @@
                                                         <a href="#" data-id="@item.Id" class="hover-label quick-view" id="btnView"><i class="icon ion-plus"></i><span>Baxış</span></a>
                                                     </p>
                                                     <p class="prod-i-cart">
-                                                        <a href="#" class="hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Add to Cart</span></a>
+                                                        <a href="#" class="hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Səbətə əlavə et</span></a>
                                                     </p>
                                                 </div>
                                             </div>
@@ -147,9 +147,6 @@
 
                 <div class="flexslider prod-slider" id="prod-slider">
 
-                    @*<ul class="slides" id="slider-top">
-                      
-                    </ul>*@
 
                     <div class="prod-slider-count">
                         <p>
@@ -165,9 +162,7 @@
 
                 <div class="flexslider prod-thumbs" id="prod-thumbs">
 
-                    @*<ul class="slides" id="slider-bottom">
-                      
-                    </ul>*@
+                  
 
                 </div>
 
@@ -175,33 +170,22 @@
 
             <div class="prod-cont">
 
-                <div class="prod-rating-wrap">
 
-                    <p data-rating="4" class="prod-rating">
+                <h2 class="product-name"></h2>
 
-                        <i class="rating-ico" title="1"></i><i class="rating-ico" title="2"></i><i class="rating-ico" title="3"></i><i class="rating-ico" title="4"></i><i class="rating-ico" title="5"></i>
+                <p class="stock in-stock product-category"></p>
 
-                    </p>
+                <p class="prod-price"></p>
 
-                    <p class="prod-rating-count">7</p>
 
-                </div>
 
-                <p class="prod-categs"><a href="#">Lighting</a>, <a href="#">Tools</a></p>
-
-                <h2>Belt Sanders</h2>
-
-                <p class="prod-price">$25.00</p>
-
-                <p class="stock in-stock">7 in stock</p>
-
-                <p class="prod-excerpt">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget...</p>
+                <p class="prod-excerpt">Product haqqında məlumat</p>
 
                 <div class="prod-add">
 
                     <button type="submit"
                             class="button">
-                        <i class="icon ion-android-cart"></i> Add to cart
+                        <i class="icon ion-android-cart"></i> Səbətə əlavə et
 
                     </button>
 
@@ -215,17 +199,7 @@
 
                     </p>
 
-                    <div class="prod-li-favorites">
-
-                        <a href="wishlist.html" class="hover-label add_to_wishlist"><i class="icon ion-heart"></i><span>Add to Wishlist</span></a>
-
-                    </div>
-
-                    <p class="prod-li-compare">
-
-                        <a href="compare.html" class="hover-label prod-li-compare-btn"><span>Compare</span><i class="icon ion-arrow-swap"></i></a>
-
-                    </p>
+                  
 
                 </div>
 
@@ -247,10 +221,14 @@
             e.preventDefault();
             var id = $(this).attr("data-id");
             $(".slides").remove();
+           
             $.ajax({
                 url: "/Ajax/GetByIdForQuickView/" + id,
                 type: "GET",
                 success: function (res) {
+                   
+                    //$(".fancybox-opened").css("width", "947px");
+                    //$(".fancybox-opened").css("left", "126px");
 
                     var bottomSliderParent = $("#prod-thumbs");
                     var sliderParentTag = "<ul class='slides' id='slider-bottom'></ul>";
@@ -262,9 +240,16 @@
 
                     var sliderBottom = $("#slider-bottom");
                     var sliderTop = $("#slider-top");
+                    var productName = $(".product-name");
+                    var productCategory = $(".product-category");
+                    var productPrice = $(".prod-price");
 
                     let counter = 0;
                     for (let photo of res.imagesBase64) {
+                        var price = "₼"+ " "+ res.price;
+                        productName.text(res.productName);
+                        productCategory.text(res.category.categoryName);
+                        productPrice.text(price);
 
                         counter++;
                         if (counter == 1) {
