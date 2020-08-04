@@ -1,0 +1,18 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using OfficeMart.Domain.Models.Entities;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace OfficeMart.Domain.EntityConfigurations
+{
+    public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
+    {
+        public void Configure(EntityTypeBuilder<AppUser> builder)
+        {
+            builder.Property(m => m.LivingPlace)
+                   .HasMaxLength(350);
+        }
+    }
+}
