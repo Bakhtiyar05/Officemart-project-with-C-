@@ -12,5 +12,11 @@ namespace OfficeMart.UI.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Add()
+        {
+            return View();
+        }
     }
 }

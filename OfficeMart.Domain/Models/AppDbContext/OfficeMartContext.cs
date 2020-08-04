@@ -10,6 +10,10 @@ namespace OfficeMart.Domain.Models.AppDbContext
 {
     public class OfficeMartContext : IdentityDbContext<AppUser>
     {
+        public OfficeMartContext() { }
+      
+        public OfficeMartContext(DbContextOptions<OfficeMartContext> options) : base(options){}
+       
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }

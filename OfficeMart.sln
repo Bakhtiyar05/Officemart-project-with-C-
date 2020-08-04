@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfficeMart.Domain", "Office
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfficeMart.Business", "OfficeMart.Business\OfficeMart.Business.csproj", "{71237D00-04B7-49C1-A00C-E061111135E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfficeMart.Extensions", "OfficeMart.Extensions\OfficeMart.Extensions.csproj", "{F3E93B4C-FEE1-4281-ADF1-099982065750}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfficeMart.Extensions", "OfficeMart.Extensions\OfficeMart.Extensions.csproj", "{F3E93B4C-FEE1-4281-ADF1-099982065750}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
