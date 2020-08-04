@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting;
 using OfficeMart.Business.Dtos;
 using OfficeMart.Business.Logic;
-using Microsoft.AspNetCore.Hosting;
-using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OfficeMart.UI.Areas.Admin.Controllers
 {

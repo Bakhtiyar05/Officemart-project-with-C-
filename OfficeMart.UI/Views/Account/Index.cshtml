@@ -7,48 +7,64 @@
     <div id="primary" class="content-area width-normal">
         <main id="main" class="site-main">
             <div class="cont maincont">
-                <h1 class="maincont-ttl">Registration / Login</h1>
+                <h1 class="maincont-ttl">Daxil ol / Qeydiyyat</h1>
                 <ul class="b-crumbs">
-                    <li><a href="index.html">Home</a></li>
-                    <li>Registration & Login</li>
+                    <li><a asp-action="Index" asp-controller="Home">Əsas səhifə</a></li>
+                    <li>Daxil ol & Qeydiyyat</li>
                 </ul>
                 <article class="page-cont">
                     <div class="page-styling">
                         <div class="auth-wrap">
                             <div class="auth-col">
-                                <h2>Login</h2>
+                                <h2>Daxil ol</h2>
                                 <form method="post" class="login">
                                     <p>
                                         <label for="username">E-mail <span class="required">*</span></label>
                                         <input type="text" id="username">
                                     </p>
                                     <p>
-                                        <label for="password">Password <span class="required">*</span></label>
+                                        <label for="password">Şifrə <span class="required">*</span></label>
                                         <input type="password" id="password">
                                     </p>
                                     <p class="auth-submit">
-                                        <input type="submit" value="Login">
+                                        <input type="submit" value="Daxil ol">
                                         <input type="checkbox" id="rememberme" value="forever">
-                                        <label for="rememberme">Remember me</label>
+                                        <label for="rememberme">Yadda saxla</label>
                                     </p>
                                     <p class="auth-lost_password">
-                                        <a href="#">Lost your password?</a>
+                                        <a href="#">Şifrəni unutmusunuz?</a>
                                     </p>
                                 </form>
                             </div>
                             <div class="auth-col">
-                                <h2>Register</h2>
+                                <h2>Qeydiyyat</h2>
                                 <form method="post" class="register">
                                     <p>
-                                        <label for="reg_email">Email <span class="required">*</span></label>
-                                        <input type="email" id="reg_email">
+                                        <label for="name">Ad <span class="required">*</span></label>
+                                        <input type="text" id="name" placeholder="Ad...">
                                     </p>
                                     <p>
-                                        <label for="reg_password">Password <span class="required">*</span></label>
-                                        <input type="password" id="reg_password">
+                                        <label for="surname">Soyad<span class="required">*</span></label>
+                                        <input type="text" id="surname" placeholder="Soyad...">
+                                    </p>
+                                    <p>
+                                        <label for="reg_email">Email <span class="required">*</span></label>
+                                        <input type="email" id="reg_email" placeholder="Email...">
+                                    </p>
+                                    <p>
+                                        <label for="reg_password">Şifrə <span class="required">*</span></label>
+                                        <input type="password" id="reg_password" placeholder="Şifrə...">
+                                    </p>
+                                    <p>
+                                        <label for="living-place">Yaşayış ünvanı<span class="required">*</span></label>
+                                        <input type="text" id="living-place" placeholder="Yaşayış yeri...">
+                                    </p>
+                                    <p>
+                                        <label for="phone-number">Əlaqə nömrəsi<span class="required">*</span></label>
+                                        <input type="tel" id="phone-number" placeholder="Əlaqə nömrəsi..." value="+994">
                                     </p>
                                     <p class="auth-submit">
-                                        <input type="submit" value="Register">
+                                        <input type="submit" value="Qeydiyyat">
                                     </p>
                                 </form>
                             </div>
@@ -60,6 +76,16 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<script>
+    $(function () {
+
+        $("#phone-number").on("change", function () {
+            
+        });
+    });
+</script>
 
 
 

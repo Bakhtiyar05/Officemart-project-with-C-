@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using OfficeMart.Business.Dtos.LibraryDto;
-using OfficeMart.Domain.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace OfficeMart.Business.Dtos
 {
