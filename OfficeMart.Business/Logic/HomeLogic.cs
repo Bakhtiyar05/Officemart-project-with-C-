@@ -20,6 +20,7 @@ namespace OfficeMart.Business.Logic
             {
                 var products = await context
                     .Products
+                    .Where(x=>x.IsActive != false)
                     .Include(x => x.ProductImages)
                     .Include(x=>x.Category)
                     .ToListAsync();
