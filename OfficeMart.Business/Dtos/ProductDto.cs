@@ -22,14 +22,15 @@ namespace OfficeMart.Business.Dtos
         public string ProductName { get; set; }
 
         [Required(ErrorMessage ="Sahə tələb olunandır")]
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Yalnız rəqəm daxil edə bilərsiz")]
+        [RegularExpression(@"(\+|-)?[0-9]+(\.[0-9]*)?", ErrorMessage = "Yalnız rəqəm daxil edə bilərsiz")]
         public decimal Price { get; set; }
 
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Yalnız rəqəm daxil edə bilərsiz")]
+        [RegularExpression(@"(\+|-)?[0-9]+(\.[0-9]*)?", ErrorMessage = "Yalnız rəqəm daxil edə bilərsiz")]
         public decimal DiscountPrice { get; set; }
 
         [Required(ErrorMessage ="Səkil tələb olunandır")]
         public IFormFile Image { get; set; }
+        public IFormFile ImageForEdit { get; set; }
         public DateTime RegDate { get; set; }
         public List<string> ProductImages { get; set; }
         public List<string> ImagesBase64 { get; set; }
