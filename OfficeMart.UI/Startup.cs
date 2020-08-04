@@ -28,6 +28,7 @@ namespace OfficeMart.UI
 
         public void ConfigureServices(IServiceCollection services)
         {
+            
             AppMiddleware.ConfigureMyServices(services,Configuration);
             services.AddControllersWithViews();
         }

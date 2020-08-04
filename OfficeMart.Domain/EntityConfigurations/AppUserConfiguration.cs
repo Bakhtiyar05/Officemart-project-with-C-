@@ -11,6 +11,14 @@ namespace OfficeMart.Domain.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
+            builder.Property(m => m.Name)
+                    .IsRequired()
+                   .HasMaxLength(75);
+
+            builder.Property(m => m.Surname)
+                    .IsRequired()
+                   .HasMaxLength(75);
+
             builder.Property(m => m.LivingPlace)
                    .HasMaxLength(350);
         }

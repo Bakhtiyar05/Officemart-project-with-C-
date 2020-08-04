@@ -7,6 +7,8 @@ namespace OfficeMart.Domain.Models.Entities
 {
     public class AppUser : IdentityUser
     {
+        public string Name { get; set; }
+        public string Surname { get; set; }
         public string LivingPlace { get; set; }
     }
 }
