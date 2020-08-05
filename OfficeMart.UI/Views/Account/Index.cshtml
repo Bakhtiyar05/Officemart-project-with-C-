@@ -19,18 +19,21 @@
                         <div class="auth-wrap">
                             <div class="auth-col">
                                 <h2>Daxil ol</h2>
-                                <form method="post" class="login">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <form asp-action="Login" asp-controller="Account" method="post" class="login">
                                     <p>
                                         <label for="username">E-mail <span class="required">*</span></label>
-                                        <input type="text" id="username">
+                                        <input type="text" id="username" asp-for="LoginDto.Email">
+                                        <span class="text-danger" asp-validation-for="LoginDto.Email"></span>
                                     </p>
                                     <p>
                                         <label for="password">Şifrə <span class="required">*</span></label>
-                                        <input type="password" id="password">
+                                        <input type="password" id="password" asp-for="LoginDto.Password">
+                                        <span class="text-danger" asp-validation-for="LoginDto.Password"></span>
                                     </p>
                                     <p class="auth-submit">
                                         <input type="submit" value="Daxil ol">
-                                        <input type="checkbox" id="rememberme" value="forever">
+                                        <input type="checkbox" id="rememberme" value="forever" asp-for="LoginDto.RememberMe">
                                         <label for="rememberme">Yadda saxla</label>
                                     </p>
                                     <p class="auth-lost_password">
@@ -40,7 +43,7 @@
                             </div>
                             <div class="auth-col">
                                 <h2>Qeydiyyat</h2>
-                                <form asp-action="Add" asp-controller="Account" method="post" class="register">
+                                <form asp-action="Registration" asp-controller="Account" method="post" class="register">
                                     <p>
                                         <label for="name">Ad <span class="required">*</span></label>
                                         <input type="text" id="name" placeholder="Ad..." asp-for="Name">

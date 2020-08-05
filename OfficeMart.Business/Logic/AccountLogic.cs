@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using OfficeMart.Business.Dtos;
+using OfficeMart.Business.Models;
 using OfficeMart.Domain.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace OfficeMart.Business.Logic
 {
     public class AccountLogic
     {
-        public async Task<bool> AddAppUser(AppUserDto appUserDto,
+        public async Task<bool> RegistrationAppUser(AppUserDto appUserDto,
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager)
         {
@@ -33,6 +34,22 @@ namespace OfficeMart.Business.Logic
             }
 
             return false;
+        }
+
+        public async Task<LogicResult> Login(LoginDto loginDto,SignInManager<AppUser> signInManager)
+        {
+            var logicResult = new LogicResult();
+            var result = await signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password, true, false);
+
+            if (result.Succeeded)
+                logicResult.OperationIsSuccessfull = true;
+            else
+            {
+                logicResult.OperationIsSuccessfull = false;
+                logicResult.ErrorMessage = "Email yaxud şifrəniz yanlışdır";
+            }
+
+            return logicResult;
         }
     }
 }

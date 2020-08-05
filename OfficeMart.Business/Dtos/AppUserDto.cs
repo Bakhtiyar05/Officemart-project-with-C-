@@ -22,5 +22,7 @@ namespace OfficeMart.Business.Dtos
 
         [Required(ErrorMessage = "Sahə tələbolunandır")]
         public string PhoneNumber { get; set; }
+
+        public LoginDto LoginDto { get; set; }
     }
 }
