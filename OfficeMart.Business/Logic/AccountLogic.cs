@@ -10,8 +10,9 @@ namespace OfficeMart.Business.Logic
 {
     public class AccountLogic
     {
-
-        public async Task AddAppUser(AppUserDto appUserDto,UserManager<AppUser> userManager)
+        public async Task<bool> AddAppUser(AppUserDto appUserDto,
+            UserManager<AppUser> userManager,
+            SignInManager<AppUser> signInManager)
         {
             var appUser = new AppUser
             {
@@ -23,6 +24,15 @@ namespace OfficeMart.Business.Logic
             };
 
             var userResult = await userManager.CreateAsync(appUser, appUserDto.Password);
+
+            if (userResult.Succeeded)
+            {
+                var result = await signInManager.PasswordSignInAsync(appUserDto.Email, appUserDto.Password, true , false);
+                if (result.Succeeded)
+                    return true;
+            }
+
+            return false;
         }
     }
 }

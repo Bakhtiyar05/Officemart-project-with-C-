@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace OfficeMart.Business.Dtos
 {
@@ -14,10 +11,11 @@ namespace OfficeMart.Business.Dtos
         public string Surname { get; set; }
 
         [Required(ErrorMessage = "Sahə tələbolunandır")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage ="Email fortmata uyğun deyil")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Sahə tələbolunandır")]
+        [MinLength(6,ErrorMessage ="Şifrənin uzunluğu minimum 6 simvoldan ibarət olmalıdır")]
         public string Password { get; set; }
 
         public string LivinPlace { get; set; }

@@ -3,12 +3,14 @@
 }
 
 @model IEnumerable<ProductDto>
+@*@inject UserManager<AppUser> _userManager
+@inject SignInManager<AppUser> SignInManager*@
+
 
 <div id="content" class="site-content">
     <div id="primary" class="content-area width-full">
         <main id="main" class="site-main">
             <div class="maincont page-styling page-full">
-
                 <div class="heroblock">
                     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
                         <div class="carousel-inner">
@@ -32,7 +34,6 @@
                         @{
                             foreach (var item in Model)
                             {
-                                int viewCounter = 1;
                                 <article class="cf-sm-6 cf-md-4 cf-lg-4 col-xs-6 col-sm-6 col-md-4 col-lg-4 sectgl-item">
                                     <div class="sectgl prod-i">
                                         <div class="prod-i-top">
@@ -59,8 +60,6 @@
                                         </div>
                                     </div>
                                 </article>
-
-                                viewCounter++;
                             }
                         }
                     </div>
@@ -162,7 +161,7 @@
 
                 <div class="flexslider prod-thumbs" id="prod-thumbs">
 
-                  
+
 
                 </div>
 
@@ -199,7 +198,7 @@
 
                     </p>
 
-                  
+
 
                 </div>
 
@@ -221,12 +220,12 @@
             e.preventDefault();
             var id = $(this).attr("data-id");
             $(".slides").remove();
-           
+
             $.ajax({
                 url: "/Ajax/GetByIdForQuickView/" + id,
                 type: "GET",
                 success: function (res) {
-                   
+
                     //$(".fancybox-opened").css("width", "947px");
                     //$(".fancybox-opened").css("left", "126px");
 
@@ -246,7 +245,7 @@
 
                     let counter = 0;
                     for (let photo of res.imagesBase64) {
-                        var price = "₼"+ " "+ res.price;
+                        var price = "₼" + " " + res.price;
                         productName.text(res.productName);
                         productCategory.text(res.category.categoryName);
                         productPrice.text(price);
@@ -266,7 +265,7 @@
                         }
                     }
 
-                
+
                 }
             })
 
@@ -279,7 +278,7 @@
             $("img").each(function () {
                 var dataTop = $(this).attr("data-top");
 
-                
+
                 if (data == dataTop) {
                     console.log($(this))
 
@@ -288,9 +287,9 @@
                 else {
                     if ($(this).hasClass("top-photo")) {
                         $(this).css("display", "none");
-                    } 
+                    }
                 }
-                
+
             });
         })
     });
