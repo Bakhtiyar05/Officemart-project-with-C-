@@ -18,6 +18,7 @@ namespace OfficeMart.Domain.Models.AppDbContext
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
+        public DbSet<Color> Colors { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -25,15 +26,6 @@ namespace OfficeMart.Domain.Models.AppDbContext
             base.OnConfiguring(optionsBuilder);
 
         }
-        //services.Configure<IdentityOptions>(options =>
-        //    {
-        //        options.Password.RequiredLength = 8;
-        //        options.Password.RequireUppercase = true;
-        //        options.Password.RequireLowercase = true;
-        //        options.Password.RequireDigit = false;
-        //        options.Password.RequireNonAlphanumeric = false;
-        //        options.Password.RequiredUniqueChars = 5;
-        //    });
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,6 +33,8 @@ namespace OfficeMart.Domain.Models.AppDbContext
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CategoryConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppUserConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ColorConfiguration).Assembly);
+
 
         }
 

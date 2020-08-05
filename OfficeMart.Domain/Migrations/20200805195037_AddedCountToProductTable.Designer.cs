@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OfficeMart.Domain.Models.AppDbContext;
 
 namespace OfficeMart.Domain.Migrations
 {
     [DbContext(typeof(OfficeMartContext))]
-    partial class OfficeMartContextModelSnapshot : ModelSnapshot
+    [Migration("20200805195037_AddedCountToProductTable")]
+    partial class AddedCountToProductTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -247,28 +249,11 @@ namespace OfficeMart.Domain.Migrations
                     b.Property<DateTime>("RegDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 8, 6, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2020, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("OfficeMart.Domain.Models.Entities.Color", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ColorName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(25)")
-                        .HasMaxLength(25);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Colors");
                 });
 
             modelBuilder.Entity("OfficeMart.Domain.Models.Entities.Product", b =>
@@ -279,9 +264,6 @@ namespace OfficeMart.Domain.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ColorId")
                         .HasColumnType("int");
 
                     b.Property<int>("Count")
@@ -306,16 +288,11 @@ namespace OfficeMart.Domain.Migrations
                     b.Property<DateTime>("RegDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 8, 6, 0, 0, 0, 0, DateTimeKind.Unspecified));
-
-                    b.Property<string>("Size")
-                        .HasColumnType("nvarchar(max)");
+                        .HasDefaultValue(new DateTime(2020, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("ColorId");
 
                     b.ToTable("Products");
                 });
@@ -337,7 +314,7 @@ namespace OfficeMart.Domain.Migrations
                     b.Property<DateTime>("RegDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 8, 6, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2020, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.HasKey("Id");
 
@@ -404,10 +381,6 @@ namespace OfficeMart.Domain.Migrations
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("OfficeMart.Domain.Models.Entities.Color", null)
-                        .WithMany("Products")
-                        .HasForeignKey("ColorId");
                 });
 
             modelBuilder.Entity("OfficeMart.Domain.Models.Entities.ProductImage", b =>

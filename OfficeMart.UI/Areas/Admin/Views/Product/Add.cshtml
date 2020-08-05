@@ -7,7 +7,7 @@
 
 @{
     var categories = OfficeMart.Business.Infrastructure.Concrete.Library.GetInstance().Categories;
-    var list = new List<string>();
+    var colors = OfficeMart.Business.Infrastructure.Concrete.Library.GetInstance().Colors;
 }
 
 <link href="~/Admin/css/add.css" rel="stylesheet" />
@@ -34,6 +34,11 @@
                                     <span class="text-danger" asp-validation-for="Price"></span>
                                 </div>
                                 <div class="form-group col-md-5 col-md-offset-3">
+                                    <label>Sayı</label>
+                                    <input id="Count" asp-for="Count" class="form-control" />
+                                    <span class="text-danger" asp-validation-for="Count"></span>
+                                </div>
+                                <div class="form-group col-md-5 col-md-offset-3">
                                     <label>Kateqoriya</label>
                                     <select id="CategoryId" asp-for="CategoryId" asp-items="@categories" class="form-control">
                                         <option>---Seçim edin---</option>
@@ -41,16 +46,23 @@
                                     <span class="text-danger" asp-validation-for="CategoryId"></span>
                                 </div>
                                 <div class="form-group col-md-5 col-md-offset-3">
+                                    <label>Rəng</label>
+                                    <select id="ColorId" asp-for="ColorId" asp-items="@colors" class="form-control">
+                                        <option>---Seçim edin---</option>
+                                    </select>
+                                    <span class="text-danger" asp-validation-for="ColorId"></span>
+                                </div>
+                                <div class="form-group col-md-5 col-md-offset-3">
                                     <label>Şəkli</label>
                                     <div id="imgThumbnailPreview"> </div>
                                 </div>
-                                
-                                    <div class="form-group col-md-5 col-md-offset-3">
-                                        <label for="files" class="btn btn-primary"><i class="fa fa-picture-o"></i>  Şəkil Seç</label>
-                                        <span class="text-danger ml-1" asp-validation-for="Image"></span>
-                                        <input id="files" accept="image/*" name="Image" type="file" style="visibility:hidden" asp-for="Image" multiple />
-                                        <input id="saveBtn" readonly class="btn btn-success" value="Yadda Saxla" />
-                                    </div>
+
+                                <div class="form-group col-md-5 col-md-offset-3">
+                                    <label for="files" class="btn btn-primary"><i class="fa fa-picture-o"></i>  Şəkil Seç</label>
+                                    <span class="text-danger ml-1" asp-validation-for="Image"></span>
+                                    <input id="files" accept="image/*" name="Image" type="file" style="visibility:hidden" asp-for="Image" multiple />
+                                    <input id="saveBtn" readonly class="btn btn-success" value="Yadda Saxla" />
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -67,7 +79,7 @@
 
 <script>
     $(function () {
-       
+
         $(document).on("click", "#saveBtn", function () {
 
             $.validator.unobtrusive.parse($('form'));
@@ -81,14 +93,15 @@
                     }
                 });
 
-
                 var ProductName = $("#ProductName").val();
                 var Price = $("#Price").val();
                 var CategoryId = $("#CategoryId").val();
+                var Count = $("#Count").val();
+                var ColorId = $("#ColorId").val();
 
                 $.ajax({
                     url: "/Admin/Product/Add",
-                    data: { Price: Price, ProductName: ProductName, CategoryId: CategoryId, src: Src },
+                    data: { Price: Price, ProductName: ProductName, CategoryId: CategoryId, ColorId: ColorId, Count: Count, src: Src },
                     type: "POST",
                     success: function (res) {
                         swal("Uğurlu", "Elan Uğurla əlavə edildi", "success")
@@ -99,8 +112,8 @@
                             });
                     }
                 })
-            }          
+            }
         })
-       
+
     })
 </script>

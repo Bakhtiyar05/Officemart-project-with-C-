@@ -57,5 +57,43 @@ namespace OfficeMart.Business.Infrastructure.Concrete
                 }
             }
         }
+        public List<SelectListItem> Colors
+        {
+            get
+            {
+                using (TransactionConfig.AppDbContext)
+                {
+                    var colors = new List<Color>();
+                    var selectListItems = new List<SelectListItem>();
+
+                    if (!memoryCache.TryGetValue("Colors", out colors))
+                    {
+
+                        var cacheEntryOptions = new MemoryCacheEntryOptions()
+                       .SetAbsoluteExpiration(TimeSpan.FromSeconds(60 * 60 * 1000));
+
+                        memoryCache
+                            .Set
+                            (
+                                "Colors",
+                                TransactionConfig
+                                .AppDbContext
+                                .Colors
+                                .ToList()
+                                , cacheEntryOptions
+                            );
+                    }
+
+                    colors = memoryCache.Get("Colors") as List<Color>;
+                    foreach (var item in colors)
+                    {
+                        selectListItems.Add(new SelectListItem()
+                        { Text = item.ColorName, Value = item.Id.ToString() });
+                    }
+
+                    return selectListItems;
+                }
+            }
+        }
     }
 }

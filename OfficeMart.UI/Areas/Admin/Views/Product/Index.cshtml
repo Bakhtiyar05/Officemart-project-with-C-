@@ -23,6 +23,9 @@
                     @Html.DisplayName("Qiymət")
                 </th>
                 <th>
+                    @Html.DisplayName("Say")
+                </th>
+                <th>
                     @Html.DisplayName("Köhne qiymət")
                 </th>
                 <th>
@@ -36,43 +39,48 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        <img width="120" height="110" src="~/img/@item.ProductImages.FirstOrDefault()" />
-                    </td>
-                    <td>
-                        <p>
-                            @Html.DisplayFor(modelItem => item.ProductName)
-                        </p>
+            <tr>
+                <td>
+                    <img width="120" height="110" src="~/img/@item.ProductImages.FirstOrDefault()" />
+                </td>
+                <td>
+                    <p>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </p>
 
-                    </td>
-                    <td>
-                        <p style="display:inline-block;">
+                </td>
+                <td>
+                    <p style="display:inline-block;">
 
-                            @Html.DisplayFor(modelItem => item.Price)
-                            <span>₼</span>
-                        </p>
-                    </td>
-                    <td>
-                        <p>
+                        @Html.DisplayFor(modelItem => item.Price)
+                        <span>₼</span>
+                    </p>
+                </td>
+                <td>
+                    <p style="display:inline-block;">
+                        @Html.DisplayFor(modelItem => item.Count)
+                    </p>
+                </td>
+                <td>
+                    <p>
 
-                            @Html.DisplayFor(modelItem => item.DiscountPrice)
-                        </p>
-                    </td>
-                    <td>
-                        <p>
+                        @Html.DisplayFor(modelItem => item.DiscountPrice)
+                    </p>
+                </td>
+                <td>
+                    <p>
 
-                            @Html.DisplayFor(modelItem => item.Category.CategoryName)
-                        </p>
-                    </td>
+                        @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                    </p>
+                </td>
 
-                    <td>
-                        <div class="operations">
-                            <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit btn btn-small btn-primary"></i></a> |
-                            <a data-toggle="modal" data-target="#exampleModalCenter" id="@item.Id" onClick="reply_click(this.id)"><i class="fa fa-trash btn btn-small btn-danger deletedProduct"></i></a>
-                        </div>
-                    </td>
-                </tr>
+                <td>
+                    <div class="operations">
+                        <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit btn btn-small btn-primary"></i></a> |
+                        <a data-toggle="modal" data-target="#exampleModalCenter" id="@item.Id" onClick="reply_click(this.id)"><i class="fa fa-trash btn btn-small btn-danger deletedProduct"></i></a>
+                    </div>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
