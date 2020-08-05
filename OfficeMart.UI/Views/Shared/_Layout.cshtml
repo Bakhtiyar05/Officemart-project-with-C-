@@ -1,60 +1,35 @@
 ﻿<!doctype html>
-
 <html lang="en">
 <head>
-
-
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta charset="UTF-8">
-
     <title>MultiShop - eCommerce HTML Template</title>
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <meta name="format-detection" content="telephone=no">
-
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900%7COpen+Sans:300,300i,400,400i,600,600i,700,700i&amp;subset=cyrillic" rel="stylesheet">
-
-
     <link rel="stylesheet" href="~/css/font-awesome.min.css">
-
     <link rel="stylesheet" href="~/css/ionicons.min.css">
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
     <link rel="stylesheet" href="~/css/bootstrap.css">
-
     <link rel="stylesheet" href="~/css/jquery.formstyler.css">
-
     <link rel="stylesheet" href="~/css/flexslider.css">
-
     <link rel="stylesheet" href="~/css/jquery.fancybox.css">
-
     <link rel="stylesheet" href="~/css/ion.rangeSlider.css">
-
     <link rel="stylesheet" href="~/css/jquery.mThumbnailScroller.css">
-
     <link rel="stylesheet" href="~/css/chosen.css">
-
     <link rel="stylesheet" href="~/css/style.css">
-
     <link rel="stylesheet" href="~/css/elements.css">
-
     <link rel="stylesheet" href="~/css/media.css">
-
     <link rel="stylesheet" href="~/css/elements-media.css">
-
     <link rel="stylesheet" href="~/css/index.css">
 </head>
 
+@inject UserManager<AppUser> _userManager
+@inject SignInManager<AppUser> SignInManager
+
 <body>
     <div id="page" class="site">
-
-
-
-
         <div class="container-fluid page-styling site-header-before">
 
             <div class="row">
@@ -178,25 +153,12 @@
 
 
             <p class="h-logo">
-
                 <a href="/Home/Index"><img src="~/img/logo.png" alt="MultiShop"></a>
-
             </p>
-            <!--
-
-            No Space
-
-            -->
             <div class="h-shop">
-
-
-
                 <form method="get" action="#" class="h-search" id="h-search">
-
                     <input type="text" placeholder="Search...">
-
                     <button type="submit"><i class="ion-search"></i></button>
-
                 </form>
 
 
@@ -304,11 +266,7 @@
                 </ul>
 
             </div>
-            <!--
 
-            No Space
-
-            -->
             <div class="mainmenu">
 
 
@@ -329,14 +287,23 @@
 
                         </li>
 
-
-                        <li class="menu-item-has-children">
-                            <a asp-action="Index" asp-controller="Account">Daxil ol / Qeydiyyat</a>
-                        </li>
-
                         <li>
                             <a asp-action="Index" asp-controller="About">Haqqımızda</a>
                         </li>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            var user = await _userManager.GetUserAsync(User);
+                            <li>
+                                <a>@user.Name @user.Surname</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="menu-item-has-children">
+                                <a asp-action="Index" asp-controller="Account">Daxil ol / Qeydiyyat</a>
+                            </li>
+                        }
                     </ul>
                 </nav>
             </div>
@@ -449,56 +416,28 @@
                     <h3 class="widgettitle">Xidmətlərimiz</h3>
 
                     <ul class="menu">
-
                         <li>
-
                             <a href="blog.html">Ünvana Çatdırılma</a>
-
                         </li>
-
                         <li>
-
                             <a href="post.html">Qapıda Ödəniş</a>
-
                         </li>
-
                         <li>
-
                             <a href="post-slider.html"></a>
-
                         </li>
-
-
                     </ul>
-
                 </div>
-
             </div>
-
         </div>
         <div class="form-validate modal-form" id="modal-form">
-
             <form action="#" method="POST" class="form-validate">
-
                 <h4>Bizimlə Əlaqə</h4>
-
                 <input type="text" placeholder="Adınız" data-required="text" name="name">
-
                 <input type="text" placeholder="Nömrə" data-required="text" name="phone">
-
                 <input type="text" placeholder="Email" data-required="text" data-required-email="email" name="email">
-
                 <input class="btn1" type="submit" value="Göndər">
-
             </form>
-
         </div>
-
-
-
-       
-
-
     </div>
     <script src="~/js/jquery-1.12.3.min.js"></script>
 
@@ -514,7 +453,7 @@
     </div>
     <script>
         $("#buttonTop").click(function () {
-            $("html").animate({ scrollTop: 0 },1000);
+            $("html").animate({ scrollTop: 0 }, 1000);
         });</script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
