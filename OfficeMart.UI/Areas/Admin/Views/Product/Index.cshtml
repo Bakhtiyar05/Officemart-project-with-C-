@@ -65,7 +65,7 @@
                     </p>
                 </td>
                 @{
-                    if (item.Color.ColorName != null)
+                    if (item.Color.Id != 1)
                     {
                         <td>
                             <p style="display:inline-block;">
@@ -78,7 +78,7 @@
 
                         <td>
                             <p style="display:inline-block;">
-                                @Html.Display("Qeyd edilməyib")
+                                @Html.DisplayName("Qeyd edilməyib")
                             </p>
                         </td>
                     }
