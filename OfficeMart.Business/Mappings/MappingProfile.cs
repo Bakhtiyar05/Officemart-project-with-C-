@@ -13,7 +13,7 @@ namespace OfficeMart.Business.Mappings
             CreateMap<Product, ProductDto>()
                 .ForMember(x=>x.ProductImages,y=>y.MapFrom(e=>e.ProductImages.Select(x=>x.ImageName).ToList()))
                 .ReverseMap();
-                
+            CreateMap<Color, ColorDto>().ReverseMap();
         }
     }
 }

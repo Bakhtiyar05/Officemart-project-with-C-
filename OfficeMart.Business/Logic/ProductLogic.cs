@@ -75,6 +75,7 @@ namespace OfficeMart.Business.Logic
                     .Products
                     .Where(m => m.IsActive != false)
                     .Include(m => m.Category)
+                    .Include(x=>x.Color)
                     .Include(m => m.ProductImages)
                     .ToListAsync();
                 productsDto = TransactionConfig.Mapper.Map<List<ProductDto>>(products);

@@ -26,6 +26,9 @@
                     @Html.DisplayName("Say")
                 </th>
                 <th>
+                    @Html.DisplayName("Rəng")
+                </th>
+                <th>
                     @Html.DisplayName("Köhne qiymət")
                 </th>
                 <th>
@@ -61,6 +64,25 @@
                         @Html.DisplayFor(modelItem => item.Count)
                     </p>
                 </td>
+                @{
+                    if (item.Color.ColorName != null)
+                    {
+                        <td>
+                            <p style="display:inline-block;">
+                                @Html.DisplayFor(modelItem => item.Color.ColorName)
+                            </p>
+                        </td>
+                    }
+                    else
+                    {
+
+                        <td>
+                            <p style="display:inline-block;">
+                                @Html.Display("Qeyd edilməyib")
+                            </p>
+                        </td>
+                    }
+                }
                 <td>
                     <p>
 

@@ -41,6 +41,7 @@ namespace OfficeMart.Business.Dtos
         [Required(ErrorMessage = "Sahə tələb olunandır")]
         [RegularExpression(@"^[0-9]*$", ErrorMessage = "Yalnız rəqəm daxil edə bilərsiz")]
         public int CategoryId { get; set; }
+        public ColorDto Color { get; set; }
         public int ColorId { get; set; }
     }
 }

@@ -20,6 +20,8 @@ namespace OfficeMart.Domain.Models.Entities
         public DateTime RegDate { get; set; }
         public Category Category { get; set; }
         public int CategoryId { get; set; }
+        public Color Color { get; set; }
+        public int ColorId { get; set; }
         public ICollection<ProductImage> ProductImages { get; set; }
     }
 }

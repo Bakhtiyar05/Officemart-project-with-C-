@@ -123,7 +123,7 @@
                 var DiscountPrice = $("#DiscountPrice").val();
                 var Count = $("#Count").val();
                 var ColorId = $("#ColorId").val();
-
+             
                 $.ajax({
                     url: "/Admin/Product/Edit",
                     data: { Id:@Model.Id, DiscountPrice: DiscountPrice, Price: Price, ProductName: ProductName, CategoryId: CategoryId, ColorId: ColorId, Count: Count, src: Src },
