@@ -18,7 +18,8 @@ namespace OfficeMart.Domain.EntityConfigurations
                 .HasMaxLength(75);
 
             builder.Property(x => x.IsActive)
-                .IsRequired();
+                .IsRequired()
+                .HasDefaultValue(true);
 
             builder.Property(x => x.RegDate)
                 .HasDefaultValue(DateTime.Now.ToString("yyyy-MM-dd"));
