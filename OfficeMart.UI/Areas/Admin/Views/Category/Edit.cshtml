@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Add";
+    ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,11 +12,12 @@
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        Kateqoriya əlavə edilməsi
+                        Kateqoriya yenilənməsi
                     </header>
                     <div class="panel-body">
                         <div class="form">
                             <form method="post" asp-controller="Category" asp-action="Add">
+                                <input value="@Model.Id" hidden/>
                                 <div class="form-group col-md-5 col-md-offset-3">
                                     <label>Adı</label>
                                     <input id="ProductName" asp-for="CategoryName" class="form-control" />
@@ -44,24 +45,14 @@
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: '"Kateqoriya uğurla əlavə edildi..."',
+                title: '"Kateqoriya uğurla yeniləndi..."',
                 showConfirmButton: true
             })
             $(".swal2-confirm").click(function () {
-                window.location = "/Admin/Category/CategoryList"
+                window.location ="/Admin/Category/CategoryList"
             });
 
-                    
-        </script>
-    }
-    else if(Model != null && !Model.IsSuccessfull)
-    {
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Xəta...',
-                text: 'Zəhmət olmasa administratora müraciət edin...!'
-            })
+
         </script>
     }
 }

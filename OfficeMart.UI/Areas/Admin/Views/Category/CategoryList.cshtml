@@ -1,0 +1,67 @@
+﻿@model List<CategoryDto>
+
+@{
+    ViewData["Title"] = "CategoryList";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="customProductIndex">
+
+    <p style="padding-top:100px;text-align:center">
+        <a asp-action="Add" asp-controller="Category" class="btn btn-large d-block btn-success"><i class="fa fa-plus"></i> Yeni Kateqoriya</a>
+    </p>
+    <table class="table table-bordered" style="margin-top:15px">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("Adı")
+                </th>
+                <th>
+                    @Html.DisplayName("Aktivliyi")
+                </th>
+                <th>
+                    @Html.DisplayName("Əməliyyatlar")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <p style="display:inline-block;">
+                            @Html.DisplayFor(modelItem => item.CategoryName)
+                        </p>
+                    </td>
+
+                    @{
+                        if (item.IsActive == true)
+                        {
+                            <td>
+                                <p style="display:inline-block;">
+                                    @Html.DisplayName("Aktivdir")
+                                </p>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <p style="display:inline-block;">
+                                    @Html.DisplayName("Aktiv Deyil")
+                                </p>
+                            </td>
+                        }
+                    }
+
+                    <td>
+                        <div class="operations">
+                            <a asp-action="Edit" asp-controller="Category" asp-route-id="@item.Id"><i class="fa fa-edit btn btn-small btn-primary"></i></a> |
+                            <a data-toggle="modal" data-target="#exampleModalCenter" id="@item.Id" onClick="reply_click(this.id)"><i class="fa fa-trash btn btn-small btn-danger deletedProduct"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

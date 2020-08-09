@@ -24,9 +24,37 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
             {
                 bool isSuccessfull = await new CategoryLogic().AddCategory(categoryDto);
                 if (isSuccessfull)
-                    categoryDto.IsSuccessfullAdded = true;
+                    categoryDto.IsSuccessfull = true;
                 else
-                    categoryDto.IsSuccessfullAdded = false;
+                    categoryDto.IsSuccessfull = false;
+            }
+            return View(categoryDto);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CategoryList()
+        {
+            var categories = await new CategoryLogic().GetCategories();
+            return View(categories);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var category = await new CategoryLogic().GetCategoryById(id);
+            return View(category);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(CategoryDto categoryDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await new CategoryLogic().EditCategory(categoryDto);
+                if (result)
+                    categoryDto.IsSuccessfull = true;
+                else
+                    categoryDto.IsSuccessfull = false;
             }
             return View(categoryDto);
         }

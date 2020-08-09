@@ -14,6 +14,6 @@ namespace OfficeMart.Business.Dtos
         public string CategoryName { get; set; }
         public DateTime RegDate { get; set; }
         public bool IsActive { get; set; }
-        public bool IsSuccessfullAdded { get; set; }
+        public bool IsSuccessfull { get; set; }
     }
 }
