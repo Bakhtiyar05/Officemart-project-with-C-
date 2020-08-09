@@ -36,7 +36,10 @@ namespace OfficeMart.Business.Logic
             var categories = new List<CategoryDto>();
             using(var context = TransactionConfig.AppDbContext)
             {
-                var categoriesEntity = await context.Categories.ToListAsync();
+                var categoriesEntity = await context
+                    .Categories
+                    .Where(x=>x.IsActive != false)
+                    .ToListAsync();
                 categories = TransactionConfig.Mapper.Map<List<CategoryDto>>(categoriesEntity);
             }
             return categories;
@@ -61,6 +64,27 @@ namespace OfficeMart.Business.Logic
                 context.Categories.Update(baseCategory);
                 await context.SaveChangesAsync();
                 return true;
+            }
+        }
+
+        public async Task<bool> RemoveCategory(int id)
+        {
+            var categoryDto = new CategoryDto();
+            try
+            {
+                using (var context = TransactionConfig.AppDbContext)
+                {
+                    var baseCategory = await context.Categories.FindAsync(id);
+                    baseCategory.IsActive = false;
+                    context.Update(baseCategory);
+                    await context.SaveChangesAsync();
+                    categoryDto.IsSuccessfull = true;
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
     }

@@ -58,5 +58,18 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
             }
             return View(categoryDto);
         }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (await new CategoryLogic().RemoveCategory(id))
+            {
+                return Json(new { status = "200", data = "/Admin/Category/CategoryList" });
+            }
+            else
+            {
+                return Json(new { status = "400" });
+            }
+
+        }
     }
 }
