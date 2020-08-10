@@ -251,11 +251,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <!-- sidebar menu start-->
                 <div class="leftside-navigation">
                     <ul class="sidebar-menu" id="nav-accordion">
-                        <li>
-                            <a class="active" href="index.html">
-                                <i class="fa fa-dashboard"></i>
-                                <span>Dashboard</span>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-product-hunt"></i>
+                                <span>Məhsullar </span>
                             </a>
+                            <ul class="sub">
+                                <li><a asp-action="Add" asp-controller="Product">Əlavə Et</a></li>
+                                <li><a asp-action="Index" asp-controller="Product">Məhsullar List</a></li>
+                            </ul>
                         </li>
 
                         <li class="sub-menu">
@@ -351,12 +355,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <!--sidebar end-->
         <!--sidebar end-->
         <!--main content start-->
-        <section id="main-content">
+        <section style="padding-top:100px" id="main-content">
             @RenderBody()
             <!-- footer -->
             <div class="footer">
                 <div class="wthree-copyright">
-                    <p>© 2017 Visitors. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+                    <p>© 2020 Office Mart Admin Panel. All rights reserved!</p>
                 </div>
             </div>
             <!-- / footer -->

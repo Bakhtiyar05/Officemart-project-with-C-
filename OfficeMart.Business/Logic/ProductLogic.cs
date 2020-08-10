@@ -71,11 +71,13 @@ namespace OfficeMart.Business.Logic
 
             using (var context = TransactionConfig.AppDbContext)
             {
+                //var a = await context.ProductSizes.ToListAsync();
                 var products = await context
                     .Products
                     .Where(m => m.IsActive != false)
                     .Include(m => m.Category)
-                    .Include(x=>x.Color)
+                    .Include(m=>m.Color)
+                    .Include(m=>m.ProductSize)
                     .Include(m => m.ProductImages)
                     .ToListAsync();
                 productsDto = TransactionConfig.Mapper.Map<List<ProductDto>>(products);

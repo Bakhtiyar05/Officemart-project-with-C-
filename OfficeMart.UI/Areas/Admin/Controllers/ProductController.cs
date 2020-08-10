@@ -46,20 +46,17 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(ProductDto product, List<string> src)
         {
-            bool dataOpsIsOkay = false;
+
             bool imageOpsIsOkay = new ProductLogic().ProductEditOperations(product.Id, _environment.WebRootPath, src).Result;
             if (imageOpsIsOkay)
             {
-                dataOpsIsOkay = new ProductLogic().Edit(product).Result;
+                _ = new ProductLogic().Edit(product).Result;
             }
             else
             {
                 ModelState.AddModelError("ImageForEdit", "Səkil tələb olunandır");
                 return View(product);
             }
-
-
-
             return RedirectToAction("Index");
         }
         public async Task<IActionResult> Delete(int id)
@@ -70,7 +67,7 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
             }
             else
             {
-                return Json(new { status = "400"});
+                return Json(new { status = "400" });
             }
         }
     }

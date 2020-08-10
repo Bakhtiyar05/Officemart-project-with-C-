@@ -6,7 +6,6 @@
 }
 <link href="~/Admin/css/productIndex.css" rel="stylesheet" />
 <div class="customProductIndex">
-
     <p>
         <a asp-action="Add" class="btn btn-large d-block btn-success"><i class="fa fa-plus"></i> Yeni Məhsul</a>
     </p>
@@ -29,7 +28,10 @@
                     @Html.DisplayName("Rəng")
                 </th>
                 <th>
-                    @Html.DisplayName("Köhne qiymət")
+                    @Html.DisplayName("Ölçü")
+                </th>
+                <th>
+                    @Html.DisplayName("Köhnə qiymət")
                 </th>
                 <th>
                     @Html.DisplayName("Kateqoriya")
@@ -65,11 +67,28 @@
                     </p>
                 </td>
                 @{
-                    if (item.Color.Id != 1)
+                    if (item.ColorId != 1)
                     {
                         <td>
                             <p style="display:inline-block;">
                                 @Html.DisplayFor(modelItem => item.Color.ColorName)
+                            </p>
+                        </td>
+                    }
+                    else
+                    {
+
+                        <td>
+                            <p style="display:inline-block;">
+                                @Html.DisplayName("Qeyd edilməyib")
+                            </p>
+                        </td>
+                    }
+                    if (item.ProductSizeId != 1)
+                    {
+                        <td>
+                            <p style="display:inline-block;">
+                                @Html.DisplayFor(modelItem => item.ProductSize.Size)
                             </p>
                         </td>
                     }

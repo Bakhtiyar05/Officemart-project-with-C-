@@ -95,5 +95,43 @@ namespace OfficeMart.Business.Infrastructure.Concrete
                 }
             }
         }
+        public List<SelectListItem> ProductSizes
+        {
+            get
+            {
+                using (TransactionConfig.AppDbContext)
+                {
+                    var productSizes = new List<ProductSize>();
+                    var selectListItems = new List<SelectListItem>();
+
+                    if (!memoryCache.TryGetValue("ProductSizes", out productSizes))
+                    {
+
+                        var cacheEntryOptions = new MemoryCacheEntryOptions()
+                       .SetAbsoluteExpiration(TimeSpan.FromSeconds(/*60 * 60 * 1000*/ 1));
+
+                        memoryCache
+                            .Set
+                            (
+                                "ProductSizes",
+                                TransactionConfig
+                                .AppDbContext
+                                .ProductSizes
+                                .ToList()
+                                , cacheEntryOptions
+                            );
+                    }
+
+                    productSizes = memoryCache.Get("ProductSizes") as List<ProductSize>;
+                    foreach (var item in productSizes)
+                    {
+                        selectListItems.Add(new SelectListItem()
+                        { Text = item.Size, Value = item.Id.ToString() });
+                    }
+
+                    return selectListItems;
+                }
+            }
+        }
     }
 }

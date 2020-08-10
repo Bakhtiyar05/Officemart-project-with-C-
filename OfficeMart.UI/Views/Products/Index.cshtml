@@ -276,7 +276,7 @@
                                         <article class="prod-li sectls">
                                             <div class="prod-li-inner">
                                                 <a href="product.html" class="prod-li-img">
-                                                    <img src="img/1/products/1.jpg" alt="">
+                                                    <img src="~/img/@item.ProductImages.FirstOrDefault()" alt="">
                                                 </a>
                                                 <div class="prod-li-cont">
                                                     <div class="prod-li-ttl-wrap">
@@ -291,7 +291,7 @@
                                                     <div class="prod-li-prices">
                                                         <div class="prod-li-price-wrap">
                                                             <p>Qiymət</p>
-                                                            <p class="prod-li-price">₼ @item.Price</p>
+                                                            <p class="prod-li-price">@item.Price₼</p>
                                                         </div>
                                                         <div class="prod-li-qnt-wrap">
                                                             <p class="qnt-wrap prod-li-qnt">
@@ -302,7 +302,7 @@
                                                         </div>
                                                         <div class="prod-li-total-wrap">
                                                             <p>Cəm</p>
-                                                            <p class="prod-li-total">₼120.00</p>
+                                                            <p class="prod-li-total">@item.Price₼</p>
                                                         </div>
                                                     </div>
                                                     <!--
@@ -322,18 +322,19 @@
                                             <div class="page-styling prod-li-informations">
 
                                                 <dl class="prod-li-props">
-                                                    <dt>Brand:</dt>
-                                                    <dd><a href="#">AIR</a></dd>
-                                                    <dt>Weight:</dt>
-                                                    <dd>1 kg</dd>
-                                                    <dt>Ölçüsüs:</dt>
-                                                    <dd>@item.Size</dd>
-                                                    <dt>Сolor:</dt>
-                                                    <dd><a href="#" rel="tag">Black</a>, <a href="#" rel="tag">Green</a></dd>
-                                                    <dt>Manufacturer:</dt>
-                                                    <dd><a href="#">France</a></dd>
-                                                    <dt>Material:</dt>
-                                                    <dd><a href="#" rel="tag">Metall</a>, <a href="#" rel="tag">Plastic</a>, <a href="#" rel="tag">Rubber</a></dd>
+                                                    @{
+                                                        if (item.ColorId != 1)
+                                                        {
+                                                            <dt>Сolor:</dt>
+                                                            <dd>@item.Color</dd>
+                                                        }
+                                                        @*if (true)
+                                                        {
+                                                            <dt>Ölçüsüs:</dt>
+                                                            <dd>@item.Size</dd>
+                                                        }*@
+                                                    }
+
                                                 </dl>
                                             </div>
                                         </article>
