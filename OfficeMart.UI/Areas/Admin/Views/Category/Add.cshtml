@@ -6,6 +6,9 @@
 
 @model CategoryDto
 
+<script src="~/Admin/js/Category/add.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 <section class="wrapper">
     <div class="form-w3layouts">
         <div class="row">
@@ -16,7 +19,16 @@
                     </header>
                     <div class="panel-body">
                         <div class="form">
-                            <form method="post" asp-controller="Category" asp-action="Add">
+                            <form method="post" asp-controller="Category" asp-action="Add" enctype="multipart/form-data">
+                                <div class="form-group col-md-5 col-md-offset-3">
+                                    <label>Şəkil</label>
+                                    <div>
+                                        <img style="width:160px;height:155px; color:#EBEEF1;border:solid;" id="photoBase">
+                                    </div>
+                                    <input style="visibility:hidden;position:absolute" type="file" id="Image" name="Image" asp-for="Image" accept="image/*" onchange="ShowPhoto(this)" />
+                                    <span class="text-danger" asp-validation-for="Image" style="display:block"></span>
+                                    <button class="btn btn-primary" id="choosePhoto" style="margin-top:5px">Seç</button>
+                                </div>
                                 <div class="form-group col-md-5 col-md-offset-3">
                                     <label>Adı</label>
                                     <input id="ProductName" asp-for="CategoryName" class="form-control" />
@@ -51,10 +63,10 @@
                 window.location = "/Admin/Category/CategoryList"
             });
 
-                    
+
         </script>
     }
-    else if(Model != null && !Model.IsSuccessfull)
+    else if(Model != null && !Model.IsSuccessfull )
     {
         <script>
             Swal.fire({

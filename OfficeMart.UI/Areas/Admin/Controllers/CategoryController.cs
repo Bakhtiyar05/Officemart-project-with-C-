@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OfficeMart.Business.Dtos;
 using OfficeMart.Business.Logic;
@@ -11,6 +13,12 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
     [Area("Admin")]
     public class CategoryController : Controller
     {
+        private readonly IWebHostEnvironment _environment;
+        public CategoryController(IWebHostEnvironment environment)
+        {
+            _environment = environment;
+        }
+
         [HttpGet]
         public IActionResult Add()
         {
@@ -22,7 +30,7 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool isSuccessfull = await new CategoryLogic().AddCategory(categoryDto);
+                bool isSuccessfull = await new CategoryLogic().AddCategory(categoryDto,_environment.WebRootPath);
                 if (isSuccessfull)
                     categoryDto.IsSuccessfull = true;
                 else

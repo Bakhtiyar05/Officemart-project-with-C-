@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -14,6 +15,10 @@ namespace OfficeMart.Business.Dtos
         public string CategoryName { get; set; }
         public DateTime RegDate { get; set; }
         public bool IsActive { get; set; }
+
+        [Required(ErrorMessage ="Şəkil tələbolunandır")]
+        public IFormFile Image { get; set; }
         public bool IsSuccessfull { get; set; }
+        public string ImageName { get; set; }
     }
 }

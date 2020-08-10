@@ -21,6 +21,10 @@ namespace OfficeMart.Domain.EntityConfigurations
                 .IsRequired()
                 .HasDefaultValue(true);
 
+            builder.Property(x => x.ImageName)
+                .HasMaxLength(180)
+                .IsRequired();
+
             builder.Property(x => x.RegDate)
                 .HasDefaultValue(DateTime.Now.ToString("yyyy-MM-dd"));
         }

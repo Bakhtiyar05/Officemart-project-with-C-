@@ -2,6 +2,7 @@
 using OfficeMart.Business.Dtos;
 using OfficeMart.Business.Models;
 using OfficeMart.Domain.Models.Entities;
+using OfficeMart.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,16 @@ namespace OfficeMart.Business.Logic
 {
     public class CategoryLogic
     {
-        public async Task<bool> AddCategory(CategoryDto categoryDto)
+        public async Task<bool> AddCategory(CategoryDto categoryDto,string root)
         {
             try
             {
+                if (categoryDto.Image.IsImage())
+                {
+                    var imageName = await categoryDto.Image.SaveImage(root, "Category");
+                    categoryDto.ImageName = imageName;
+                }
+
                 using (var context = TransactionConfig.AppDbContext)
                 {
                     var categoryEntity = TransactionConfig.Mapper.Map<Category>(categoryDto);
