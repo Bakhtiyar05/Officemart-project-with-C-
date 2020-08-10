@@ -29,6 +29,7 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
             return View();
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var dbSize = await new ProductSizeLogic().GetSizeById(id);

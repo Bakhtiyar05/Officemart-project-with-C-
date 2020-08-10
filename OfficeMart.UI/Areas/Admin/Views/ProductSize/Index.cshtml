@@ -33,7 +33,7 @@
 
                     <td>
                         <div class="operations">
-                            <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit btn btn-small btn-primary"></i></a> |
+                            <a asp-action="Edit" asp-controller="ProductSize" asp-route-id="@item.Id"><i class="fa fa-edit btn btn-small btn-primary"></i></a> |
                             <a data-toggle="modal" data-target="#exampleModalCenter" id="@item.Id" onClick="reply_click(this.id)"><i class="fa fa-trash btn btn-small btn-danger deletedProduct"></i></a>
                         </div>
                     </td>
