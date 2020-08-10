@@ -18,6 +18,11 @@ namespace OfficeMart.Domain.EntityConfigurations
                 .HasMaxLength(75);
 
             builder.Property(x => x.IsActive)
+                .IsRequired()
+                .HasDefaultValue(true);
+
+            builder.Property(x => x.ImageName)
+                .HasMaxLength(180)
                 .IsRequired();
 
             builder.Property(x => x.RegDate)

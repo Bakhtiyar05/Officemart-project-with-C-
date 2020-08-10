@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-@model IEnumerable<ProductDto>
+@model IEnumerable<CategoryDto>
 
 <div id="content" class="site-content">
     <div id="primary" class="content-area width-full">
@@ -26,18 +26,18 @@
 
 
                 <div class="container mb60 page-styling row-wrap-container row-wrap-nottl">
-                    <h2 class="mb35 heading-multishop">Məhsullar</h2>
+                    <h2 class="mb35 heading-multishop">Kateqoriyalar</h2>
                     <div class="row prod-items prod-items-3">
                         @{
                             foreach (var item in Model)
                             {
                                 <article class="cf-sm-6 cf-md-4 cf-lg-4 col-xs-6 col-sm-6 col-md-4 col-lg-4 sectgl-item">
-                                    <div class="sectgl prod-i">
+                                    <div class="sectgl prod-i" style="cursor:pointer">
                                         <div class="prod-i-top">
                                             <a class="prod-i-img">
-                                                <img src="~/img/@item.ProductImages.FirstOrDefault()" alt="">
+                                                <img src="~/img/@item.ImageName" alt="">
                                             </a>
-                                            <div class="prod-i-actions">
+                                            @*<div class="prod-i-actions">
                                                 <div class="prod-i-actions-in">
                                                     <p class="prod-quickview">
                                                         <a href="#" data-id="@item.Id" class="hover-label quick-view" id="btnView"><i class="icon ion-plus"></i><span>Baxış</span></a>
@@ -46,14 +46,14 @@
                                                         <a href="#" class="hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Səbətə əlavə et</span></a>
                                                     </p>
                                                 </div>
-                                            </div>
+                                            </div>*@
                                         </div>
                                         <div class="prod-i-bot">
-                                            <div class="prod-i-info">
+                                            @*<div class="prod-i-info">
                                                 <p class="prod-i-price">₼ @item.Price</p>
                                                 <p class="prod-i-categ"><a href="catalog-gallery.html">@item.Category.CategoryName</a></p>
-                                            </div>
-                                            <h3 class="prod-i-ttl"><a href="product.html">@item.ProductName</a></h3>
+                                            </div>*@
+                                            <h3 class="prod-i-ttl"><a href="product.html">@item.CategoryName</a></h3>
                                         </div>
                                     </div>
                                 </article>

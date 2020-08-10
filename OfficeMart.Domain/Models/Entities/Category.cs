@@ -10,6 +10,7 @@ namespace OfficeMart.Domain.Models.Entities
         public string CategoryName { get; set; }
         public DateTime RegDate { get; set; }
         public bool IsActive { get; set; }
+        public string ImageName { get; set; }
         public ICollection<Product> Products { get; set; }
     }
 }

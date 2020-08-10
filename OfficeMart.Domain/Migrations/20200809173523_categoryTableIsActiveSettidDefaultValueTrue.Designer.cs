@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OfficeMart.Domain.Models.AppDbContext;
 
 namespace OfficeMart.Domain.Migrations
 {
     [DbContext(typeof(OfficeMartContext))]
-    partial class OfficeMartContextModelSnapshot : ModelSnapshot
+    [Migration("20200809173523_categoryTableIsActiveSettidDefaultValueTrue")]
+    partial class categoryTableIsActiveSettidDefaultValueTrue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,11 +243,6 @@ namespace OfficeMart.Domain.Migrations
                         .HasColumnType("nvarchar(75)")
                         .HasMaxLength(75);
 
-                    b.Property<string>("ImageName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(180)")
-                        .HasMaxLength(180);
-
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -254,7 +251,7 @@ namespace OfficeMart.Domain.Migrations
                     b.Property<DateTime>("RegDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2020, 8, 9, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.HasKey("Id");
 
@@ -310,13 +307,10 @@ namespace OfficeMart.Domain.Migrations
                         .HasColumnType("nvarchar(75)")
                         .HasMaxLength(75);
 
-                    b.Property<int>("ProductSizeId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("RegDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2020, 8, 9, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.Property<string>("Size")
                         .HasColumnType("nvarchar(max)");
@@ -326,8 +320,6 @@ namespace OfficeMart.Domain.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("ColorId");
-
-                    b.HasIndex("ProductSizeId");
 
                     b.ToTable("Products");
                 });
@@ -349,30 +341,13 @@ namespace OfficeMart.Domain.Migrations
                     b.Property<DateTime>("RegDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2020, 8, 9, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductImages");
-                });
-
-            modelBuilder.Entity("OfficeMart.Domain.Models.Entities.ProductSize", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Size")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(25)")
-                        .HasMaxLength(25);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductSizes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -437,12 +412,6 @@ namespace OfficeMart.Domain.Migrations
                     b.HasOne("OfficeMart.Domain.Models.Entities.Color", "Color")
                         .WithMany("Products")
                         .HasForeignKey("ColorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OfficeMart.Domain.Models.Entities.ProductSize", "ProductSize")
-                        .WithMany("Products")
-                        .HasForeignKey("ProductSizeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
