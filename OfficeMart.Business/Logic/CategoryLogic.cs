@@ -62,19 +62,33 @@ namespace OfficeMart.Business.Logic
             }
         }
 
-        public async Task<bool> EditCategory(CategoryDto categoryDto)
+        public async Task<bool> EditCategory(CategoryDto categoryDto,string root)
         {
             using(var context = TransactionConfig.AppDbContext)
             {
                 var baseCategory = await context.Categories.FindAsync(categoryDto.Id);
+
+                if (categoryDto.ImageForEdit != null)
+                {
+                    if (categoryDto.ImageForEdit.IsImage())
+                    {
+                        IFormFileExtensions.RemoveImage(root, baseCategory.ImageName);
+                        var imageName = await categoryDto.ImageForEdit.SaveImage(root, "Category");
+                        categoryDto.ImageName = imageName;
+                    }
+                }
+                else
+                    categoryDto.ImageName = baseCategory.ImageName;
+
                 baseCategory = TransactionConfig.Mapper.Map(categoryDto, baseCategory);
+                baseCategory.IsActive = true;
                 context.Categories.Update(baseCategory);
                 await context.SaveChangesAsync();
                 return true;
             }
         }
 
-        public async Task<bool> RemoveCategory(int id)
+        public async Task<bool> RemoveCategory(int id,string root)
         {
             var categoryDto = new CategoryDto();
             try
@@ -82,6 +96,7 @@ namespace OfficeMart.Business.Logic
                 using (var context = TransactionConfig.AppDbContext)
                 {
                     var baseCategory = await context.Categories.FindAsync(id);
+                    IFormFileExtensions.RemoveImage(root, baseCategory.ImageName);
                     baseCategory.IsActive = false;
                     context.Update(baseCategory);
                     await context.SaveChangesAsync();

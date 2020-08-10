@@ -10,16 +10,16 @@
     <p style="padding-top:100px;text-align:center">
         <a asp-action="Add" asp-controller="Category" class="btn btn-large d-block btn-success"><i class="fa fa-plus"></i> Yeni Kateqoriya</a>
     </p>
-    <table class="table table-bordered" style="margin-top:15px">
+    <table class="table table-bordered" style="margin-top:15px;text-align:center">
         <thead>
             <tr>
-                <th>
+                <th style="text-align:center">
+                    @Html.DisplayName("Şəkil")
+                </th>
+                <th style="text-align:center">
                     @Html.DisplayName("Adı")
                 </th>
-                <th>
-                    @Html.DisplayName("Aktivliyi")
-                </th>
-                <th>
+                <th style="text-align:center">
                     @Html.DisplayName("Əməliyyatlar")
                 </th>
             </tr>
@@ -28,33 +28,20 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>
+                    <td style="padding:0px!important">
                         <p style="display:inline-block;">
-                            @Html.DisplayFor(modelItem => item.CategoryName)
+                            <img src="~/img/@item.ImageName" alt="category-image" style="height:70px;margin:5px 0" />
                         </p>
                     </td>
-
-                    @{
-                        if (item.IsActive == true)
-                        {
-                            <td>
-                                <p style="display:inline-block;">
-                                    @Html.DisplayName("Aktivdir")
-                                </p>
-                            </td>
-                        }
-                        else
-                        {
-                            <td>
-                                <p style="display:inline-block;">
-                                    @Html.DisplayName("Aktiv Deyil")
-                                </p>
-                            </td>
-                        }
-                    }
-
-                    <td>
-                        <div class="operations">
+                    <td style="padding:0px!important">
+                        <div>
+                            <p style="display:inline-block;margin-top:29px">
+                                @Html.DisplayFor(modelItem => item.CategoryName)
+                            </p>
+                        </div>
+                    </td>
+                    <td style="padding:0px!important">
+                        <div class="operations" style="margin-top:25px">
                             <a asp-action="Edit" asp-controller="Category" asp-route-id="@item.Id"><i class="fa fa-edit btn btn-small btn-primary"></i></a> |
                             <a data-toggle="modal" data-target="#exampleModalCenter" id="@item.Id" onClick="reply_click(this.id)"><i class="fa fa-trash btn btn-small btn-danger deletedProduct"></i></a>
                         </div>

@@ -56,9 +56,9 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(CategoryDto categoryDto)
         {
-            if (ModelState.IsValid)
+            if (categoryDto.CategoryName != null)
             {
-                var result = await new CategoryLogic().EditCategory(categoryDto);
+                var result = await new CategoryLogic().EditCategory(categoryDto,_environment.WebRootPath);
                 if (result)
                     categoryDto.IsSuccessfull = true;
                 else
@@ -69,7 +69,7 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            if (await new CategoryLogic().RemoveCategory(id))
+            if (await new CategoryLogic().RemoveCategory(id,_environment.WebRootPath))
             {
                 return Json(new { status = "200", data = "/Admin/Category/CategoryList" });
             }

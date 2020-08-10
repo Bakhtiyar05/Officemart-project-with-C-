@@ -18,6 +18,7 @@ namespace OfficeMart.Business.Dtos
 
         [Required(ErrorMessage ="Şəkil tələbolunandır")]
         public IFormFile Image { get; set; }
+        public IFormFile ImageForEdit { get; set; }
         public bool IsSuccessfull { get; set; }
         public string ImageName { get; set; }
     }

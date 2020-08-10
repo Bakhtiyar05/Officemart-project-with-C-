@@ -8,8 +8,8 @@ namespace OfficeMart.UI.Controllers
     {
         public async Task<IActionResult> Index()
         {
-            var productsDto = await new HomeLogic().GetProducts();
-            return View(productsDto);
+            var categories = await new HomeLogic().GetCategories();
+            return View(categories);
         }
 
     }

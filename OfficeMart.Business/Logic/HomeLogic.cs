@@ -44,5 +44,22 @@ namespace OfficeMart.Business.Logic
                 return result;
             }
         }
+
+        public async Task<List<CategoryDto>> GetCategories()
+        {
+            var categories = new List<CategoryDto>();
+
+            using(var context = TransactionConfig.AppDbContext)
+            {
+                var categoriesEntity = await context
+                    .Categories
+                    .Where(x => x.IsActive != false)
+                    .ToListAsync();
+
+                categories = TransactionConfig.Mapper.Map<List<CategoryDto>>(categoriesEntity);
+            }
+
+            return categories;
+        }
     }
 }
