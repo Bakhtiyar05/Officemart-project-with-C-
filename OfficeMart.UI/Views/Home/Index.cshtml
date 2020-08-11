@@ -37,23 +37,11 @@
                                             <a class="prod-i-img">
                                                 <img src="~/img/@item.ImageName" alt="">
                                             </a>
-                                            @*<div class="prod-i-actions">
-                                                <div class="prod-i-actions-in">
-                                                    <p class="prod-quickview">
-                                                        <a href="#" data-id="@item.Id" class="hover-label quick-view" id="btnView"><i class="icon ion-plus"></i><span>Baxış</span></a>
-                                                    </p>
-                                                    <p class="prod-i-cart">
-                                                        <a href="#" class="hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Səbətə əlavə et</span></a>
-                                                    </p>
-                                                </div>
-                                            </div>*@
                                         </div>
                                         <div class="prod-i-bot">
-                                            @*<div class="prod-i-info">
-                                                <p class="prod-i-price">₼ @item.Price</p>
-                                                <p class="prod-i-categ"><a href="catalog-gallery.html">@item.Category.CategoryName</a></p>
-                                            </div>*@
-                                            <h3 class="prod-i-ttl"><a href="product.html">@item.CategoryName</a></h3>
+                                            <h3 class="prod-i-ttl">
+                                                <a asp-action="CategoryProducts" asp-controller="Products" asp-route-id="@item.Id">@item.CategoryName</a>
+                                            </h3>
                                         </div>
                                     </div>
                                 </article>
@@ -133,80 +121,6 @@
     </div>
 </div>
 
-<div class="cont maincont quick-view-modal">
-
-    <article>
-
-        <div class="prod">
-
-            <div class="prod-slider-wrap prod-slider-shown">
-
-                <div class="flexslider prod-slider" id="prod-slider">
-
-
-                    <div class="prod-slider-count">
-                        <p>
-                            <span class="count-cur">1</span>
-                            / <span class="count-all">3</span>
-                        </p><p class="hover-label prod-slider-zoom">
-                            <i class="icon ion-search"></i>
-                            <span>Zoom In</span>
-                        </p>
-                    </div>
-
-                </div>
-
-                <div class="flexslider prod-thumbs" id="prod-thumbs">
-
-
-
-                </div>
-
-            </div>
-
-            <div class="prod-cont">
-
-
-                <h2 class="product-name"></h2>
-
-                <p class="stock in-stock product-category"></p>
-
-                <p class="prod-price"></p>
-
-
-
-                <p class="prod-excerpt">Product haqqında məlumat</p>
-
-                <div class="prod-add">
-
-                    <button type="submit"
-                            class="button">
-                        <i class="icon ion-android-cart"></i> Səbətə əlavə et
-
-                    </button>
-
-                    <p class="qnt-wrap prod-li-qnt">
-
-                        <a href="#" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
-
-                        <input type="text" value="1">
-
-                        <a href="#" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
-
-                    </p>
-
-
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </article>
-
-</div>
-
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <script>
@@ -222,9 +136,6 @@
                 url: "/Ajax/GetByIdForQuickView/" + id,
                 type: "GET",
                 success: function (res) {
-
-                    //$(".fancybox-opened").css("width", "947px");
-                    //$(".fancybox-opened").css("left", "126px");
 
                     var bottomSliderParent = $("#prod-thumbs");
                     var sliderParentTag = "<ul class='slides' id='slider-bottom'></ul>";

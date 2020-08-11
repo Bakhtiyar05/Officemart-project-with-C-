@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OfficeMart.Business.Logic;
+using System.Threading.Tasks;
 
 namespace OfficeMart.UI.Controllers
 {
@@ -12,6 +9,12 @@ namespace OfficeMart.UI.Controllers
         public async Task<IActionResult> Index()
         {
             var products = await new ProductLogic().GetProducts();
+            return View(products);
+        }
+
+        public async Task<IActionResult> CategoryProducts(int id)
+        {
+            var products = await new ProductLogic().GetCategoryProducts(id);
             return View(products);
         }
     }
