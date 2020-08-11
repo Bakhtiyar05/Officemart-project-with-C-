@@ -1,9 +1,11 @@
-﻿@model List<ProductDto>
+﻿@model IEnumerable<ProductDto>
+
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "CategoryProducts";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <div id="content" class="site-content">
 
@@ -67,8 +69,6 @@
                         </form>
                     </div>
                 </div>
-
-                <!-- To make Sidebar "Not Sticky" just remove  id="section-list-withsb" -->
                 <div class="section-wrap-withsb">
                     <aside class="blog-sb-widgets section-sb" id="section-sb">
 
@@ -85,92 +85,53 @@
                                         <div class="section-sb-current">
 
                                             <ul class="section-sb-list">
-
                                                 <li>
-
                                                     <a href="#"><span class="section-sb-label">Electricity <span class="count">6</span></span></a>
-
                                                 </li>
-
                                                 <li>
-
                                                     <a href="#"><span class="section-sb-label">Fasteners <span class="count">8</span></span></a>
-
                                                 </li>
-
                                                 <li>
-
                                                     <a href="#"><span class="section-sb-label">Lighting <span class="count">6</span></span></a>
-
                                                 </li>
-
                                                 <li>
-
                                                     <a href="#"><span class="section-sb-label">Other <span class="count">9</span></span></a>
-
                                                 </li>
-
                                                 <li>
-
                                                     <a href="#"><span class="section-sb-label">Pipes <span class="count">9</span></span></a>
-
                                                 </li>
-
                                                 <li>
-
                                                     <a href="#"><span class="section-sb-label">Sanitary Engineering <span class="count">7</span></span></a>
-
                                                 </li>
-
                                                 <li>
-
                                                     <a href="#"><span class="section-sb-label">Tools <span class="count">21</span></span></a>
-
                                                 </li>
-
                                             </ul>
-
                                         </div>
-
                                     </div>
-
-
-
-
-
-
                                     <div class="blog-sb-widget multishopfeaturedproducts_widget">
-
                                         <h3 class="widgettitle">Featured</h3>
-
                                         <div class="products-featured-wrap">
-
                                             <div class="products-featured">
-
                                                 <p class="products-featured-categ">
-
                                                     <a href="#">Tools</a>
-
                                                 </p>
-
                                                 <h5 class="products-featured-ttl"><a href="product.html">Rechargeable Battery</a></h5>
-
-                                                <p class="products-featured-price">₼201.00</p>
-
+                                                <p class="products-featured-price">$201.00</p>
                                             </div>
-
                                             <div class="products-featured">
-
                                                 <p class="products-featured-categ">
-
                                                     <a href="#">Pipes</a>
-
                                                 </p>
-
                                                 <h5 class="products-featured-ttl"><a href="product.html">Wholesale Brass</a></h5>
-
-                                                <p class="products-featured-price">₼15.00</p>
-
+                                                <p class="products-featured-price">$15.00</p>
+                                            </div>
+                                            <div class="products-featured">
+                                                <p class="products-featured-categ">
+                                                    <a href="#">Pipes</a>
+                                                </p>
+                                                <h5 class="products-featured-ttl"><a href="product.html">Fittings Pipe</a></h5>
+                                                <p class="products-featured-price">$77.00</p>
                                             </div>
 
                                             <div class="products-featured">
@@ -183,21 +144,7 @@
 
                                                 <h5 class="products-featured-ttl"><a href="product.html">Fittings Pipe</a></h5>
 
-                                                <p class="products-featured-price">₼77.00</p>
-
-                                            </div>
-
-                                            <div class="products-featured">
-
-                                                <p class="products-featured-categ">
-
-                                                    <a href="#">Pipes</a>
-
-                                                </p>
-
-                                                <h5 class="products-featured-ttl"><a href="product.html">Fittings Pipe</a></h5>
-
-                                                <p class="products-featured-price">₼105.00</p>
+                                                <p class="products-featured-price">$105.00</p>
 
                                             </div>
 
@@ -211,7 +158,7 @@
 
                                                 <h5 class="products-featured-ttl"><a href="product.html">Flat Bolt</a></h5>
 
-                                                <p class="products-featured-price">₼45.00</p>
+                                                <p class="products-featured-price">$45.00</p>
 
                                             </div>
 
@@ -270,7 +217,6 @@
 
                             <div class="prod-litems section-list">
                                 @{
-
                                     foreach (var item in Model)
                                     {
                                         <article class="prod-li sectls">
@@ -287,8 +233,8 @@
                                                     </div>
                                                     <div class="prod-li-prices">
                                                         <div class="prod-li-price-wrap">
-                                                            <p>Qiymət</p>
-                                                            <p class="prod-li-price">@item.Price₼</p>
+                                                            <p>Qiyməti</p>
+                                                            <p class="prod-li-price">₼ @item.Price</p>
                                                         </div>
                                                         <div class="prod-li-qnt-wrap">
                                                             <p class="qnt-wrap prod-li-qnt">
@@ -298,21 +244,20 @@
                                                             </p>
                                                         </div>
                                                         <div class="prod-li-total-wrap">
-                                                            <p>Cəm</p>
-                                                            <p class="prod-li-total">@item.Price₼</p>
+                                                            <p>Ümumi</p>
+                                                            <p class="prod-li-total">₼ 120.00</p>
                                                         </div>
                                                     </div>
-                                                    <!--
-                                                        No Space
-                                                    -->
                                                 </div>
                                                 <div class="prod-li-info">
-
                                                     <p class="prod-li-add">
                                                         <a href="#" class="button hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Səbətə əlavə et</span></a>
                                                     </p>
+                                                    <p class="prod-quickview">
+                                                        <a href="#" class="hover-label quick-view" id="productQuickView" data-id="@item.Id"><i class="icon ion-plus"></i><span>Ətraflı baxış</span></a>
+                                                    </p>
                                                     <p class="prod-li-information">
-                                                        <a href="#" class="hover-label"><i class="icon ion-more"></i><span>Show Information</span></a>
+                                                        <a href="#" class="hover-label"><i class="icon ion-more"></i><span>Əlava məlumat</span></a>
                                                     </p>
                                                 </div>
                                             </div>
@@ -320,23 +265,38 @@
 
                                                 <dl class="prod-li-props">
                                                     @{
-                                                        if (item.ColorId != 1)
+                                                        if (!item.ProductSize.Size.Contains("---"))
                                                         {
-                                                            <dt>Сolor:</dt>
-                                                            <dd>@item.Color</dd>
+                                                            <dt>Ölçüsü :</dt>
+                                                            <dd><a href="#">@item.ProductSize.Size</a></dd>
+                                                        }
+                                                        else if (!item.Color.ColorName.Contains("---"))
+                                                        {
+                                                            <dt>Rəngi :</dt>
+                                                            <dd>@item.Color.ColorName</dd>
+                                                        }
+                                                        else
+                                                        {
+                                                            <dt>Bu məhsul üçün əlavə məlumat yoxdur...</dt>
                                                         }
                                                     }
 
+
+
+                                                    @*<dt>Dimensions:</dt>
+        <dd>4 x 50 cm</dd>
+        <dt>Сolor:</dt>
+        <dd><a href="#" rel="tag">Black</a>, <a href="#" rel="tag">Green</a></dd>
+        <dt>Manufacturer:</dt>
+        <dd><a href="#">France</a></dd>
+        <dt>Material:</dt>
+        <dd><a href="#" rel="tag">Metall</a>, <a href="#" rel="tag">Plastic</a>, <a href="#" rel="tag">Rubber</a></dd>*@
                                                 </dl>
                                             </div>
                                         </article>
-
                                     }
-
                                 }
-
                             </div>
-
                             <ul class="page-numbers">
                                 <li><span class="page-numbers current">1</span></li>
                                 <li><a class="page-numbers" href="#">2</a></li>
@@ -347,11 +307,111 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </main>
     </div>
-
 </div>
 
+<div class="cont maincont quick-view-modal">
+    <article>
+        <div class="prod">
+            <div class="prod-slider-wrap prod-slider-shown">
+                <div class="flexslider prod-slider" id="prod-slider">
+                    <ul class="slides" id="top-slider">
+                        <li>
+                            <a data-fancybox-group="qprod" class="fancy-img">
+                                <img src="" alt="" class="sliderMainImg1">
+                            </a>
+                        </li>
+                        <li>
+                            <a data-fancybox-group="qprod" class="fancy-img">
+                                <img src="" alt="" class="sliderMainImg2">
+                            </a>
+                        </li>
+                        <li>
+                            <a data-fancybox-group="qprod" class="fancy-img">
+                                <img src="" alt="" class="sliderMainImg3">
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="prod-slider-count"><p><span class="count-cur">1</span> / <span class="count-all">3</span></p><p class="hover-label prod-slider-zoom"><i class="icon ion-search"></i><span>Zoom In</span></p></div>
+                </div>
+                <div class="flexslider prod-thumbs" id="prod-thumbs">
+                    <ul class="slides" id="bottom-slider">
+                        <li>
+                            <img src="" alt="" class="sliderMainImg1">
+                        </li>
+                        <li>
+                            <img src=""  alt="" class="sliderMainImg2">
+                        </li>
+                        <li>
+                            <img src="" alt="" class="sliderMainImg3">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="prod-cont">
+               
+                <p class="prod-categs"><a href="#"></a></p>
+                <h2 class="prod-name"></h2>
+                <p class="prod-price">$25.00</p>
+                <p class="stock in-stock"></p>
+                @*<p class="prod-excerpt">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget...</p>*@
+                <div class="prod-add">
+                    <button type="submit"
+                            class="button">
+                        <i class="icon ion-android-cart"></i> Səbətə əlavə et
+                    </button>
+                    <p class="qnt-wrap prod-li-qnt">
+                        <a href="#" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
+                        <input type="text" value="1">
+                        <a href="#" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </article>
+</div>
 
+<script>
+    $(function () {
+
+        $(document).on("click", ".quick-view", function (e) {
+            e.preventDefault();
+            var id = $(this).attr("data-id");
+
+            $.ajax({
+                url: "/Ajax/GetByIdForQuickView/" + id,
+                type: "GET",
+                success: function (res) {
+                    console.log(res);
+                    $(".prod-categs").text(`${res.category.categoryName}`);
+                    $(".prod-price").text(`₼ ${res.price}`);
+                    $(".prod-name").text(`${res.productName}`);
+                    $(".in-stock").text(`Mövcud say : ${res.count}`);
+
+                    for (let i = 0; i < res.imagesBase64.length; i++) {
+                        $(".sliderMainImg1").attr("src", `${res.imagesBase64[0]}`);
+                        var image1 = $(".sliderMainImg1").attr("src");
+                        if (image1 == "undefined") {
+                            $(".sliderMainImg1").parent().css("display", "none");
+                        }
+
+                        $(".sliderMainImg2").attr("src", `${res.imagesBase64[1]}`);
+                        var image2 = $(".sliderMainImg2").attr("src");
+                        if (image2 == "undefined") {
+                            $(".sliderMainImg2").parent().css("display", "none");
+                        }
+
+                        $(".sliderMainImg3").attr("src", `${res.imagesBase64[2]}`);
+                        var image3 = $(".sliderMainImg3").attr("src");
+                        if (image3 == "undefined") {
+                            $(".sliderMainImg3").parent().css("display", "none");
+                        }
+                    }
+                }
+            });
+
+        });
+    });
+</script>

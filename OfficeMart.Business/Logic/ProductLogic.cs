@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OfficeMart.Business.Dtos;
 using OfficeMart.Business.Models;
@@ -176,6 +177,26 @@ namespace OfficeMart.Business.Logic
             {
                 return false;
             }
+        }
+
+        public async Task<List<ProductDto>> GetCategoryProducts(int categoryId)
+        {
+            var productsDto = new List<ProductDto>();
+
+            using(var context = TransactionConfig.AppDbContext)
+            {
+                var productsEntity = await context
+                    .Products
+                    .Where(m => m.IsActive != false && m.CategoryId == categoryId)
+                    .Include(m => m.Category)
+                    .Include(m => m.Color)
+                    .Include(m => m.ProductSize)
+                    .Include(m => m.ProductImages)
+                    .ToListAsync();
+
+                productsDto = TransactionConfig.Mapper.Map<List<ProductDto>>(productsEntity);
+            }
+            return productsDto;
         }
     }
 }
