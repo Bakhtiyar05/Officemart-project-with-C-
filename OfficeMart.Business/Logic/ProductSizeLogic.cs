@@ -8,6 +8,7 @@ using OfficeMart.Domain.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,7 +30,7 @@ namespace OfficeMart.Business.Logic
             var sizes = new List<ProductSizeDto>();
             using (var content = TransactionConfig.AppDbContext)
             {
-                var dbSizes = await content.ProductSizes.ToListAsync();
+                var dbSizes = await content.ProductSizes.Where(m=>m.IsActive!=false).ToListAsync();
                 sizes = TransactionConfig.Mapper.Map<List<ProductSizeDto>>(dbSizes);
             }
             return sizes;
@@ -44,7 +45,6 @@ namespace OfficeMart.Business.Logic
             }
             return productSizeDto;
         }
-
         public async Task<bool> Edit (ProductSizeDto sizeDto)
         {
             try
@@ -53,6 +53,7 @@ namespace OfficeMart.Business.Logic
                 {
                     var findedEntity = await context.ProductSizes.FindAsync(sizeDto.Id);
                     findedEntity = TransactionConfig.Mapper.Map(sizeDto, findedEntity);
+                    findedEntity.IsActive = true;
                     context.ProductSizes.Update(findedEntity);
                     await context.SaveChangesAsync();
                 }
@@ -64,6 +65,24 @@ namespace OfficeMart.Business.Logic
                 return false;
             }
             
+        }
+        public async Task<bool> Delete(int id)
+        {
+            try
+            {
+                using (var context = TransactionConfig.AppDbContext)
+                {
+                    var deletedProductSize = await context.ProductSizes.FindAsync(id);
+                    deletedProductSize.IsActive = false;
+                    context.Update(deletedProductSize);
+                    await context.SaveChangesAsync();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

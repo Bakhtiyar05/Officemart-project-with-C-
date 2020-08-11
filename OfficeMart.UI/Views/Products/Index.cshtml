@@ -276,14 +276,14 @@
                                         <article class="prod-li sectls">
                                             <div class="prod-li-inner">
                                                 <a href="product.html" class="prod-li-img">
-                                                    <img src="~/img/@item.ProductImages.FirstOrDefault()" alt="">
+                                                    <img id="@item.Id" src="~/img/@item.ProductImages.FirstOrDefault()" alt="">
                                                 </a>
                                                 <div class="prod-li-cont">
                                                     <div class="prod-li-ttl-wrap">
                                                         <p>
                                                             <a href="#">@item.Category.CategoryName</a>
                                                         </p>
-                                                        <h3><a href="product.html">@item.ProductName</a></h3>
+                                                        <h3><a id="product-name-@item.Id">@item.ProductName</a></h3>
                                                     </div>
                                                     <!--
                                                     No Space
@@ -292,17 +292,19 @@
                                                         <div class="prod-li-price-wrap">
                                                             <p>Qiymət</p>
                                                             <p class="prod-li-price">@item.Price₼</p>
+                                                            <input type="hidden" id="price-@item.Id" value="@item.Price" />
                                                         </div>
                                                         <div class="prod-li-qnt-wrap">
                                                             <p class="qnt-wrap prod-li-qnt">
-                                                                <a href="#" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
-                                                                <input type="text" value="1">
-                                                                <a href="#" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
+                                                                <a href="#" data-id="@item.Id" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
+                                                                <input type="text" readonly id="count-@item.Id" value="1">
+                                                                <a href="#" data-id="@item.Id" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
                                                             </p>
                                                         </div>
                                                         <div class="prod-li-total-wrap">
                                                             <p>Cəm</p>
-                                                            <p class="prod-li-total">@item.Price₼</p>
+                                                            <p id="total-@item.Id" class="prod-li-total">@item.Price₼</p>
+                                                            <input type="hidden" id="total-value-@item.Id" value="@item.Price">
                                                         </div>
                                                     </div>
                                                     <!--
@@ -312,7 +314,7 @@
                                                 <div class="prod-li-info">
 
                                                     <p class="prod-li-add">
-                                                        <a href="#" class="button hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Səbətə əlavə et</span></a>
+                                                        <a href="#" id="@item.Id" class="button hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Səbətə əlavə et</span></a>
                                                     </p>
                                                     <p class="prod-li-information">
                                                         <a href="#" class="hover-label"><i class="icon ion-more"></i><span>Show Information</span></a>

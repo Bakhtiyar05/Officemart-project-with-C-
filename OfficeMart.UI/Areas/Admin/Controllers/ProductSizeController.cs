@@ -40,8 +40,20 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(ProductSizeDto sizeDto)
         {
             _ = await new ProductSizeLogic().Edit(sizeDto);
-            
-            return View();
+
+            return View(sizeDto);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (await new ProductSizeLogic().Delete(id))
+            {
+                return Json(new { status = "200", data = "/Admin/ProductSize/Index" });
+            }
+            else
+            {
+                return Json(new { status = "400" });
+            }
         }
     }
 }

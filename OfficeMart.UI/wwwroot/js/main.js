@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 function multishop_initslider(refresh, parent) {
 
@@ -540,6 +540,8 @@ jQuery(document).ready(function ($) {
 		// Quantity
 		$('body').on('click', '.qnt-wrap a', function () {
 			var qnt = $(this).parent().find('input').val();
+			var clickedId = $(this).attr('data-id');
+			var price = $(`#price-${clickedId}`).val();
 			if ($(this).hasClass('qnt-plus')) {
 				qnt++;
 			} else if ($(this).hasClass('qnt-minus')) {
@@ -547,10 +549,12 @@ jQuery(document).ready(function ($) {
 			}
 			if (qnt > 0) {
 				$(this).parent().find('input').attr('value', qnt);
+				$(`#total-${clickedId}`).text(`${(price * qnt).toFixed(2)}₼`);
+				$(`#total-value-${clickedId}`).val((price * qnt).toFixed(2));
 			}
 			return false;
 		});
-
+		
 
 		// Masonry Grids
 		if ($('#blog-grid').length > 0) {

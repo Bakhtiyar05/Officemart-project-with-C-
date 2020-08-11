@@ -11,6 +11,7 @@ namespace OfficeMart.Business.Dtos
         public int Id { get; set; }
         [Required(ErrorMessage = "Sahə tələbolunandır")]
         public string Size { get; set; }
+        public bool IsActive { get; set; }
         public ICollection<Product> Products { get; set; }
     }
 }

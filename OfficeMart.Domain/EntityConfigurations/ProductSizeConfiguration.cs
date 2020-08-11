@@ -16,6 +16,10 @@ namespace OfficeMart.Domain.EntityConfigurations
             builder.Property(x => x.Size)
                 .IsRequired()
                 .HasMaxLength(25);
+
+            builder.Property(x => x.IsActive)
+                .IsRequired()
+                .HasDefaultValue(true);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace OfficeMart.Domain.Models.Entities
         }
         public int Id { get; set; }
         public string Size { get; set; }
+        public bool IsActive { get; set; }
         public ICollection<Product> Products { get; set; }
     }
 }

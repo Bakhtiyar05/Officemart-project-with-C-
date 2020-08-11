@@ -13,7 +13,7 @@ html, body {
     font-family: 'Roboto', sans-serif;
     font-size: 100%;
     overflow-x: hidden;
-    background: url("https://www.cheatsheet.com/wp-content/uploads/2019/04/Planet-Earth.jpg") no-repeat 0px 0px;
+    background: #F3FFFF no-repeat 0px 0px;
     background-size: cover;
 }
 body a{
@@ -1452,7 +1452,7 @@ section#tables  p {
 }
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
 	font-size: 0.9em;
-	color: #999;
+	color: #000;
 	border-top: none !important;
 }
 .tab-content > .active {
