@@ -29,7 +29,8 @@ namespace OfficeMart.Business.Logic
 
                 productDto = TransactionConfig.Mapper.Map<ProductDto>(product);
                 string fullFilePath = Path.Combine((new Uri(Assembly.GetExecutingAssembly().CodeBase)).AbsolutePath.Split(new string[] { "/bin" }, StringSplitOptions.None)[0]
-                          , "wwwroot","img");
+                          , "wwwroot","img").Replace("%20"," ");
+
                 foreach (var photo in productDto.ProductImages)
                 {
                     var photoBase = "data:image/jpeg;base64," + Convert.ToBase64String(File.ReadAllBytes(Path.Combine(fullFilePath, photo)));

@@ -1,0 +1,134 @@
+﻿@model List<ProductDto>
+@{
+    foreach (var item in Model)
+    {
+        <article class="prod-li sectls">
+            <div class="prod-li-inner">
+                <a href="product.html" class="prod-li-img">
+                    <img id="@item.Id" src="~/img/@item.ProductImages.FirstOrDefault()" alt="">
+                </a>
+                <div class="prod-li-cont">
+                    <div class="prod-li-ttl-wrap">
+                        <p>
+                            <a href="#">@item.Category.CategoryName</a>
+                        </p>
+                        <h3><a id="product-name-@item.Id">@item.ProductName</a></h3>
+                    </div>
+                    <div class="prod-li-prices">
+                        <div class="prod-li-price-wrap">
+                            <p>Qiyməti</p>
+                            <p class="prod-li-price">₼ @item.Price</p>
+                            <input type="hidden" id="price-@item.Id" value="@item.Price" />
+                        </div>
+                        <div class="prod-li-qnt-wrap">
+                            <p class="qnt-wrap prod-li-qnt">
+                                <a data-id="@item.Id" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
+                                <input type="text" readonly id="count-@item.Id" value="1">
+                                <a data-id="@item.Id" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
+                            </p>
+                        </div>
+                        <div class="prod-li-total-wrap">
+                            <p>Cəm</p>
+                            <p id="total-@item.Id" class="prod-li-total">@item.Price₼</p>
+                            <input type="hidden" id="total-value-@item.Id" value="@item.Price">
+                        </div>
+                    </div>
+                </div>
+                <div class="prod-li-info">
+                    <p class="prod-li-add">
+                        <a href="#" id="@item.Id" class="button hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Səbətə əlavə et</span></a>
+                    </p>
+                    <p class="prod-quickview">
+                        <a href="#" class="hover-label quick-view" id="productQuickView" data-quick-id="@item.Id"><i class="icon ion-plus"></i><span>Ətraflı baxış</span></a>
+                    </p>
+                    <p class="prod-li-information">
+                        <a href="#" class="hover-label"><i class="icon ion-more"></i><span>Əlava məlumat</span></a>
+                    </p>
+                </div>
+            </div>
+            <div class="page-styling prod-li-informations">
+
+                <dl class="prod-li-props">
+                    @{
+                        if (!item.ProductSize.Size.Contains("---"))
+                        {
+                            <dt>Ölçüsü :</dt>
+                            <dd><a href="#">@item.ProductSize.Size</a></dd>
+                        }
+                        else if (!item.Color.ColorName.Contains("---"))
+                        {
+                            <dt>Rəngi :</dt>
+                            <dd>@item.Color.ColorName</dd>
+                        }
+                        else
+                        {
+                            <dt>Bu məhsul üçün əlavə məlumat yoxdur...</dt>
+                        }
+                    }
+
+                </dl>
+            </div>
+        </article>
+    }
+    <div class="cont maincont quick-view-modal">
+        <article>
+            <div class="prod">
+                <div class="prod-slider-wrap prod-slider-shown">
+                    <div class="flexslider prod-slider" id="prod-slider">
+                        <ul class="slides" id="top-slider">
+                            <li>
+                                <a data-fancybox-group="qprod" class="fancy-img">
+                                    <img src="" alt="" class="sliderMainImg1">
+                                </a>
+                            </li>
+                            <li>
+                                <a data-fancybox-group="qprod" class="fancy-img">
+                                    <img src="" alt="" class="sliderMainImg2">
+                                </a>
+                            </li>
+                            <li>
+                                <a data-fancybox-group="qprod" class="fancy-img">
+                                    <img src="" alt="" class="sliderMainImg3">
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="prod-slider-count"><p><span class="count-cur">1</span> / <span class="count-all">3</span></p><p class="hover-label prod-slider-zoom"><i class="icon ion-search"></i><span>Zoom In</span></p></div>
+                    </div>
+                    <div class="flexslider prod-thumbs" id="prod-thumbs">
+                        <ul class="slides" id="bottom-slider">
+                            <li>
+                                <img src="" alt="" class="sliderMainImg1">
+                            </li>
+                            <li>
+                                <img src="" alt="" class="sliderMainImg2">
+                            </li>
+                            <li>
+                                <img src="" alt="" class="sliderMainImg3">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="prod-cont">
+
+                    <p class="prod-categs"><a href="#"></a></p>
+                    <h2 class="prod-name"></h2>
+                    <p class="prod-price">$25.00</p>
+                    <p class="stock in-stock"></p>
+                    <div class="prod-add">
+                        <button type="submit"
+                                class="button">
+                            <i class="icon ion-android-cart"></i> Səbətə əlavə et
+                        </button>
+                        <p class="qnt-wrap prod-li-qnt">
+                            <a href="#" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
+                            <input type="text" value="1">
+                            <a href="#" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+
+   
+}
