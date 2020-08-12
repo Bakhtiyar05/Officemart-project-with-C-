@@ -81,7 +81,15 @@ namespace OfficeMart.Business.Logic
                     .Include(m=>m.ProductSize)
                     .Include(m => m.ProductImages)
                     .ToListAsync();
+
+                var categoryCount = await context.Categories.CountAsync();
+
                 productsDto = TransactionConfig.Mapper.Map<List<ProductDto>>(products);
+
+                productsDto.ForEach(x =>
+                {
+                    x.CategoryCount = categoryCount;
+                });
             }
             return productsDto;
         }
