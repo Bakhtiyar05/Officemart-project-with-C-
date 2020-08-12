@@ -3,8 +3,9 @@
 @{
     ViewData["Title"] = "CategoryProducts";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
+    var categories = Library.GetInstance().CategoryProducts;
+}
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <div id="content" class="site-content">
@@ -15,11 +16,7 @@
 
                 <div class="section-top">
 
-                    <h1 class="maincont-ttl">Shop</h1>
-                    <ul class="b-crumbs">
-                        <li><a href="index.html">Home</a></li>
-                        <li>Catalog - List</li>
-                    </ul>
+                    <h1 class="maincont-ttl">Məhsullar</h1>
                     <div class="section-top-sort">
                         <div class="section-view">
                             <p>View</p>
@@ -70,149 +67,8 @@
                     </div>
                 </div>
                 <div class="section-wrap-withsb">
-                    <aside class="blog-sb-widgets section-sb" id="section-sb">
-
-                        <div class="theiaStickySidebar">
-
-                            <div class="section-filter">
-
-                                <div class="section-filter">
-
-                                    <div class="blog-sb-widget multishopcategories_widget">
-
-                                        <h3 class="widgettitle">Categories</h3>
-
-                                        <div class="section-sb-current">
-
-                                            <ul class="section-sb-list">
-                                                <li>
-                                                    <a href="#"><span class="section-sb-label">Electricity <span class="count">6</span></span></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="section-sb-label">Fasteners <span class="count">8</span></span></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="section-sb-label">Lighting <span class="count">6</span></span></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="section-sb-label">Other <span class="count">9</span></span></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="section-sb-label">Pipes <span class="count">9</span></span></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="section-sb-label">Sanitary Engineering <span class="count">7</span></span></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="section-sb-label">Tools <span class="count">21</span></span></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="blog-sb-widget multishopfeaturedproducts_widget">
-                                        <h3 class="widgettitle">Featured</h3>
-                                        <div class="products-featured-wrap">
-                                            <div class="products-featured">
-                                                <p class="products-featured-categ">
-                                                    <a href="#">Tools</a>
-                                                </p>
-                                                <h5 class="products-featured-ttl"><a href="product.html">Rechargeable Battery</a></h5>
-                                                <p class="products-featured-price">$201.00</p>
-                                            </div>
-                                            <div class="products-featured">
-                                                <p class="products-featured-categ">
-                                                    <a href="#">Pipes</a>
-                                                </p>
-                                                <h5 class="products-featured-ttl"><a href="product.html">Wholesale Brass</a></h5>
-                                                <p class="products-featured-price">$15.00</p>
-                                            </div>
-                                            <div class="products-featured">
-                                                <p class="products-featured-categ">
-                                                    <a href="#">Pipes</a>
-                                                </p>
-                                                <h5 class="products-featured-ttl"><a href="product.html">Fittings Pipe</a></h5>
-                                                <p class="products-featured-price">$77.00</p>
-                                            </div>
-
-                                            <div class="products-featured">
-
-                                                <p class="products-featured-categ">
-
-                                                    <a href="#">Pipes</a>
-
-                                                </p>
-
-                                                <h5 class="products-featured-ttl"><a href="product.html">Fittings Pipe</a></h5>
-
-                                                <p class="products-featured-price">$105.00</p>
-
-                                            </div>
-
-                                            <div class="products-featured">
-
-                                                <p class="products-featured-categ">
-
-                                                    <a href="#">Fasteners</a>
-
-                                                </p>
-
-                                                <h5 class="products-featured-ttl"><a href="product.html">Flat Bolt</a></h5>
-
-                                                <p class="products-featured-price">$45.00</p>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="blog-sb-widget multishopbrands_widget">
-
-                                        <h3 class="widgettitle">Brands</h3>
-
-                                        <ul class="brands-list-sb">
-
-                                            <li>
-
-                                                <a href="#">HOOK <span class="count">5</span></a>
-
-                                            </li>
-
-                                            <li>
-
-                                                <a href="#">Fuel Tank <span class="count">7</span></a>
-
-                                            </li>
-
-                                            <li>
-
-                                                <a href="#">BMP <span class="count">17</span></a>
-
-                                            </li>
-
-                                            <li>
-
-                                                <a href="#">BISON <span class="count">9</span></a>
-
-                                            </li>
-
-                                            <li>
-
-                                                <a href="#">AIR <span class="count">6</span></a>
-
-                                            </li>
-
-                                        </ul>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </aside>        <div class="section-list-withsb" id="section-list-withsb">
+                    <partial name="_CategoriesPartial"/>        
+                    <div class="section-list-withsb" id="section-list-withsb">
                         <div class="theiaStickySidebar">
 
                             <div class="prod-litems section-list">
@@ -232,5 +88,3 @@
         </main>
     </div>
 </div>
-
-

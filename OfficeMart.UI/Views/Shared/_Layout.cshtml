@@ -411,13 +411,14 @@
 
             $(document).on("click", ".quick-view", function (e) {
                 e.preventDefault();
-                alert();
+
                 var id = $(this).attr("data-quick-id");
 
                 $.ajax({
                     url: "/Ajax/GetByIdForQuickView/" + id,
                     type: "GET",
                     success: function (res) {
+                        console.log(res);
                         $(".prod-categs").text(`${res.category.categoryName}`);
                         $(".prod-price").text(`₼ ${res.price}`);
                         $(".prod-name").text(`${res.productName}`);

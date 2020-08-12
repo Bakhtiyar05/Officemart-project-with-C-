@@ -36,6 +36,7 @@ namespace OfficeMart.Business.Dtos
         public DateTime RegDate { get; set; }
         public List<string> ProductImages { get; set; }
         public List<string> ImagesBase64 { get; set; }
+        public int CategoryCount { get; set; }
         public CategoryDto Category { get; set; }
 
         [Required(ErrorMessage = "Sahə tələb olunandır")]

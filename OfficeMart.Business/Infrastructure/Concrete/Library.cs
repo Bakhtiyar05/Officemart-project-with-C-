@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using OfficeMart.Business.Dtos;
 using OfficeMart.Business.Models;
 using OfficeMart.Domain.Models.Entities;
 using System;
@@ -130,6 +132,41 @@ namespace OfficeMart.Business.Infrastructure.Concrete
                     }
 
                     return selectListItems;
+                }
+            }
+        }
+        public List<Category> CategoryProducts
+        {
+            get
+            {
+                using (TransactionConfig.AppDbContext)
+                {
+                    var categories = new List<Category>();
+
+                    if (!memoryCache.TryGetValue("CategoryProducts", out categories))
+                    {
+
+                        var cacheEntryOptions = new MemoryCacheEntryOptions()
+                       .SetAbsoluteExpiration(TimeSpan.FromSeconds(60 * 60 * 1000));
+
+                        memoryCache
+                            .Set
+                            (
+                                "CategoryProducts",
+                                TransactionConfig
+                                .AppDbContext
+                                .Categories
+                                .Include(x=>x.Products)
+                                .Where(x => x.IsActive)
+                                .ToList()
+                                , cacheEntryOptions
+                            );
+                    }
+
+                    categories = memoryCache.Get("CategoryProducts") as List<Category>;
+                    
+
+                    return categories;
                 }
             }
         }
