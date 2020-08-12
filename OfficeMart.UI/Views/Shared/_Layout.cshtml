@@ -188,9 +188,6 @@
                             <div class="widget_shopping_cart_content">
 
                                 <ul class="cart_list">
-
-                                   
-
                                 </ul>
 
                                 <p class="buttons">
@@ -409,5 +406,47 @@
         });</script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="~/js/Basket.js"></script>
+    <script>
+        $(function () {
+
+            $(document).on("click", ".quick-view", function (e) {
+                e.preventDefault();
+                alert();
+                var id = $(this).attr("data-quick-id");
+
+                $.ajax({
+                    url: "/Ajax/GetByIdForQuickView/" + id,
+                    type: "GET",
+                    success: function (res) {
+                        $(".prod-categs").text(`${res.category.categoryName}`);
+                        $(".prod-price").text(`₼ ${res.price}`);
+                        $(".prod-name").text(`${res.productName}`);
+                        $(".in-stock").text(`Mövcud say : ${res.count}`);
+
+                        for (let i = 0; i < res.imagesBase64.length; i++) {
+                            $(".sliderMainImg1").attr("src", `${res.imagesBase64[0]}`);
+                            var image1 = $(".sliderMainImg1").attr("src");
+                            if (image1 == "undefined") {
+                                $(".sliderMainImg1").parent().css("display", "none");
+                            }
+
+                            $(".sliderMainImg2").attr("src", `${res.imagesBase64[1]}`);
+                            var image2 = $(".sliderMainImg2").attr("src");
+                            if (image2 == "undefined") {
+                                $(".sliderMainImg2").parent().css("display", "none");
+                            }
+
+                            $(".sliderMainImg3").attr("src", `${res.imagesBase64[2]}`);
+                            var image3 = $(".sliderMainImg3").attr("src");
+                            if (image3 == "undefined") {
+                                $(".sliderMainImg3").parent().css("display", "none");
+                            }
+                        }
+                    }
+                });
+
+            });
+        });
+    </script>
 </body>
 </html>
