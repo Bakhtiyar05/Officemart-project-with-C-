@@ -1471,6 +1471,7 @@ body .widget_search .dgwt-wcas-si img {
 .h-cart .widget_shopping_cart .cart_list li a.remove:hover {
 	color: #ff2424 !important;
 	background: #fff;
+	cursor:pointer;
 }
 .h-cart .widget_shopping_cart .cart_list li:after {
 	display: block;
