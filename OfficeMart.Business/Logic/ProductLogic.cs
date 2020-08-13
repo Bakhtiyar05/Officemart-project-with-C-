@@ -66,16 +66,20 @@ namespace OfficeMart.Business.Logic
                 return false;
             }
         }
-        public async Task<List<ProductDto>> GetProducts()
+        public async Task<List<ProductDto>> GetProducts(int page)
         {
             var productsDto = new List<ProductDto>();
 
             using (var context = TransactionConfig.AppDbContext)
             {
-                //var a = await context.ProductSizes.ToListAsync();
+                int itemsPerPage = 3;
+                var productsCount = await context.Products.Where(x=>x.IsActive != false).CountAsync();
+
                 var products = await context
                     .Products
                     .Where(m => m.IsActive != false)
+                    .Skip((page - 1) * itemsPerPage)
+                    .Take(3)
                     .Include(m => m.Category)
                     .Include(m=>m.Color)
                     .Include(m=>m.ProductSize)
@@ -88,7 +92,12 @@ namespace OfficeMart.Business.Logic
 
                 productsDto.ForEach(x =>
                 {
-                    x.CategoryCount = categoryCount;
+                    x.PaginationDto = new PaginationDto();
+                    x.PaginationDto.CurrentPage = page;
+                    x.PaginationDto.ItemsPerPage = 3;
+                    x.PaginationDto.TotalItemsCount = productsCount;
+                    x.PaginationDto.AspAction = "ProductsList";
+                    x.PaginationDto.AspController = "Products";
                 });
             }
             return productsDto;
@@ -186,7 +195,6 @@ namespace OfficeMart.Business.Logic
                 return false;
             }
         }
-
         public async Task<List<ProductDto>> GetCategoryProducts(int categoryId)
         {
             var productsDto = new List<ProductDto>();
@@ -205,6 +213,41 @@ namespace OfficeMart.Business.Logic
                 productsDto = TransactionConfig.Mapper.Map<List<ProductDto>>(productsEntity);
             }
             return productsDto;
+        }
+        public async Task<List<ProductDto>> GetProductsPerPage(int categoryId, int page)
+        {
+            int itemsPerPage = 3;
+            var products = new List<ProductDto>();
+
+            using(var context = TransactionConfig.AppDbContext)
+            {
+                var productsCount = await context.Products.Where(x=>x.CategoryId == categoryId).CountAsync();
+
+                var productsEntity = await context
+                    .Products
+                    .Where(m => m.IsActive != false && m.CategoryId == categoryId)
+                    .Skip((page - 1) * itemsPerPage)
+                    .Take(3)
+                    .Include(m => m.Category)
+                    .Include(m => m.Color)
+                    .Include(m => m.ProductSize)
+                    .Include(m => m.ProductImages)
+                    .ToListAsync();
+
+                products = TransactionConfig.Mapper.Map<List<ProductDto>>(productsEntity);
+
+                products.ForEach(x =>
+                {
+                    x.PaginationDto = new PaginationDto();
+                    x.PaginationDto.CurrentPage = page;
+                    x.PaginationDto.ItemsPerPage = 3;
+                    x.PaginationDto.TotalItemsCount = productsCount;
+                    x.PaginationDto.CategoryId = categoryId;
+                    x.PaginationDto.AspAction = "CategoryProducts";
+                    x.PaginationDto.AspController = "Products";
+                });
+            }
+            return products;
         }
     }
 }

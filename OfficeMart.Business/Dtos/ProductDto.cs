@@ -46,5 +46,6 @@ namespace OfficeMart.Business.Dtos
         public int ColorId { get; set; }
         public ProductSizeDto ProductSize { get; set; }
         public int ProductSizeId { get; set; }
+        public PaginationDto PaginationDto { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var paginationDto = Model.Select(x => x.PaginationDto).FirstOrDefault();
 }
 
 
@@ -78,13 +79,7 @@
                                 <partial name="_ProductPartial" model="Model.ToList()" />
                             </div>
 
-                            <ul class="page-numbers">
-                                <li><span class="page-numbers current">1</span></li>
-                                <li><a class="page-numbers" href="#">2</a></li>
-                                <li><a class="page-numbers" href="#">3</a></li>
-                                <li><a class="page-numbers" href="#">4</a></li>
-                                <li><a class="next page-numbers" href="#"><i class="fa fa-angle-right"></i></a></li>
-                            </ul>
+                            <partial name="_PaginationPartial" model="@paginationDto" />
                         </div>
                     </div>
                 </div>
