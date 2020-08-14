@@ -5,6 +5,7 @@ function getkBasketCount() {
     $("#basket-count").text(count);
     calcPrice();
 }
+
 function calcPrice() {
     var totalPrice = 0;
     $(".per-product-money").each(function () {
@@ -32,13 +33,13 @@ function clickForBasket(id, isArrow = false) {
         if (!isDuplicate && !isArrow) {
             appendBask(id);
         }
-    } else if(!isArrow) {
+    } else if (!isArrow) {
         appendBask(id);
     }
 
-
     getkBasketCount();
 }
+
 function appendBask(clickedId) {
     if (clickedId) {
 
@@ -64,9 +65,18 @@ function appendBask(clickedId) {
                                     </li>`;
 
         $(".cart_list").append(element);
+
+        setStorage();
     }
 }
-
+function setStorage() {
+    var baskList = $(".cart_list").html();
+    var isExist = localStorage.getItem('basketList');
+    if (isExist) {
+        localStorage.removeItem('basketList');
+    }
+    localStorage.setItem('basketList', JSON.stringify(baskList));
+}
 
 $(function () {
 
@@ -81,6 +91,7 @@ $(function () {
         var clickedId = $(this).attr("del-id");
         $("li").remove(`#basketed-li-${clickedId}`);
         getkBasketCount();
+        setStorage();
     });
 });
 
@@ -129,7 +140,11 @@ function multishop_initslider(refresh, parent) {
 }
 
 jQuery(document).ready(function ($) {
-
+    var lsPoduct = localStorage.getItem('basketList');
+    if (lsPoduct) {
+        $(".cart_list").html(JSON.parse(lsPoduct));
+        getkBasketCount();
+    }
     // Modal Form
     $('.callback').fancybox({
         padding: 0,
