@@ -221,7 +221,7 @@ namespace OfficeMart.Business.Logic
 
             using(var context = TransactionConfig.AppDbContext)
             {
-                var productsCount = await context.Products.Where(x=>x.CategoryId == categoryId).CountAsync();
+                var productsCount = await context.Products.Where(x=>x.CategoryId == categoryId && x.IsActive != false).CountAsync();
 
                 var productsEntity = await context
                     .Products
