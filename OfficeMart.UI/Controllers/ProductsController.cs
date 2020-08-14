@@ -6,15 +6,15 @@ namespace OfficeMart.UI.Controllers
 {
     public class ProductsController : Controller
     {
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ProductsList(int id, int page = 1)
         {
-            var products = await new ProductLogic().GetProducts();
+            var products = await new ProductLogic().GetProducts(page);
             return View(products);
         }
 
-        public async Task<IActionResult> CategoryProducts(int id)
+        public async Task<IActionResult> CategoryProducts(int id,int page = 1)
         {
-            var products = await new ProductLogic().GetCategoryProducts(id);
+            var products = await new ProductLogic().GetProductsPerPage(id,page);
             return View(products);
         }
     }
