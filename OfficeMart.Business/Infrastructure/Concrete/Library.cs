@@ -146,9 +146,6 @@ namespace OfficeMart.Business.Infrastructure.Concrete
                     if (!memoryCache.TryGetValue("CategoryProducts", out categories))
                     {
 
-                        var cacheEntryOptions = new MemoryCacheEntryOptions()
-                       .SetAbsoluteExpiration(TimeSpan.FromSeconds(60 * 60 * 1000));
-
                         memoryCache
                             .Set
                             (
@@ -157,9 +154,8 @@ namespace OfficeMart.Business.Infrastructure.Concrete
                                 .AppDbContext
                                 .Categories
                                 .Include(x=>x.Products)
-                                .Where(x => x.IsActive)
+                                .Where(x => x.IsActive != false)
                                 .ToList()
-                                , cacheEntryOptions
                             );
                     }
 

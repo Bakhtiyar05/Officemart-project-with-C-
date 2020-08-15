@@ -265,5 +265,38 @@ namespace OfficeMart.Business.Logic
             }
             return products;
         }
+        public async Task<CategoryProductsDto> GetProductsForDetailPage(int productId)
+        {
+            var categoryProduct = new CategoryProductsDto();
+
+            using(var context = TransactionConfig.AppDbContext)
+            {
+                var product = await context
+                    .Products.Where(x => x.Id == productId)
+                    .Include(m => m.Category)
+                    .Include(m => m.Color)
+                    .Include(m => m.ProductSize)
+                    .Include(m => m.ProductImages)
+                    .FirstOrDefaultAsync();
+
+                categoryProduct.ProductDto = new ProductDto();
+                categoryProduct.ProductDto = TransactionConfig.Mapper.Map<ProductDto>(product);
+
+                var categoryProducts = await context
+                    .Products
+                    .Where(x => x.IsActive != false && x.CategoryId == product.CategoryId)
+                    .Include(m => m.Category)
+                    .Include(m => m.ProductImages)
+                    .Take(4)
+                    .OrderByDescending(x => x.RegDate)
+                    .ToListAsync();
+
+                categoryProduct.ProducstDto = new List<ProductDto>();
+                var similerProducts = TransactionConfig.Mapper.Map<List<ProductDto>>(categoryProducts);
+                categoryProduct.ProducstDto.AddRange(similerProducts);
+            }
+
+            return categoryProduct;
+        }
     }
 }
