@@ -4575,6 +4575,7 @@ span.badge-1 {
 }
 .prod-litems .prod-li-ttl-wrap h3 a:hover {
 	color: #6bc67c;
+	cursor:pointer;
 }
 
 .prod-litems .prod-li-prices {
