@@ -12,7 +12,7 @@
                         <p>
                             <a href="#">@item.Category.CategoryName</a>
                         </p>
-                        <h3><a id="product-name-@item.Id">@item.ProductName</a></h3>
+                        <h3><a id="product-name-@item.Id" asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.Id">@item.ProductName</a></h3>
                     </div>
                     <div class="prod-li-prices">
                         <div class="prod-li-price-wrap">
@@ -59,10 +59,6 @@
                         {
                             <dt>Rəngi :</dt>
                             <dd>@item.Color.ColorName</dd>
-                        }
-                        else
-                        {
-                            <dt>Bu məhsul üçün əlavə məlumat yoxdur...</dt>
                         }
                     }
 

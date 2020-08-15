@@ -1,4 +1,6 @@
-﻿
+﻿@model CategoryProductsDto
+
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -17,188 +19,88 @@
                         <div class="prod-slider-wrap prod-slider-shown">
                             <div class="flexslider prod-slider" id="prod-slider">
                                 <ul class="slides">
-                                    <li>
-                                        <a data-fancybox-group="prod" class="fancy-img" href="img/1/product/prod1-full.jpg">
-                                            <img src="img/1/product/prod1.jpg" alt="">
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a data-fancybox-group="prod" class="fancy-img" href="img/1/product/prod2-full.jpg">
-                                            <img src="img/1/product/prod2.jpg" alt="">
-                                        </a>
-                                    </li>
+                                    @{
+                                        foreach (var item in Model.ProductDto.ProductImages)
+                                        {
+                                            <li>
+                                                <a data-fancybox-group="prod" class="fancy-img" href="img/1/product/prod1-full.jpg">
+                                                    <img src="~/img/@item" alt="">
+                                                </a>
+                                            </li>
+                                        }
+                                    }
                                 </ul>
                                 <div class="prod-slider-count"><p><span class="count-cur">1</span> / <span class="count-all">2</span></p><p class="hover-label prod-slider-zoom"><i class="icon ion-search"></i><span>Zoom In</span></p></div>
                             </div>
                             <div class="flexslider prod-thumbs" id="prod-thumbs">
                                 <ul class="slides">
-                                    <li>
-                                        <img src="img/1/product/prod1.jpg" alt="">
-                                    </li>
-                                    <li>
-                                        <img src="img/1/product/prod2.jpg" alt="">
-                                    </li>
+                                    @{
+                                        foreach (var item in Model.ProductDto.ProductImages)
+                                        {
+                                            <li>
+                                                <img src="~/img/@item" alt="">
+                                            </li>
+                                        }
+                                    }
                                 </ul>
                             </div>
                         </div>
                         <div class="prod-cont">
-                            <p class="prod-categs"><a href="#">Lighting</a>, <a href="#">Tools</a></p>
-                            <h1>Searchlight Portable</h1>
+                            <p class="prod-categs"><a href="#">@Model.ProductDto.Category.CategoryName</a></p>
+                            <h1>@Model.ProductDto.ProductName</h1>
                             <div class="variations_form cart">
-                                <p class="prod-price">$140.00</p>
+                                <p class="prod-price">₼ @Model.ProductDto.Price</p>
                                 <p class="prod-excerpt">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget... <a id="prod-showdesc" class="prod-excerpt-more" href="#">read more</a></p>
                             </div>
                             <div class="prod-props">
                                 <dl class="product_meta">
-                                    <dt>SKU:</dt>
-                                    <dd>2135687</dd>
-                                    <dt>Brand:</dt>
-                                    <dd><a href="#">BMP</a></dd>
-                                    <dt>Weight</dt>
-                                    <dd>1 kg</dd>
-                                    <dt>Dimensions</dt>
-                                    <dd>4 x 50 cm</dd>
-                                    <dt>Сolor</dt>
-                                    <dd>Blue, Green</dd>
-                                    <dt>Manufacturer</dt>
-                                    <dd>Germany</dd>
-                                    <dt>Material</dt>
-                                    <dd>Metal, Plastic</dd>
+                                    <dl class="prod-li-props">
+                                        @{
+                                            if (!Model.ProductDto.ProductSize.Size.Contains("---"))
+                                            {
+                                                <dt>Ölçüsü :</dt>
+                                                <dd><a href="#">@Model.ProductDto.ProductSize.Size</a></dd>
+                                            }
+                                            else if (!Model.ProductDto.Color.ColorName.Contains("---"))
+                                            {
+                                                <dt>Rəngi :</dt>
+                                                <dd>@Model.ProductDto.Color.ColorName</dd>
+                                            }
+                                            else
+                                            {
+                                                <dt>Bu məhsul üçün əlavə məlumat yoxdur...</dt>
+                                            }
+                                        }
+
+                                    </dl>
                                 </dl>
                             </div>
                         </div>
                         <p class="prod-badge">
-                            <span class="badge-1">TOP SELLER</span>
+                            <span class="badge-1" style="display:none">TOP SELLER</span>
                         </p>
                     </div>
-                    <h2 class="prod-related-ttl">You may also like…</h2>
+                    <h2 class="prod-related-ttl">Bənzər məhsullar</h2>
                     <div class="row prod-items prod-items-4">
-                        <article class="cf-sm-6 cf-md-6 cf-lg-3 col-xs-6 col-sm-6 col-md-6 col-lg-3 sectgl-item sectgl-item">
-                            <div class="sectgl prod-i">
-                                <div class="prod-i-top">
-                                    <a class="prod-i-img" href="product.html">
-                                        <img src="img/1/products/1.jpg" alt="">
-                                    </a>
-                                    <div class="prod-i-actions">
-                                        <div class="prod-i-actions-in">
-                                            <div class="prod-li-favorites">
-                                                <a href="wishlist.html" class="hover-label add_to_wishlist"><i class="icon ion-heart"></i><span>Add to Wishlist</span></a>
-                                            </div>
-                                            <p class="prod-quickview">
-                                                <a href="#" class="hover-label quick-view"><i class="icon ion-plus"></i><span>Quick View</span></a>
-                                            </p>
-                                            <p class="prod-i-cart">
-                                                <a href="#" class="hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Add to Cart</span></a>
-                                            </p>
-                                            <p class="prod-li-compare">
-                                                <a href="compare.html" class="hover-label prod-li-compare-btn"><span>Compare</span><i class="icon ion-arrow-swap"></i></a>
-                                            </p>
+                        @foreach (var item in Model.ProducstDto)
+                        {
+                            <article class="cf-sm-6 cf-md-6 cf-lg-3 col-xs-6 col-sm-6 col-md-6 col-lg-3 sectgl-item sectgl-item">
+                                <div class="sectgl prod-i">
+                                    <div class="prod-i-top">
+                                        <a class="prod-i-img" href="product.html">
+                                            <img src="~/img/@item.ProductImages.Select(x=>x).FirstOrDefault()" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="prod-i-bot">
+                                        <div class="prod-i-info">
+                                            <p class="prod-i-price">₼ @item.Price</p>
+                                            <p class="prod-i-categ"><a href="catalog-gallery.html">@item.Category.CategoryName</a></p>
                                         </div>
+                                        <h3 class="prod-i-ttl"><a href="product.html">@item.ProductName</a></h3>
                                     </div>
                                 </div>
-                                <div class="prod-i-bot">
-                                    <div class="prod-i-info">
-                                        <p class="prod-i-price">$120.00</p>
-                                        <p class="prod-i-categ"><a href="catalog-gallery.html">Lighting</a></p>
-                                    </div>
-                                    <h3 class="prod-i-ttl"><a href="product.html">Searchlight Portable</a></h3>
-                                </div>
-                            </div>
-                        </article>                                            <article class="cf-sm-6 cf-md-6 cf-lg-3 col-xs-6 col-sm-6 col-md-6 col-lg-3 sectgl-item sectgl-item">
-                            <div class="sectgl prod-i">
-                                <div class="prod-i-top">
-                                    <a class="prod-i-img" href="product.html">
-                                        <img src="img/1/products/2.jpg" alt="">
-                                    </a>
-                                    <div class="prod-i-actions">
-                                        <div class="prod-i-actions-in">
-                                            <div class="prod-li-favorites">
-                                                <a href="wishlist.html" class="hover-label add_to_wishlist"><i class="icon ion-heart"></i><span>Add to Wishlist</span></a>
-                                            </div>
-                                            <p class="prod-quickview">
-                                                <a href="#" class="hover-label quick-view"><i class="icon ion-plus"></i><span>Quick View</span></a>
-                                            </p>
-                                            <p class="prod-i-cart">
-                                                <a href="#" class="hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Add to Cart</span></a>
-                                            </p>
-                                            <p class="prod-li-compare">
-                                                <a href="compare.html" class="hover-label prod-li-compare-btn"><span>Compare</span><i class="icon ion-arrow-swap"></i></a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="prod-i-bot">
-                                    <div class="prod-i-info">
-                                        <p class="prod-i-price"><del>$15.00</del> $20.00</p>
-                                        <p class="prod-i-categ"><a href="catalog-gallery.html">Other</a></p>
-                                    </div>
-                                    <h3 class="prod-i-ttl"><a href="product.html">Flooring</a></h3>
-                                </div>
-                            </div>
-                        </article>                                            <article class="cf-sm-6 cf-md-6 cf-lg-3 col-xs-6 col-sm-6 col-md-6 col-lg-3 sectgl-item sectgl-item">
-                            <div class="sectgl prod-i">
-                                <div class="prod-i-top">
-                                    <a class="prod-i-img" href="product.html">
-                                        <img src="img/1/products/3.jpg" alt="">
-                                    </a>
-                                    <div class="prod-i-actions">
-                                        <div class="prod-i-actions-in">
-                                            <div class="prod-li-favorites">
-                                                <a href="wishlist.html" class="hover-label add_to_wishlist"><i class="icon ion-heart"></i><span>Add to Wishlist</span></a>
-                                            </div>
-                                            <p class="prod-quickview">
-                                                <a href="#" class="hover-label quick-view"><i class="icon ion-plus"></i><span>Quick View</span></a>
-                                            </p>
-                                            <p class="prod-i-cart">
-                                                <a href="#" class="hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Add to Cart</span></a>
-                                            </p>
-                                            <p class="prod-li-compare">
-                                                <a href="compare.html" class="hover-label prod-li-compare-btn"><span>Compare</span><i class="icon ion-arrow-swap"></i></a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="prod-i-bot">
-                                    <div class="prod-i-info">
-                                        <p class="prod-i-price">$18.00</p>
-                                        <p class="prod-i-categ"><a href="catalog-gallery.html">Other</a></p>
-                                    </div>
-                                    <h3 class="prod-i-ttl"><a href="product.html">Pneumatic Coil Hose</a></h3>
-                                </div>
-                            </div>
-                        </article>                                            
-                        <article class="cf-sm-6 cf-md-6 cf-lg-3 col-xs-6 col-sm-6 col-md-6 col-lg-3 sectgl-item sectgl-item">
-                            <div class="sectgl prod-i">
-                                <div class="prod-i-top">
-                                    <a class="prod-i-img" href="product.html">
-                                        <img src="img/1/products/4.jpg" alt="">
-                                    </a>
-                                    <div class="prod-i-actions">
-                                        <div class="prod-i-actions-in">
-                                            <div class="prod-li-favorites">
-                                                <a href="wishlist.html" class="hover-label add_to_wishlist"><i class="icon ion-heart"></i><span>Add to Wishlist</span></a>
-                                            </div>
-                                            <p class="prod-quickview">
-                                                <a href="#" class="hover-label quick-view"><i class="icon ion-plus"></i><span>Quick View</span></a>
-                                            </p>
-                                            <p class="prod-i-cart">
-                                                <a href="#" class="hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Add to Cart</span></a>
-                                            </p>
-                                            <p class="prod-li-compare">
-                                                <a href="compare.html" class="hover-label prod-li-compare-btn"><span>Compare</span><i class="icon ion-arrow-swap"></i></a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="prod-i-bot">
-                                    <div class="prod-i-info">
-                                        <p class="prod-i-price">$45.00</p>
-                                        <p class="prod-i-categ"><a href="catalog-gallery.html">Other</a></p>
-                                    </div>
-                                    <h3 class="prod-i-ttl"><a href="product.html">Door Hinge Metal</a></h3>
-                                </div>
-                            </div>
-                        </article>
+                            </article>
+                        }
                     </div>
                 </article>
             </div>
