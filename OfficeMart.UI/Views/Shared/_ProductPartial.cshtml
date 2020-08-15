@@ -17,6 +17,12 @@
                     <div class="prod-li-prices">
                         <div class="prod-li-price-wrap">
                             <p>Qiyməti</p>
+                            @{
+                                if (item.DiscountPrice > 0)
+                                {
+                                    <del>₼ @item.DiscountPrice</del>
+                                }
+                            }
                             <p class="prod-li-price">₼ @item.Price</p>
                             <input type="hidden" id="price-@item.Id" value="@item.Price" />
                         </div>
@@ -130,5 +136,5 @@
         </article>
     </div>
 
-   
+
 }

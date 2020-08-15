@@ -156,8 +156,8 @@
                 <a href="/Home/Index"><img src="~/img/logo.png" alt="MultiShop"></a>
             </p>
             <div class="h-shop">
-                <form method="get" action="#" class="h-search" id="h-search">
-                    <input type="text" placeholder="Search...">
+                <form asp-action="ProductsList" asp-controller="Products" method="post" class="h-search" id="h-search">
+                    <input required name="search" type="text" id="search" placeholder="Search...">
                     <button type="submit"><i class="ion-search"></i></button>
                 </form>
 
@@ -192,9 +192,7 @@
 
                                 <p class="buttons">
 
-                                    <a href="cart.html" class="button">View cart</a>
-
-                                    <a href="checkout.html" class="button">Checkout</a>
+                                    <a id="btnCheckout" class="button">Checkout</a>
 
                                 </p>
 

@@ -73,7 +73,7 @@ namespace OfficeMart.Business.Logic
             using (var context = TransactionConfig.AppDbContext)
             {
                 int itemsPerPage = 3;
-                var productsCount = await context.Products.Where(x=>x.IsActive != false).CountAsync();
+                var productsCount = await context.Products.Where(x => x.IsActive != false).CountAsync();
 
                 var products = await context
                     .Products
@@ -81,8 +81,8 @@ namespace OfficeMart.Business.Logic
                     .Skip((page - 1) * itemsPerPage)
                     .Take(3)
                     .Include(m => m.Category)
-                    .Include(m=>m.Color)
-                    .Include(m=>m.ProductSize)
+                    .Include(m => m.Color)
+                    .Include(m => m.ProductSize)
                     .Include(m => m.ProductImages)
                     .ToListAsync();
 
@@ -100,6 +100,22 @@ namespace OfficeMart.Business.Logic
                     x.PaginationDto.AspController = "Products";
                 });
             }
+            return productsDto;
+        }
+        public async Task<List<ProductDto>> GetSearchResult(int page, string search)
+        {
+            var productsDto = new List<ProductDto>();
+            //string[] lightLetters = { "a", "ı", "o", "u", "e", "ə", "i", "ö", "ü" };
+            //foreach (var letter in lightLetters)
+            //    search = search.Replace(letter, "");
+
+            using (var context = TransactionConfig.AppDbContext)
+            {
+                var a = search.First();
+                var b = search.Last();
+            }
+
+
             return productsDto;
         }
         public async Task<ProductDto> GetProductById(int id)
@@ -199,7 +215,7 @@ namespace OfficeMart.Business.Logic
         {
             var productsDto = new List<ProductDto>();
 
-            using(var context = TransactionConfig.AppDbContext)
+            using (var context = TransactionConfig.AppDbContext)
             {
                 var productsEntity = await context
                     .Products
@@ -219,9 +235,9 @@ namespace OfficeMart.Business.Logic
             int itemsPerPage = 3;
             var products = new List<ProductDto>();
 
-            using(var context = TransactionConfig.AppDbContext)
+            using (var context = TransactionConfig.AppDbContext)
             {
-                var productsCount = await context.Products.Where(x=>x.CategoryId == categoryId && x.IsActive != false).CountAsync();
+                var productsCount = await context.Products.Where(x => x.CategoryId == categoryId && x.IsActive != false).CountAsync();
 
                 var productsEntity = await context
                     .Products

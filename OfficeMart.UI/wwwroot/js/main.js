@@ -48,7 +48,7 @@ function appendBask(clickedId) {
         var totalPrice = $(`#total-value-${clickedId}`).val();
         var totalCount = $(`#count-${clickedId}`).val();
 
-        var element = `<li id="basketed-li-${clickedId}">
+        var element = `<li pro-count=${totalCount} pro-id=${clickedId} id="basketed-li-${clickedId}">
 
                                         <a del-id="${clickedId}" class="remove">&times;</a>
 
@@ -89,6 +89,7 @@ $(function () {
     $(document).on("click", ".remove", function (e) {
         e.preventDefault();
         var clickedId = $(this).attr("del-id");
+        $("article").remove(`#bask-remove-${clickedId}`)
         $("li").remove(`#basketed-li-${clickedId}`);
         getkBasketCount();
         setStorage();
@@ -159,6 +160,26 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    $(document).on("click", "#btnCheckout", function (e) {
+        e.preventDefault();
+        var ids = [];
+        var counts = [];
+        $('.cart_list').children('li').each(function () {
+            var ProId = $(this).attr("pro-id");
+            var ProCount = $(this).attr("pro-count");
+            ids.push(ProId);
+            counts.push(ProCount);
+        }); 
+        var url = '/Cart/Checkout';
+        var form = $('<form action="' + url + '" method="post">' +
+            '<input type="text" name="ids" value="' + ids + '" />' +
+            '<input type="text" name="counts" value="' + counts + '" />' +
+            '</form>');
+        $('body').append(form);
+        form.submit();
+    });
+
+    $('.prod-li-add').css('cursor', 'pointer');
 
     // Fancybox Images
     $('.fancy-img').fancybox({
@@ -805,7 +826,6 @@ jQuery(document).ready(function ($) {
                 url: 'php/email.php',
                 data: $(this).serialize(),
                 success: function (data) {
-                    console.log(data);
                     if (data == 'PSD') {
                         form1.html('<p style="margin: 10px 0 20px; font-weight: 600; font-size: 16px;" class="form-result"><a target="_blank" href="https://yadi.sk/i/14-2AkkU3N6FaQ">Download PSD</a></p>');
                     } else {

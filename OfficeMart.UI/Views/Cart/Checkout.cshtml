@@ -1,0 +1,80 @@
+﻿@model List<BasketModelDto>
+@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="content" class="site-content">
+    <div id="primary" class="content-area width-normal">
+        <main id="main" class="site-main">
+            <div class="cont maincont">
+                <h1 class="maincont-ttl">Cart</h1>
+                <ul class="b-crumbs">
+                    <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+                    <li>Səbət</li>
+                </ul>
+                <div class="page-styling">
+                    <div class="woocommerce prod-litems section-list">
+                        @{ foreach (var item in Model)
+                            {
+                                <article id="bask-remove-@item.Product.Id" class="prod-li sectls">
+                                    <div class="prod-li-inner">
+                                        <a href="product.html" class="prod-li-img">
+                                           <img id="baseimage-@item.Product.Id" src="~/img/@item.Product.ProductImages.FirstOrDefault()" alt="">
+                                        </a>
+                                        <div class="prod-li-cont">
+                                            <div class="prod-li-ttl-wrap">
+                                                <p>
+                                                    <a href="#">@item.Product.Category.CategoryName</a>
+                                                </p>
+                                                <h3><a id="product-name-@item.Product.Id">@item.Product.ProductName</a></h3>
+                                            </div>
+                                            <div class="prod-li-prices">
+                                                <div class="prod-li-price-wrap">
+                                                    <p>Qiyməti</p>
+                                                    @{
+                                                        if (item.Product.DiscountPrice > 0)
+                                                        {
+                                                            <del>₼ @item.Product.DiscountPrice</del>
+                                                        }
+                                                    }
+                                                    <p class="prod-li-price">₼ @item.Product.Price</p>
+                                                    <input type="hidden" id="price-@item.Product.Id" value="@item.Product.Price" />
+                                                </div>
+                                                <div class="prod-li-qnt-wrap">
+                                                    <p class="qnt-wrap prod-li-qnt">
+                                                        <a data-id="@item.Product.Id" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
+                                                        <input type="text" readonly id="count-@item.Product.Id" value="@item.ProductCount ">
+                                                        <a data-id="@item.Product.Id" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
+                                                    </p>
+                                                </div>
+                                                <div class="prod-li-total-wrap">
+                                                    <p>Cəm</p>
+                                                    <p id="total-@item.Product.Id" class="prod-li-total">@item.Sum₼</p>
+                                                    <input type="hidden" id="total-value-@item.Product.Id" value="@item.Sum">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="prod-li-info">
+                                            <p class="prod-li-add">
+                                                <a  del-id="@item.Product.Id" class="button hover-label prod-addbtn remove">
+                                                    <i class="icon ion-close-round"></i><span>Remove</span>
+                                                </a>
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </article>
+
+                            }
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+        </main><!-- #main -->
+    </div><!-- #primary -->
+</div><!-- #content -->

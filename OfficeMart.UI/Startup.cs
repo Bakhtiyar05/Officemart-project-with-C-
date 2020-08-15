@@ -53,7 +53,7 @@ namespace OfficeMart.UI
 
                 endpoints.MapControllerRoute(
                    name: "default",
-                   pattern: "{controller=Products}/{action=CategoryProducts}/{id?}/{page?}");
+                   pattern: "{controller=Products}/{action=CategoryProducts}/{id?}/{page?}/{search?}");
             });
         }
     }
