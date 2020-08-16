@@ -17,5 +17,7 @@ namespace OfficeMart.Business.Dtos
             }
             set { }
         }
+
+        public CheckoutDto CheckoutDto { get; set; }
     }
 }

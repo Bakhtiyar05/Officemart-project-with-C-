@@ -26,6 +26,19 @@ namespace OfficeMart.Domain.EntityConfigurations
             builder.Property(x => x.TotalPrice)
                 .IsRequired();
 
+            builder.Property(x => x.BuyerName)
+                .HasMaxLength(85);
+
+            builder.Property(x => x.BuyerSurname)
+               .HasMaxLength(85);
+
+            builder.Property(x => x.BuyerPhone)
+               .IsRequired()
+               .HasMaxLength(85);
+
+            builder.Property(x => x.DeliveryAddress)
+               .IsRequired()
+               .HasMaxLength(600);
         }
     }
 }
