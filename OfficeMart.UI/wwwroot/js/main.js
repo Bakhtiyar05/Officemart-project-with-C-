@@ -17,12 +17,10 @@ function calcPrice() {
 
 function clickForBasket(id, isArrow = false) {
 
-
     if ($(".cart_list li").length > 0) {
         var isDuplicate = false;
         $('.cart_list').children('li').each(function () {
             var currentLiId = $(this).attr('id');
-
             if (currentLiId == `basketed-li-${id}`) {
                 $(this).remove();
                 appendBask(id);
@@ -42,12 +40,10 @@ function clickForBasket(id, isArrow = false) {
 
 function appendBask(clickedId) {
     if (clickedId) {
-
         var imgSRC = $(`#baseimage-${clickedId}`).attr("src");
         var productName = $(`#product-name-${clickedId}`).text();
         var totalPrice = $(`#total-value-${clickedId}`).val();
         var totalCount = $(`#count-${clickedId}`).val();
-
         var element = `<li pro-count=${totalCount} pro-id=${clickedId} id="basketed-li-${clickedId}">
 
                                         <a del-id="${clickedId}" class="remove">&times;</a>
@@ -65,7 +61,7 @@ function appendBask(clickedId) {
                                     </li>`;
 
         $(".cart_list").append(element);
-
+        console.log(element);
         setStorage();
     }
 }
@@ -173,7 +169,7 @@ jQuery(document).ready(function ($) {
         if (ids.length > 0) {
 
             var url = '/Cart/Checkout';
-            var form = $('<form action="' + url + '" method="post">' +
+            var form = $('<form action="' + url + '" method="get">' +
                 '<input type="text" name="ids" value="' + ids + '" />' +
                 '<input type="text" name="counts" value="' + counts + '" />' +
                 '</form>');

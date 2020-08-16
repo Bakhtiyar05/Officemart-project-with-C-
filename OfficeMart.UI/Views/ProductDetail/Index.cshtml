@@ -23,8 +23,8 @@
                                         foreach (var item in Model.ProductDto.ProductImages)
                                         {
                                             <li>
-                                                <a data-fancybox-group="prod" class="fancy-img" href="img/1/product/prod1-full.jpg">
-                                                    <img src="~/img/@item" alt="">
+                                                <a data-fancybox-group="prod" class="fancy-img">
+                                                    <img id="baseimage-@Model.ProductDto.Id" src="~/img/@item" alt="">
                                                 </a>
                                             </li>
                                         }
@@ -47,11 +47,26 @@
                         </div>
                         <div class="prod-cont">
                             <p class="prod-categs"><a href="#">@Model.ProductDto.Category.CategoryName</a></p>
-                            <h1>@Model.ProductDto.ProductName</h1>
+                            <h1 id="product-name-@Model.ProductDto.Id">@Model.ProductDto.ProductName</h1>
                             <div class="variations_form cart">
                                 <p class="prod-price">₼ @Model.ProductDto.Price</p>
+                                <input type="hidden" id="price-@Model.ProductDto.Id" value="@Model.ProductDto.Price" />
                                 <p class="prod-excerpt">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget... <a id="prod-showdesc" class="prod-excerpt-more" href="#">read more</a></p>
+                                <div class="prod-add">
+                                    <button id="@Model.ProductDto.Id" class="button prod-addbtn"><i class="icon ion-android-cart"></i>Səbətə Əlavə Et</button>
+                                    <p class="qnt-wrap prod-li-qnt">
+                                        <a data-id="@Model.ProductDto.Id" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
+                                        <input type="text" readonly id="count-@Model.ProductDto.Id" value="1">
+                                        <a data-id="@Model.ProductDto.Id" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
+                                    </p>
+                                    <div style="display:flex">
+                                        <p>Cəm</p>
+                                        <p style=" color: #6bc67c" id="total-@Model.ProductDto.Id" class="prod-li-total ml-1">@Model.ProductDto.Price₼</p>
+                                        <input type="hidden" id="total-value-@Model.ProductDto.Id" value="@Model.ProductDto.Price">
+                                    </div>
+                                </div>
                             </div>
+
                             <div class="prod-props">
                                 <dl class="product_meta">
                                     <dl class="prod-li-props">

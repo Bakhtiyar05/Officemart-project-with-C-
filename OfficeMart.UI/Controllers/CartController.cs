@@ -10,7 +10,7 @@ namespace OfficeMart.UI.Controllers
 {
     public class CartController : Controller
     {
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Checkout(string ids,string counts)
         {
             var intIds = new BasketModelLogic().ConvertInt(ids);

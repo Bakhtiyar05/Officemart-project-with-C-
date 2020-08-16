@@ -4,7 +4,7 @@
     {
         <article class="prod-li sectls">
             <div class="prod-li-inner">
-                <a href="product.html" class="prod-li-img">
+                <a class="prod-li-img">
                     <img id="baseimage-@item.Id" src="~/img/@item.ProductImages.FirstOrDefault()" alt="">
                 </a>
                 <div class="prod-li-cont">
@@ -42,7 +42,7 @@
                 </div>
                 <div class="prod-li-info">
                     <p class="prod-li-add">
-                        <a href="#" id="@item.Id" class="button hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Səbətə əlavə et</span></a>
+                        <a id="@item.Id" class="button hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Səbətə əlavə et</span></a>
                     </p>
                     <p class="prod-quickview">
                         <a href="#" class="hover-label quick-view" id="productQuickView" data-quick-id="@item.Id"><i class="icon ion-plus"></i><span>Ətraflı baxış</span></a>
