@@ -7,7 +7,7 @@ namespace OfficeMart.UI.Controllers
 {
     public class CartController : Controller
     {
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Checkout(string ids,string counts)
         {
             var intIds = new CheckoutLogic().ConvertInt(ids);
@@ -18,9 +18,10 @@ namespace OfficeMart.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CheckoutOrders(string ids, string counts,CheckoutDto checkoutDto)
+        public async Task<IActionResult> Checkout(string ids, string counts,OrderDto orderDto)
         {
-          
+            var result = await new CheckoutLogic().SaveOrders(ids, counts, orderDto);
+            ViewBag.ProductsIsOrderd = result;
             return View();
         }
     }

@@ -7,15 +7,11 @@ using System.Text;
 
 namespace OfficeMart.Domain.EntityConfigurations
 {
-    public class CheckoutConfiguration : IEntityTypeConfiguration<Checkout>
+    public class OrderConfiguration : IEntityTypeConfiguration<Order>
     {
-        public void Configure(EntityTypeBuilder<Checkout> builder)
+        public void Configure(EntityTypeBuilder<Order> builder)
         {
             builder.HasKey(x => x.Id);
-
-            builder.Property(x => x.CheckoutNumber)
-                .HasMaxLength(85)
-                .IsRequired();
 
             builder.Property(x => x.OrderCount)
                 .IsRequired();
@@ -39,6 +35,10 @@ namespace OfficeMart.Domain.EntityConfigurations
             builder.Property(x => x.DeliveryAddress)
                .IsRequired()
                .HasMaxLength(600);
+
+            builder.Property(x=>x.RegDate)
+                .IsRequired()
+                .HasDefaultValue(DateTime.Now.ToString("yyyy-MM-dd"));
         }
     }
 }

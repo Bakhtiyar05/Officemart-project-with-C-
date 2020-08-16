@@ -9,6 +9,7 @@
         var phone = $("#phone").val();
         var buyerName = $("#buyerName").val();
         var buyerSurname = $("#buyerSurname").val();
+        var userId = $("#userId").val();
 
         if (deliveryAddress == "" || deliveryAddress == undefined || deliveryAddress == null) {
             counter++;
@@ -42,7 +43,7 @@
 
             if (ids.length > 0) {
 
-                var url = '/Cart/CheckoutOrders';
+                var url = '/Cart/Checkout';
                 var form = $('<form action="' + url + '" method="post">' +
                     '<input type="text" name="ids" value="' + ids + '" />' +
                     '<input type="text" name="counts" value="' + counts + '" />' +
@@ -50,6 +51,7 @@
                     '<input type="text" name="BuyerSurname" value="' + buyerSurname + '"/>' +
                     '<input type="text" name="DeliveryAddress" value="' + deliveryAddress + '"/>' +
                     '<input type="text" name="BuyerPhone" value="' + phone + '"/>' +
+                    '<input type="text" name="UserId" value="' + userId + '"/>' +
                     '</form>');
                 $('body').append(form);
                 form.submit();

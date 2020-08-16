@@ -7,13 +7,17 @@ using System.Text;
 
 namespace OfficeMart.Domain.EntityConfigurations
 {
-    public class CheckoutProductConfiguration : IEntityTypeConfiguration<CheckoutProduct>
+    public class OrderNumberConfiguration : IEntityTypeConfiguration<OrderNumber>
     {
-        public void Configure(EntityTypeBuilder<CheckoutProduct> builder)
+        public void Configure(EntityTypeBuilder<OrderNumber> builder)
         {
             builder.HasKey(x => x.Id);
 
-            builder.Property(x=>x.RegDate)
+            builder.Property(x => x.OrderCheckNumber)
+                .HasMaxLength(85)
+                .IsRequired();
+
+            builder.Property(x => x.RegDate)
                 .IsRequired()
                 .HasDefaultValue(DateTime.Now.ToString("yyyy-MM-dd"));
         }

@@ -20,8 +20,8 @@ namespace OfficeMart.Domain.Models.AppDbContext
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Color> Colors { get; set; }
         public DbSet<ProductSize> ProductSizes { get; set; }
-        public DbSet<Checkout> Checkouts { get; set; }
-        public DbSet<CheckoutProduct> CheckoutProducts { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderNumber> OrderNumbers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -39,8 +39,8 @@ namespace OfficeMart.Domain.Models.AppDbContext
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ColorConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductSizeConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductImageConfiguration).Assembly);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(CheckoutConfiguration).Assembly);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(CheckoutProductConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(OrderConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(OrderNumberConfiguration).Assembly);
         }
 
     }

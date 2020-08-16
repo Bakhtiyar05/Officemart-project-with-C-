@@ -173,7 +173,7 @@ jQuery(document).ready(function ($) {
         if (ids.length > 0) {
 
             var url = '/Cart/Checkout';
-            var form = $('<form action="' + url + '" method="post">' +
+            var form = $('<form action="' + url + '" method="get">' +
                 '<input type="text" name="ids" value="' + ids + '" />' +
                 '<input type="text" name="counts" value="' + counts + '" />' +
                 '</form>');

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace OfficeMart.Business.Dtos
 {
-    public class CheckoutDto
+    public class OrderDto
     {
         public int Id { get; set; }
         public int OrderCount { get; set; }
@@ -14,6 +14,7 @@ namespace OfficeMart.Business.Dtos
         public string CheckoutNumber { get; set; }
         public string BuyerName { get; set; }
         public string BuyerSurname { get; set; }
+        public string UserId { get; set; }
 
         [Required(ErrorMessage ="Sahə tələbolunandır")]
         public string DeliveryAddress { get; set; }

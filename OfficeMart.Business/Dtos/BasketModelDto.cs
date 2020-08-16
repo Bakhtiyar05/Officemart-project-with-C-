@@ -18,6 +18,6 @@ namespace OfficeMart.Business.Dtos
             set { }
         }
 
-        public CheckoutDto CheckoutDto { get; set; }
+        public OrderDto CheckoutDto { get; set; }
     }
 }
