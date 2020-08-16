@@ -52,7 +52,7 @@ function appendBask(clickedId) {
 
                                         <a del-id="${clickedId}" class="remove">&times;</a>
 
-                                        <a href="#">
+                                        <a href="/ProductDetail/Index/${clickedId}">
 
                                             <img src="${imgSRC}" alt="">
 
@@ -169,14 +169,17 @@ jQuery(document).ready(function ($) {
             var ProCount = $(this).attr("pro-count");
             ids.push(ProId);
             counts.push(ProCount);
-        }); 
-        var url = '/Cart/Checkout';
-        var form = $('<form action="' + url + '" method="post">' +
-            '<input type="text" name="ids" value="' + ids + '" />' +
-            '<input type="text" name="counts" value="' + counts + '" />' +
-            '</form>');
-        $('body').append(form);
-        form.submit();
+        });
+        if (ids.length > 0) {
+
+            var url = '/Cart/Checkout';
+            var form = $('<form action="' + url + '" method="post">' +
+                '<input type="text" name="ids" value="' + ids + '" />' +
+                '<input type="text" name="counts" value="' + counts + '" />' +
+                '</form>');
+            $('body').append(form);
+            form.submit();
+        }
     });
 
     $('.prod-li-add').css('cursor', 'pointer');

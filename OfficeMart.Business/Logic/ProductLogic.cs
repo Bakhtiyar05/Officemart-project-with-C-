@@ -105,16 +105,49 @@ namespace OfficeMart.Business.Logic
         public async Task<List<ProductDto>> GetSearchResult(int page, string search)
         {
             var productsDto = new List<ProductDto>();
-            //string[] lightLetters = { "a", "ı", "o", "u", "e", "ə", "i", "ö", "ü" };
-            //foreach (var letter in lightLetters)
-            //    search = search.Replace(letter, "");
 
             using (var context = TransactionConfig.AppDbContext)
             {
-                var a = search.First();
-                var b = search.Last();
+                int itemsPerPage = 3;
+                var categoryResult = await context.Categories
+                    .Where(m => m.CategoryName.ToLower().Contains(search) && m.IsActive != false)
+                    .Include(m => m.Products)
+                    .SelectMany(x => x.Products)
+                    .Skip((page - 1) * itemsPerPage)
+                    .Take(3)
+                    .Include(m => m.Category)
+                    .Include(m => m.Color)
+                    .Include(m => m.ProductSize)
+                    .Include(m => m.ProductImages)
+                    .ToListAsync();
+                var productCount = categoryResult.Count;
+                if (categoryResult.Count > 0)
+                {
+                    productsDto = TransactionConfig.Mapper.Map<List<ProductDto>>(categoryResult);
+                }
+                else
+                {
+                    var products = await context
+                   .Products
+                   .Where(m => m.IsActive != false && m.ProductName.ToLower().Contains(search))
+                   .Skip((page - 1) * itemsPerPage)
+                   .Take(3)
+                   .Include(m => m.Category)
+                   .Include(m => m.Color)
+                   .Include(m => m.ProductSize)
+                   .Include(m => m.ProductImages)
+                   .ToListAsync();
+                }
+                productsDto.ForEach(x =>
+                {
+                    x.PaginationDto = new PaginationDto();
+                    x.PaginationDto.CurrentPage = page;
+                    x.PaginationDto.ItemsPerPage = 3;
+                    x.PaginationDto.TotalItemsCount = productCount;
+                    x.PaginationDto.AspAction = "ProductsList";
+                    x.PaginationDto.AspController = "Products";
+                });
             }
-
 
             return productsDto;
         }
@@ -269,7 +302,7 @@ namespace OfficeMart.Business.Logic
         {
             var categoryProduct = new CategoryProductsDto();
 
-            using(var context = TransactionConfig.AppDbContext)
+            using (var context = TransactionConfig.AppDbContext)
             {
                 var product = await context
                     .Products.Where(x => x.Id == productId)
