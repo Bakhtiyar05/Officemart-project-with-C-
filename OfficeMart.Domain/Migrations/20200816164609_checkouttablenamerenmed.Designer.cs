@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OfficeMart.Domain.Models.AppDbContext;
 
 namespace OfficeMart.Domain.Migrations
 {
     [DbContext(typeof(OfficeMartContext))]
-    partial class OfficeMartContextModelSnapshot : ModelSnapshot
+    [Migration("20200816164609_checkouttablenamerenmed")]
+    partial class checkouttablenamerenmed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -298,6 +300,11 @@ namespace OfficeMart.Domain.Migrations
                         .HasColumnType("nvarchar(85)")
                         .HasMaxLength(85);
 
+                    b.Property<string>("CheckoutNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(85)")
+                        .HasMaxLength(85);
+
                     b.Property<string>("DeliveryAddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(600)")
@@ -305,14 +312,6 @@ namespace OfficeMart.Domain.Migrations
 
                     b.Property<int>("OrderCount")
                         .HasColumnType("int");
-
-                    b.Property<int>("OrderNumberId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("RegDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 8, 16, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.Property<decimal>("SaledPrice")
                         .HasColumnType("decimal(18,2)");
@@ -322,34 +321,32 @@ namespace OfficeMart.Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderNumberId");
-
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("OfficeMart.Domain.Models.Entities.OrderNumber", b =>
+            modelBuilder.Entity("OfficeMart.Domain.Models.Entities.OrderedProduct", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("BuyerUserId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OrderCheckNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(85)")
-                        .HasMaxLength(85);
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("RegDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValue(new DateTime(2020, 8, 16, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("OrderNumbers");
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderedProducts");
                 });
 
             modelBuilder.Entity("OfficeMart.Domain.Models.Entities.Product", b =>
@@ -505,11 +502,11 @@ namespace OfficeMart.Domain.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OfficeMart.Domain.Models.Entities.Order", b =>
+            modelBuilder.Entity("OfficeMart.Domain.Models.Entities.OrderedProduct", b =>
                 {
-                    b.HasOne("OfficeMart.Domain.Models.Entities.OrderNumber", "OrderNumber")
-                        .WithMany("Orders")
-                        .HasForeignKey("OrderNumberId")
+                    b.HasOne("OfficeMart.Domain.Models.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

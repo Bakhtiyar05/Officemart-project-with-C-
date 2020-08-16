@@ -2,8 +2,10 @@
 @{
     ViewData["Title"] = "Checkout";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var productsIsOrderd = ViewBag.ProductsIsOrderd;
 }
 
+@inject UserManager<AppUser> _userManager
 
 <div id="content" class="site-content">
     <div id="primary" class="content-area width-normal">
@@ -16,61 +18,66 @@
                 </ul>
                 <div class="page-styling">
                     <div class="woocommerce prod-litems section-list">
-                        @{ foreach (var item in Model)
+                        @{
+                            if (Model != null)
                             {
-                                <article id="bask-remove-@item.Product.Id" class="prod-li sectls">
-                                    <div class="prod-li-inner">
-                                        <a asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.Product.Id" class="prod-li-img">
-                                            <img id="baseimage-@item.Product.Id" src="~/img/@item.Product.ProductImages.FirstOrDefault()" alt="">
-                                        </a>
-                                        <div class="prod-li-cont">
-                                            <div class="prod-li-ttl-wrap">
-                                                <p>
-                                                    <a href="#">@item.Product.Category.CategoryName</a>
-                                                </p>
-                                                <h3><a id="product-name-@item.Product.Id" asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.Product.Id">@item.Product.ProductName</a></h3>
-                                            </div>
-                                            <div class="prod-li-prices">
-                                                <div class="prod-li-price-wrap">
-                                                    <p>Qiyməti</p>
-                                                    @{
-                                                        if (item.Product.DiscountPrice > 0)
-                                                        {
-                                                            <del>₼ @item.Product.DiscountPrice</del>
-                                                        }
-                                                    }
-                                                    <p class="prod-li-price">₼ @item.Product.Price</p>
-                                                    <input type="hidden" id="price-@item.Product.Id" value="@item.Product.Price" />
-                                                </div>
-                                                <div class="prod-li-qnt-wrap">
-                                                    <p class="qnt-wrap prod-li-qnt">
-                                                        <a data-id="@item.Product.Id" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
-                                                        <input type="text" readonly id="count-@item.Product.Id" value="@item.ProductCount ">
-                                                        <a data-id="@item.Product.Id" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
-                                                    </p>
-                                                </div>
-                                                <div class="prod-li-total-wrap">
-                                                    <p>Cəm</p>
-                                                    <p id="total-@item.Product.Id" class="prod-li-total">@item.Sum₼</p>
-                                                    <input type="hidden" id="total-value-@item.Product.Id" value="@item.Sum">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="prod-li-info">
-                                            <p class="prod-li-add">
-                                                <a del-id="@item.Product.Id" class="button hover-label prod-addbtn remove">
-                                                    <i class="icon ion-close-round"></i><span>Remove</span>
+                                 foreach (var item in Model)
+                                 {
+                                        <article id="bask-remove-@item.Product.Id" class="prod-li sectls">
+                                            <div class="prod-li-inner">
+                                                <a asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.Product.Id" class="prod-li-img">
+                                                    <img id="baseimage-@item.Product.Id" src="~/img/@item.Product.ProductImages.FirstOrDefault()" alt="">
                                                 </a>
-                                            </p>
+                                                <div class="prod-li-cont">
+                                                    <div class="prod-li-ttl-wrap">
+                                                        <p>
+                                                            <a href="#">@item.Product.Category.CategoryName</a>
+                                                        </p>
+                                                        <h3><a id="product-name-@item.Product.Id" asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.Product.Id">@item.Product.ProductName</a></h3>
+                                                    </div>
+                                                    <div class="prod-li-prices">
+                                                        <div class="prod-li-price-wrap">
+                                                            <p>Qiyməti</p>
+                                                            @{
+                                                                if (item.Product.DiscountPrice > 0)
+                                                                {
+                                                                    <del>₼ @item.Product.DiscountPrice</del>
+                                                                }
+                                                            }
+                                                            <p class="prod-li-price">₼ @item.Product.Price</p>
+                                                            <input type="hidden" id="price-@item.Product.Id" value="@item.Product.Price" />
+                                                        </div>
+                                                        <div class="prod-li-qnt-wrap">
+                                                            <p class="qnt-wrap prod-li-qnt">
+                                                                <a data-id="@item.Product.Id" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
+                                                                <input type="text" readonly id="count-@item.Product.Id" value="@item.ProductCount ">
+                                                                <a data-id="@item.Product.Id" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
+                                                            </p>
+                                                        </div>
+                                                        <div class="prod-li-total-wrap">
+                                                            <p>Cəm</p>
+                                                            <p id="total-@item.Product.Id" class="prod-li-total">@item.Sum₼</p>
+                                                            <input type="hidden" id="total-value-@item.Product.Id" value="@item.Sum">
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                        </div>
-                                    </div>
-                                </article>
+                                                <div class="prod-li-info">
+                                                    <p class="prod-li-add">
+                                                        <a del-id="@item.Product.Id" class="button hover-label prod-addbtn remove">
+                                                            <i class="icon ion-close-round"></i><span>Remove</span>
+                                                        </a>
+                                                    </p>
+
+                                                </div>
+                                            </div>
+                                        </article>
+
+                                 }
+                                
 
                             }
                         }
-
                     </div>
 
                 </div>
@@ -103,34 +110,66 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Ad</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="col-form-label">Soyad</label>
-                        <input class="form-control" id="message-text" />
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="col-form-label">Ünvan</label>
-                        <input class="form-control" id="message-text" />
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="col-form-label">Əlaqə Nömrəsi</label>
-                        <input class="form-control" id="phone" placeholder="(0**)-***-****"/>
-                    </div>
+                <form method="post">
+                    @{
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            var user = await _userManager.GetUserAsync(User);
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Ad</label>
+                                <input type="text" class="form-control" id="buyerName" value="@user.Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Soyad</label>
+                                <input class="form-control" id="buyerSurname" value="@user.Surname" />
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Çatdırılma Ünvan</label>
+                                <input class="form-control" id="deliveryAddress" value="@user.LivingPlace" />
+                                <span class="delivery-address-error-message text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Əlaqə Nömrəsi</label>
+                                <input class="form-control" id="phone" placeholder="(0**)-***-****" value="@user.PhoneNumber"/>
+                                <span class="phone-error-message text-danger"></span>
+                            </div>
+                            <input style="visibility:hidden" value="@user.Id" id="userId"/>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Ad</label>
+                                <input type="text" class="form-control" id="buyerName">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Soyad</label>
+                                <input class="form-control" id="buyerSurname" />
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Çatdırılma Ünvan</label>
+                                <input class="form-control" id="deliveryAddress" />
+                                <span class="delivery-address-error-message text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Əlaqə Nömrəsi</label>
+                                <input class="form-control" id="phone" placeholder="(0**)-***-****" />
+                                <span class="phone-error-message text-danger"></span>
+                            </div>
+                        }
+                    }
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background:red">Bağla</button>
-                <button type="button" class="btn btn-primary">Təsdiqlə</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background:red;" id="close-checkout">Bağla</button>
+                <button type="button" class="btn btn-primary" id="submit-checkout">Təsdiqlə</button>
             </div>
         </div>
     </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/js/Checkout.js"></script>
 <partial name="_ValidationScriptsPartial" />
 <script>
     document.getElementById('phone').addEventListener('input', function (e) {
@@ -138,3 +177,19 @@
         e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
     });
 </script>
+
+@{ 
+    if(productsIsOrderd == true)
+    {
+        <script>
+            swal("Sifarişiniz qeydə alındı", "Yaxın zamanda sizinlə əlaqə saxlanılacaq", "success")
+            .then(willRedirect => {
+                if (willRedirect) {
+                    window.location.href = "/Home/Index";
+                }
+            });
+
+            localStorage.removeItem('basketList');
+        </script>
+    }
+}
