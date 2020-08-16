@@ -21,7 +21,7 @@
                                 <article id="bask-remove-@item.Product.Id" class="prod-li sectls">
                                     <div class="prod-li-inner">
                                         <a asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.Product.Id" class="prod-li-img">
-                                           <img id="baseimage-@item.Product.Id" src="~/img/@item.Product.ProductImages.FirstOrDefault()" alt="">
+                                            <img id="baseimage-@item.Product.Id" src="~/img/@item.Product.ProductImages.FirstOrDefault()" alt="">
                                         </a>
                                         <div class="prod-li-cont">
                                             <div class="prod-li-ttl-wrap">
@@ -59,7 +59,7 @@
 
                                         <div class="prod-li-info">
                                             <p class="prod-li-add">
-                                                <a  del-id="@item.Product.Id" class="button hover-label prod-addbtn remove">
+                                                <a del-id="@item.Product.Id" class="button hover-label prod-addbtn remove">
                                                     <i class="icon ion-close-round"></i><span>Remove</span>
                                                 </a>
                                             </p>
@@ -73,6 +73,20 @@
 
                     </div>
 
+                </div>
+
+                <div class="cart-actions">
+                    <div style="display:none;" class="coupon">
+                        <input type="text" placeholder="Coupon code">
+                        <input type="submit" class="button" value="Apply">
+                    </div>
+                    <div class="cart-collaterals">
+                        <a href="#" class="checkout-button button">Proceed to checkout</a>
+                        <div class="order-total">
+                            <p class="cart-totals-ttl">Cəm</p>
+                            <p class="cart-totals-val">₼ <span class="sum-money">0</span></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main><!-- #main -->

@@ -7764,7 +7764,7 @@ div.product.product-type-grouped .prod-add form.cart > .single_add_to_cart_butto
 
 	.cart-actions .cart-collaterals {
 		float: left;
-		width: 79%;
+		width: 100%;
 		font-size: 15px;
 		padding: 0 0 0 9.5%;
 		color: #686f8a;
