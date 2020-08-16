@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OfficeMart.Business.Logic
 {
-    public class BasketModelLogic
+    public class CheckoutLogic
     {
         public async Task<List<BasketModelDto>> GetProducts(List<int> ids, List<int> counts/*, int page*/)
         {
@@ -24,16 +24,16 @@ namespace OfficeMart.Business.Logic
                     try
                     {
                         var product = await context
-                   .Products
-                   .Where(m => m.IsActive != false && m.Id == ids[i])
-                   //.Skip((page - 1) * itemsPerPage)
-                   //.Take(3)
-                   .Include(m => m.Category)
-                   .Include(m => m.Color)
-                   .Include(m => m.ProductSize)
-                   .Include(m => m.ProductImages)
-                   .FirstOrDefaultAsync();
-                        productsDto.Add(new BasketModelDto { Product = TransactionConfig.Mapper.Map<ProductDto>(product), ProductCount = counts[i] });
+                       .Products
+                       .Where(m => m.IsActive != false && m.Id == ids[i])
+                       //.Skip((page - 1) * itemsPerPage)
+                       //.Take(3)
+                       .Include(m => m.Category)
+                       .Include(m => m.Color)
+                       .Include(m => m.ProductSize)
+                       .Include(m => m.ProductImages)
+                       .FirstOrDefaultAsync();
+                       productsDto.Add(new BasketModelDto { Product = TransactionConfig.Mapper.Map<ProductDto>(product), ProductCount = counts[i] });
 
                     }
                     catch (Exception)

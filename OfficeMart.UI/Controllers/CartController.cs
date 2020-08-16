@@ -10,21 +10,18 @@ namespace OfficeMart.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Checkout(string ids,string counts)
         {
-            var intIds = new BasketModelLogic().ConvertInt(ids);
-            var intCounts = new BasketModelLogic().ConvertInt(counts);
+            var intIds = new CheckoutLogic().ConvertInt(ids);
+            var intCounts = new CheckoutLogic().ConvertInt(counts);
 
-            var basketProducts =await new BasketModelLogic().GetProducts(intIds, intCounts);
+            var basketProducts =await new CheckoutLogic().GetProducts(intIds, intCounts);
             return View(basketProducts);
         }
 
         [HttpPost]
         public async Task<IActionResult> CheckoutOrders(string ids, string counts,CheckoutDto checkoutDto)
         {
-            var intIds = new BasketModelLogic().ConvertInt(ids);
-            var intCounts = new BasketModelLogic().ConvertInt(counts);
-
-            var basketProducts = await new BasketModelLogic().GetProducts(intIds, intCounts);
-            return View(basketProducts);
+          
+            return View();
         }
     }
 }
