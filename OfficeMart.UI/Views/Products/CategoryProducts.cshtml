@@ -72,10 +72,19 @@
                     <div class="section-list-withsb" id="section-list-withsb">
                         <div class="theiaStickySidebar">
 
-                            <div class="prod-litems section-list">
-                                <partial name="_ProductPartial" model="Model.ToList()"/>
-                            </div>
-                            <partial name="_PaginationPartial" model="@paginationDto"/>
+                            @{
+                                if (Model.ToList().Count != 0)
+                                {
+                                    <div class="prod-litems section-list">
+                                        <partial name="_ProductPartial" model="Model.ToList()" />
+                                    </div>
+                                }
+                                if (paginationDto != null)
+                                {
+                                    <partial name="_PaginationPartial" model="@paginationDto" />
+                                }
+                            }
+
                         </div>
                     </div>
                 </div>
