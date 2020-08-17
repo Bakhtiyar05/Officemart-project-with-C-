@@ -69,6 +69,9 @@ footer, header, menu, nav, section {
 body {
 	line-height: 1;
 }
+.prod-li-img:hover{
+	cursor:pointer
+}
 ol, ul {
 	list-style: none;
 }
