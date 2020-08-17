@@ -1,0 +1,58 @@
+﻿@model List<OrderNumberDto>
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="wrapper">
+    <div class="table-agile-info">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Basic table
+            </div>
+            <div>
+                <table class="table" ui-jq="footable" ui-options='{
+        "paging": {
+          "enabled": true
+        },
+        "filtering": {
+          "enabled": true
+        },
+        "sorting": {
+          "enabled": true
+        }}'>
+                    <thead class="text-center">
+                        <tr>
+                            <th data-breakpoints="xs" class="text-center">Sıra №</th>
+                            <th class="text-center">Sifarişçi</th>
+                            <th class="text-center">Əlaqə</th>
+                            <th class="text-center" data-breakpoints="xs">Çatdırılma ünvanı</th>
+                            <th class="text-center" data-breakpoints="xs" data-title="DOB">Sifariş tarixi</th>
+                            <th class="text-center" data-breakpoints="xs sm md">Ətraflı</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        @{
+                            int counter = 1;
+                            foreach (var item in Model)
+                            {
+                                <tr data-expanded="true">
+                                    <td>@counter</td>
+                                    <td>@item.Orders.Select(x => x.BuyerName + " " + x.BuyerSurname).FirstOrDefault()</td>
+                                    <td>@item.Orders.Select(x=>x.BuyerPhone).FirstOrDefault()</td>
+                                    <td>@item.Orders.Select(x=>x.DeliveryAddress).FirstOrDefault()</td>
+                                    <td>@item.Orders.Select(x=>x.RegDate.ToString("dd-MM-yyyy")).FirstOrDefault()</td>
+                                    <td ><a asp-controller="Order" asp-action="OrderDetail" asp-route-id="@item.Id" target="_blank"><i class="fa fa-info btn btn-info"></i></a></td>
+                                </tr>
+                                counter++;
+                            }
+
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,70 @@
+﻿@model List<OrderDto>
+@{
+    ViewData["Title"] = "OrderDetail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="wrapper">
+    <div class="table-agile-info">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Basic table
+            </div>
+            <div>
+                <table class="table" ui-jq="footable" ui-options='{
+        "paging": {
+          "enabled": true
+        },
+        "filtering": {
+          "enabled": true
+        },
+        "sorting": {
+          "enabled": true
+        }}'>
+                    <thead class="text-center">
+                        <tr>
+                            <th data-breakpoints="xs" class="text-center">Məhsul adı</th>
+                            <th class="text-center">Anbardaki say</th>
+                            <th class="text-center">Sifariş sayı</th>
+                            <th class="text-center">Vahid qiymət</th>
+                            <th class="text-center">Ümumi qiymət</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        @{
+                            decimal totalPrice = 0;
+                            foreach (var item in Model)
+                            {
+                                totalPrice += item.TotalPrice;
+                                <tr data-expanded="true">
+                                    <td>@item.Product.ProductName</td>
+                                    <td>@item.Product.Count</td>
+                                    <td>@item.OrderCount</td>
+                                    <td>@item.SaledPrice</td>
+                                    <td>@item.TotalPrice</td>
+                                </tr>
+                            }
+                            <tr data-expanded="true">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="font-weight:bold;">
+                                    Sifariş məbləği :<span style="font-size:20px;"> @totalPrice</span> ₼
+                                    <div>
+                                        <a class="btn btn-success btn-sm"><i class="fa fa-check"></i>Təsdiq</a>
+                                        <a class="btn btn-danger btn-sm"><i class="fa fa-times"></i>İmtina</a>
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+

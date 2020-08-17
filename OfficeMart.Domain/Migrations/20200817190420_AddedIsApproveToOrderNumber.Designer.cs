@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OfficeMart.Domain.Models.AppDbContext;
 
 namespace OfficeMart.Domain.Migrations
 {
     [DbContext(typeof(OfficeMartContext))]
-    partial class OfficeMartContextModelSnapshot : ModelSnapshot
+    [Migration("20200817190420_AddedIsApproveToOrderNumber")]
+    partial class AddedIsApproveToOrderNumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -309,9 +311,6 @@ namespace OfficeMart.Domain.Migrations
                     b.Property<int>("OrderNumberId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("RegDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -326,8 +325,6 @@ namespace OfficeMart.Domain.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("OrderNumberId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Orders");
                 });
@@ -520,12 +517,6 @@ namespace OfficeMart.Domain.Migrations
                     b.HasOne("OfficeMart.Domain.Models.Entities.OrderNumber", "OrderNumber")
                         .WithMany("Orders")
                         .HasForeignKey("OrderNumberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OfficeMart.Domain.Models.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

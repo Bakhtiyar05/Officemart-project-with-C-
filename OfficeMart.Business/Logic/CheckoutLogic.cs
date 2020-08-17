@@ -93,7 +93,8 @@ namespace OfficeMart.Business.Logic
                         OrderCount = productCounts[i],
                         SaledPrice = product.Price,
                         TotalPrice = product.Price * productCounts[i],
-                        OrderNumberId = orderNumber.Id
+                        OrderNumberId = orderNumber.Id,
+                        ProductId = product.Id
                     };
 
                     context.Orders.Add(checkout);

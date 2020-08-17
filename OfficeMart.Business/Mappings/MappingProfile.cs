@@ -15,6 +15,8 @@ namespace OfficeMart.Business.Mappings
                 .ReverseMap();
             CreateMap<Color, ColorDto>().ReverseMap();
             CreateMap<ProductSize, ProductSizeDto>().ReverseMap();
+            CreateMap<OrderNumber, OrderNumberDto>().ReverseMap();
+            CreateMap<Order, OrderDto>().ReverseMap();
         }
     }
 }

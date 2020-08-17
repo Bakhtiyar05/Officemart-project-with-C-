@@ -20,5 +20,8 @@ namespace OfficeMart.Business.Dtos
         public string DeliveryAddress { get; set; }
         [Required(ErrorMessage = "Sahə tələbolunandır")]
         public string BuyerPhone { get; set; }
+        public DateTime RegDate { get; set; }
+        public ProductDto Product { get; set; }
+        public int ProductId { get; set; }
     }
 }
