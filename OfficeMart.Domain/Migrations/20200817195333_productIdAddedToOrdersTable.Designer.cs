@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OfficeMart.Domain.Models.AppDbContext;
 
 namespace OfficeMart.Domain.Migrations
 {
     [DbContext(typeof(OfficeMartContext))]
-    partial class OfficeMartContextModelSnapshot : ModelSnapshot
+    [Migration("20200817195333_productIdAddedToOrdersTable")]
+    partial class productIdAddedToOrdersTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -310,7 +312,9 @@ namespace OfficeMart.Domain.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1074);
 
                     b.Property<DateTime>("RegDate")
                         .ValueGeneratedOnAdd()

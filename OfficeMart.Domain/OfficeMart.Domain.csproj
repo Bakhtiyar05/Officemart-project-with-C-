@@ -9,6 +9,8 @@
     <Compile Remove="Migrations\20200809175201_addedProductSIzeTable.Designer.cs" />
     <Compile Remove="Migrations\20200809175313_addedProductSIzeTable.cs" />
     <Compile Remove="Migrations\20200809175313_addedProductSIzeTable.Designer.cs" />
+    <Compile Remove="Migrations\20200817194839_productIdAddedToOrdersTable.cs" />
+    <Compile Remove="Migrations\20200817194839_productIdAddedToOrdersTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

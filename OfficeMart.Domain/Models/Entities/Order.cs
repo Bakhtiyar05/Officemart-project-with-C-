@@ -16,6 +16,8 @@ namespace OfficeMart.Domain.Models.Entities
         public string BuyerPhone { get; set; }
         public OrderNumber OrderNumber { get; set; }
         public int OrderNumberId { get; set; }
+        public Product Product { get; set; }
+        public int ProductId { get; set; }
         public DateTime RegDate { get; set; }
     }
 }

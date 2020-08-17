@@ -1,19 +1,20 @@
-﻿using System;
+﻿using OfficeMart.Domain.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace OfficeMart.Domain.Models.Entities
+namespace OfficeMart.Business.Dtos
 {
-    public class OrderNumber
+   public class OrderNumberDto
     {
-        public OrderNumber()
+        public OrderNumberDto()
         {
-            Orders = new List<Order>();
+            Orders = new List<OrderDto>();
         }
         public int Id { get; set; }
         public string OrderCheckNumber { get; set; }
         public string BuyerUserId { get; set; }
-        public ICollection<Order> Orders { get; set; }
+        public ICollection<OrderDto> Orders { get; set; }
         public DateTime RegDate { get; set; }
         public bool IsApproved { get; set; }
     }
