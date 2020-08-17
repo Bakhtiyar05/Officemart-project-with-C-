@@ -102,6 +102,43 @@ namespace OfficeMart.Business.Logic
             }
             return productsDto;
         }
+        public async Task<List<ProductDto>> GetAdminPageProducts(int page)
+        {
+            var productsDto = new List<ProductDto>();
+
+            using (var context = TransactionConfig.AppDbContext)
+            {
+                int itemsPerPage = 3;
+                var productsCount = await context.Products.Where(x => x.IsActive != false).CountAsync();
+
+                var products = await context
+                    .Products
+                    .Where(m => m.IsActive != false)
+                    .Skip((page - 1) * itemsPerPage)
+                    .Take(3)
+                    .Include(m => m.Category)
+                    .Include(m => m.Color)
+                    .Include(m => m.ProductSize)
+                    .Include(m => m.ProductImages)
+                    .ToListAsync();
+
+                var categoryCount = await context.Categories.CountAsync();
+
+                productsDto = TransactionConfig.Mapper.Map<List<ProductDto>>(products);
+
+                productsDto.ForEach(x =>
+                {
+                    x.PaginationDto = new PaginationDto();
+                    x.PaginationDto.CurrentPage = page;
+                    x.PaginationDto.ItemsPerPage = 3;
+                    x.PaginationDto.TotalItemsCount = productsCount;
+                    x.PaginationDto.AspAction = "Index";
+                    x.PaginationDto.AspController = "Product";
+                    x.PaginationDto.Area = "Admin";
+                });
+            }
+            return productsDto;
+        }
         public async Task<List<ProductDto>> GetSearchResult(int page, string search)
         {
             var productsDto = new List<ProductDto>();

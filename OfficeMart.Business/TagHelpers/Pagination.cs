@@ -13,6 +13,7 @@ namespace OfficeMart.Business.TagHelpers
         public decimal CurrentPage { get; set; }
         public string AspAction { get; set; }
         public string AspController { get; set; }
+        public string Area { get; set; }
         public int CategoryId { get; set; }
 
         public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
@@ -25,19 +26,36 @@ namespace OfficeMart.Business.TagHelpers
 
             for (int i = 1; i <= totalPages; i++)
             {
-
-
-                if (i == CurrentPage)
-                    builder.Append($"<li><span class='page-numbers current'><a href='/{AspController}/{AspAction}/{CategoryId}/{i}'>{i}</a></span></li>");
+                if(Area == "")
+                {
+                    if (i == CurrentPage)
+                        builder.Append($"<li><span class='page-numbers current'><a href='/{AspController}/{AspAction}/{CategoryId}/{i}'>{i}</a></span></li>");
+                    else
+                        builder.Append($"<li><a class='page-numbers' href='/{AspController}/{AspAction}/{CategoryId}/{i}'>{i}</a></li>");
+                }
                 else
-                    builder.Append($"<li><a class='page-numbers' href='/{AspController}/{AspAction}/{CategoryId}/{i}'>{i}</a></li>");
-
+                {
+                    if (i == CurrentPage)
+                        builder.Append($"<li><span class='page-numbers current'><a href='/{Area}/{AspController}/{AspAction}/{CategoryId}/{i}'>{i}</a></span></li>");
+                    else
+                        builder.Append($"<li><a class='page-numbers' href='/{Area}/{AspController}/{AspAction}/{CategoryId}/{i}'>{i}</a></li>");
+                }
             }
 
-            if ((CurrentPage + 1) > totalPages)
-                builder.Append($"<li><a class='next page-numbers'><i class='fa fa-angle-right'></i></a></li>");
+            if(Area == "")
+            {
+                if ((CurrentPage + 1) > totalPages)
+                    builder.Append($"<li><a class='next page-numbers'><i class='fa fa-angle-right'></i></a></li>");
+                else
+                    builder.Append($"<li><a class='next page-numbers' href='/{AspController}/{AspAction}/{CategoryId}/{CurrentPage + 1}'><i class='fa fa-angle-right'></i></a></li>");
+            }
             else
-                builder.Append($"<li><a class='next page-numbers' href='/{AspController}/{AspAction}/{CategoryId}/{CurrentPage + 1}'><i class='fa fa-angle-right'></i></a></li>");
+            {
+                if ((CurrentPage + 1) > totalPages)
+                    builder.Append($"<li><a class='next page-numbers'><i class='fa fa-angle-right'></i></a></li>");
+                else
+                    builder.Append($"<li><a class='next page-numbers' href='/{Area}/{AspController}/{AspAction}/{CategoryId}/{CurrentPage + 1}'><i class='fa fa-angle-right'></i></a></li>");
+            }
 
             builder.Append("<ul/>");
 
