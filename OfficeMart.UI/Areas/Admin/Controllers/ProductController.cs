@@ -16,9 +16,11 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
         {
             _environment = environment;
         }
-        public async Task<IActionResult> Index(int page=1)
+
+        [HttpGet]
+        public async Task<IActionResult> Index(int id,int page=1)
         {
-            var productsDto = await new ProductLogic().GetProducts(page);
+            var productsDto = await new ProductLogic().GetAdminPageProducts(page);
             return View(productsDto);
         }
         public IActionResult Add()

@@ -12,5 +12,6 @@ namespace OfficeMart.Business.Dtos
         public int CategoryId { get; set; }
         public string AspAction { get; set; }
         public string AspController { get; set; }
+        public string Area { get; set; }
     }
 }

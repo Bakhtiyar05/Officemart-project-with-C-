@@ -48,6 +48,10 @@ namespace OfficeMart.UI
                       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
+                     name: "areas",
+                     pattern: "{area:exists}/{controller=Product}/{action=Index}/{id?}/{page?}");
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
