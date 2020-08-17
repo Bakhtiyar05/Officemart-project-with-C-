@@ -11,7 +11,7 @@
                 <div class="prod-li-cont">
                     <div class="prod-li-ttl-wrap">
                         <p>
-                            <a href="#">@item.Category.CategoryName</a>
+                            <a asp-action="CategoryProducts" asp-controller="Products" asp-route-id="@item.Category.Id">@item.Category.CategoryName</a>
                         </p>
                         <h3><a id="product-name-@item.Id" asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.Id">@item.ProductName</a></h3>
                     </div>
