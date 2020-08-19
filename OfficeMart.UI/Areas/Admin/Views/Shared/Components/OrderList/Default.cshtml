@@ -1,0 +1,28 @@
+﻿@model List<string>
+
+<li id="header_notification_bar" class="dropdown">
+    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+
+        <i class="fa fa-bell-o"></i>
+        <span class="badge bg-warning">@Model.Count</span>
+    </a>
+    <ul class="dropdown-menu extended notification">
+        <li>
+            <p>Sifarişlər</p>
+        </li>
+        @foreach (var item in Model)
+        {
+            <li>
+                <div class="alert alert-danger clearfix">
+                    <span class="alert-icon"><i class="fa fa-info"></i></span>
+                    <div class="noti-info">
+                        <a href="/Admin/Order/List/@item"> @item</a>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</li>
+
+ 
+

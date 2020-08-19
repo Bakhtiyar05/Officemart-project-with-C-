@@ -2,15 +2,16 @@
 @{
     foreach (var item in Model)
     {
+        <input value="@item.Count" id="prodCount" hidden/>
         <article class="prod-li sectls">
             <div class="prod-li-inner">
-                <a class="prod-li-img">
+                <a class="prod-li-img" asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.Id">
                     <img id="baseimage-@item.Id" src="~/img/@item.ProductImages.FirstOrDefault()" alt="">
                 </a>
                 <div class="prod-li-cont">
                     <div class="prod-li-ttl-wrap">
                         <p>
-                            <a href="#">@item.Category.CategoryName</a>
+                            <a asp-action="CategoryProducts" asp-controller="Products" asp-route-id="@item.Category.Id">@item.Category.CategoryName</a>
                         </p>
                         <h3><a id="product-name-@item.Id" asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.Id">@item.ProductName</a></h3>
                     </div>
