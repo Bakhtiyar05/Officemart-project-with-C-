@@ -1,13 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OfficeMart.Business.Dtos;
 using OfficeMart.Business.Models;
-using OfficeMart.Domain.Models.Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Transactions;
 
 namespace OfficeMart.Business.Logic
 {
@@ -22,7 +18,18 @@ namespace OfficeMart.Business.Logic
                     .Include(i => i.Orders)
                     .Where(m => m.IsApproved == false).ToListAsync();
                 orders = TransactionConfig.Mapper.Map<List<OrderNumberDto>>(dbOrders);
-
+            }
+            return orders;
+        }
+        public async Task<List<OrderNumberDto>> GetNotApprovedOrdersByCheckNumber(string checkNumber)
+        {
+            var orders = new List<OrderNumberDto>();
+            using (var context = TransactionConfig.AppDbContext)
+            {
+                var dbOrders = await context.OrderNumbers
+                    .Include(i => i.Orders)
+                    .Where(m => m.OrderCheckNumber == checkNumber).ToListAsync();
+                orders = TransactionConfig.Mapper.Map<List<OrderNumberDto>>(dbOrders);
             }
             return orders;
         }
@@ -39,9 +46,67 @@ namespace OfficeMart.Business.Logic
                 orderDetail.ForEach(x =>
                 {
                     x.IsOverflow = x.Product.Count < x.OrderCount ? true : false;
+                    x.OrderNumberId = id;
                 });
             }
             return orderDetail;
         }
+
+        public async Task<bool> ApproveOrder(int orderNumberId)
+        {
+            using(var context = TransactionConfig.AppDbContext)
+            {
+                var orderNumber = await context
+                    .OrderNumbers
+                    .FindAsync(orderNumberId);
+                orderNumber.IsApproved = true;
+
+                context.Update(orderNumber);
+
+                var orderNumberProducts = await context
+                    .OrderNumbers
+                    .Where(x => x.Id == orderNumberId)
+                    .Include(x => x.Orders)
+                    .ThenInclude(x=>x.Product)
+                    .ToListAsync();
+
+                var orders = TransactionConfig.Mapper.Map<List<OrderNumberDto>>(orderNumberProducts);
+
+                foreach (var item in orders)
+                {
+                    foreach (var order in item.Orders)
+                    {
+                        order.Product.Count = order.OrderCount >= order.Product.Count ? 0 : order.Product.Count - order.OrderCount;
+                        var productEntity = orderNumberProducts
+                            .Select(x => x.Orders.Select(x => x.Product).Where(x => x.Id == order.Product.Id).FirstOrDefault())
+                            .FirstOrDefault();
+                        productEntity.Count = order.Product.Count;
+
+                        var product = TransactionConfig.Mapper.Map(order.Product, productEntity);
+
+                        context.Update(product);
+                    }
+                }
+
+                await context.SaveChangesAsync();
+
+                return true;
+            }
+        }
+
+        public async Task<List<string>> GetCheckOutNumbersForNotification()
+        {
+            using(var context = TransactionConfig.AppDbContext)
+            {
+                var checkoutNumbers = await context
+                    .OrderNumbers
+                    .Where(x => x.IsApproved == false)
+                    .Select(x => x.OrderCheckNumber)
+                    .ToListAsync();
+
+                return checkoutNumbers;
+            }
+        }
+
     }
 }

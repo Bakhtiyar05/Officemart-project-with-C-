@@ -15,6 +15,7 @@ namespace OfficeMart.Business.Dtos
         public string BuyerName { get; set; }
         public string BuyerSurname { get; set; }
         public string UserId { get; set; }
+        public int OrderNumberId { get; set; }
 
         [Required(ErrorMessage ="Sahə tələbolunandır")]
         public string DeliveryAddress { get; set; }

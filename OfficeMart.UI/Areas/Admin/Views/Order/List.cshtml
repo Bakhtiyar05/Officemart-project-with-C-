@@ -39,10 +39,10 @@
                                 <tr data-expanded="true">
                                     <td>@counter</td>
                                     <td>@item.Orders.Select(x => x.BuyerName + " " + x.BuyerSurname).FirstOrDefault()</td>
-                                    <td>@item.Orders.Select(x=>x.BuyerPhone).FirstOrDefault()</td>
-                                    <td>@item.Orders.Select(x=>x.DeliveryAddress).FirstOrDefault()</td>
-                                    <td>@item.Orders.Select(x=>x.RegDate.ToString("dd-MM-yyyy")).FirstOrDefault()</td>
-                                    <td ><a asp-controller="Order" asp-action="OrderDetail" asp-route-id="@item.Id" target="_blank"><i class="fa fa-info btn btn-info"></i></a></td>
+                                    <td>@item.Orders.Select(x => x.BuyerPhone).FirstOrDefault()</td>
+                                    <td>@item.Orders.Select(x => x.DeliveryAddress).FirstOrDefault()</td>
+                                    <td>@item.Orders.Select(x => x.RegDate.ToString("dd-MM-yyyy")).FirstOrDefault()</td>
+                                    <td><a asp-controller="Order" asp-action="OrderDetail" asp-route-id="@item.Id" target="_blank"><i class="fa fa-info btn btn-info"></i></a></td>
                                 </tr>
                                 counter++;
                             }
@@ -55,4 +55,5 @@
         </div>
     </div>
 </section>
+
 

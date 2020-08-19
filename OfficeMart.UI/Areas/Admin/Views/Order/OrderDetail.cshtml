@@ -2,6 +2,8 @@
 @{
     ViewData["Title"] = "OrderDetail";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var orderNumberId = Model.Select(x => x.OrderNumberId).FirstOrDefault();
+    bool isApprovedSuccessful = ViewBag.isApprovedSuccessful != null ? Convert.ToBoolean(ViewBag.isApprovedSuccessful) : false;
 }
 
 <section class="wrapper">
@@ -64,9 +66,13 @@
                                 <td></td>
                                 <td style="font-weight:bold;">
                                     Sifariş məbləği :<span style="font-size:20px;"> @totalPrice</span> ₼
-                                    <div>
-                                        <a style="margin:5px;" class="btn btn-success btn-sm"><i style="margin-right:5px;" class="fa fa-check"></i>Təsdiq</a>
-                                        <a style="margin:5px;" class="btn btn-danger btn-sm"><i style="margin-right:5px;" class="fa fa-times"></i>İmtina</a>
+                                    <div class="col-md-offset-3">
+                                        <form asp-action="ApproveOrder" asp-controller="Order" asp-route-orderNumberId="@orderNumberId" method="post" class="col-md-4" style="padding:0;margin-right:10px">
+                                            <input style="margin:5px;width:100%;" class="btn btn-success btn-sm" value="Təsdiqlə" type="submit" />
+                                        </form>
+                                        <form class="col-md-4" style="padding:0">
+                                            <input style="margin:5px;width:100%;" class="btn btn-danger btn-sm " value="İmtina" />
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -78,4 +84,20 @@
         </div>
     </div>
 </section>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@{
+    if (isApprovedSuccessful)
+    {
+        <script>
+            swal("Uğurlu!", "Sifariş təsdiqləndi", "success")
+                .then(willRedirect => {
+                    if (willRedirect) {
+                        window.location.href = "/Admin/Order/List";
+                    }
+                });
+        </script>
+    }
+}
+
 
