@@ -178,8 +178,10 @@ jQuery(document).ready(function ($) {
         }
     });
 
-    $('.prod-li-add').css('cursor', 'pointer');
-
+    $('.prod-li-add').css('cursor', 'pointer'); 
+    $('.LoginRegUser').css('cursor', 'pointer'); 
+    $('.LoginRegUser').css('cursor', 'pointer'); 
+    
     // Fancybox Images
     $('.fancy-img').fancybox({
         padding: 0,
@@ -513,9 +515,7 @@ jQuery(document).ready(function ($) {
                 return false;
             });
         }
-
-
-
+  
         // Slider "About Us"
         if ($('.content_carousel').length > 0) {
             $('.content_carousel').each(function () {

@@ -1,4 +1,4 @@
-/*----------------------------------
+﻿/*----------------------------------
 TABLE OF CONTENTS:
 ------------------------------------
 1 - Reset
@@ -190,7 +190,11 @@ input:focus {
 	content: '';
 }
 
+.dropdown-item:hover {
+	color: #6bc67c;
+}
 
+​
 .width-normal .row-wrap-full {
 	padding-left: 0;
 	padding-right: 0;

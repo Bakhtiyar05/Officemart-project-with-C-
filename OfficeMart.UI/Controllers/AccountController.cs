@@ -26,12 +26,12 @@ namespace OfficeMart.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Registration( AppUserDto appUserDto)
+        public async Task<IActionResult> Registration(AppUserDto appUserDto)
         {
-            if(ModelState.IsValid)
-                if(await new AccountLogic().RegistrationAppUser(appUserDto, _userManager, _signInManager))
+            if (ModelState.IsValid)
+                if (await new AccountLogic().RegistrationAppUser(appUserDto, _userManager, _signInManager))
                     return Redirect("/Home/Index");
-                
+
             return RedirectToAction("Index");
         }
 
@@ -47,6 +47,11 @@ namespace OfficeMart.UI.Controllers
                     ModelState.AddModelError("LoginError", result.ErrorMessage);
             }
             return View("Index");
+        }
+        public async Task<IActionResult> SignOut()
+        {
+            await _signInManager.SignOutAsync();
+            return Redirect("/Home/Index");
         }
     }
 }

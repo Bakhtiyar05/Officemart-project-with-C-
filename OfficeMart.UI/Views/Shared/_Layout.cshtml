@@ -163,7 +163,7 @@
 
                     <li class="h-search-btn" id="h-search-btn"><i class="ion-search"></i></li>
 
-                    <li id="btnCheckout"  class="h-cart">
+                    <li id="btnCheckout" class="h-cart">
 
                         <a class="cart-contents" href="cart.html">
 
@@ -237,13 +237,20 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             var user = await _userManager.GetUserAsync(User);
-                            <li>
-                                <a>@user.Name @user.Surname</a>
+                            <li class="LoginRegUser" id="dropdownMenuButton" data-toggle="dropdown">
+                                <a>@user.Name @user.Surname <i class="fa fa-chevron-circle-down"></i></a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" onclick="location.href = '/User/Pendingorders';"><i class="fa fa-clock-o mr-2"></i>Gözləyən sifarişlər</a>
+                                    <a class="dropdown-item" href="#"><i class="fa fa-check-circle-o mr-2"></i>Təsdiqlənmiş sifarişlər</a>
+                                    <a class="dropdown-item" href="#"><i class="fa fa-cog mr-2"></i>Parametrlər</a>
+                                    <a class="dropdown-item" onclick="location.href = '/Account/Signout';"><i class="fa fa-sign-out mr-2"></i>Çıxış</a>
+                                </div>
                             </li>
+
                         }
                         else
                         {
-                            <li class="menu-item-has-children">
+                            <li class="menu-item-has-children LoginRegUser">
                                 <a asp-action="Index" asp-controller="Account">Daxil ol / Qeydiyyat</a>
                             </li>
                         }
@@ -398,7 +405,8 @@
         $("#buttonTop").click(function () {
             $("html").animate({ scrollTop: 0 }, 1000);
         });</script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
     <script>
         $(function () {
 
@@ -442,5 +450,8 @@
             });
         });
     </script>
+
+
+
 </body>
 </html>

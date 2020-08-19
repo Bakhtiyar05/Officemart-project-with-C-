@@ -1,0 +1,66 @@
+﻿@model List<OrderNumberDto>
+@{
+    ViewData["Title"] = "PendingOrders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content" class="site-content">
+    <div id="primary" class="content-area width-normal">
+        <main id="main" class="site-main">
+            <div class="cont maincont">
+                <h1 class="maincont-ttl">Səbət</h1>
+                <ul class="b-crumbs">
+                    <li><a asp-action="Index" asp-controller="Home">Əsas Səhifə</a></li>
+                    <li>Gözləmədə olan sifarişlər</li>
+                </ul>
+                <div class="page-styling">
+                    <div class="woocommerce prod-litems section-list">
+                        @{
+                            if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <h2><span style="font-size:24px;">Sifariş nömrəsi:</span> @item.OrderCheckNumber</h2>
+                                    foreach (var prod in item.Orders)
+                                    {
+
+                                        <article  class="prod-li sectls">
+                                            <div class="prod-li-inner">
+                                                <a class="prod-li-img">
+                                                    <img src="~/img/@prod.Product.ProductImages.FirstOrDefault()" alt="">
+                                                </a>
+                                                <div class="prod-li-cont">
+                                                    <div class="prod-li-ttl-wrap">
+                                                        <p>
+                                                            <a >@prod.Product.Category.CategoryName</a>
+                                                        </p>
+                                                        <h3><a>@prod.Product.ProductName</a></h3>
+                                                    </div>
+                                                    <div class="prod-li-prices">
+                                                        <div class="prod-li-price-wrap">
+                                                            <p>Qiyməti</p>
+                                                            <p class="prod-li-price">₼ @prod.SaledPrice</p>
+                                                        </div>
+                                                        <div class="prod-li-price-wrap">
+                                                            <p class="text-center">Sayı</p>
+                                                            <p class="prod-li-price text-center">@prod.OrderCount</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    }
+
+                                }
+                            }
+                        }
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+</div>
+
+

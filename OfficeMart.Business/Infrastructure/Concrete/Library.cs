@@ -33,7 +33,7 @@ namespace OfficeMart.Business.Infrastructure.Concrete
                     {
 
                         var cacheEntryOptions = new MemoryCacheEntryOptions()
-                       .SetAbsoluteExpiration(TimeSpan.FromSeconds(60 * 60 * 1000));
+                       .SetAbsoluteExpiration(TimeSpan.FromSeconds(/*60 * 60 * 1000*/ 1));
 
                         memoryCache
                             .Set
@@ -72,7 +72,7 @@ namespace OfficeMart.Business.Infrastructure.Concrete
                     {
 
                         var cacheEntryOptions = new MemoryCacheEntryOptions()
-                       .SetAbsoluteExpiration(TimeSpan.FromSeconds(60 * 60 * 1000));
+                       .SetAbsoluteExpiration(TimeSpan.FromSeconds(/*60 * 60 * 1000*/ 1));
 
                         memoryCache
                             .Set
