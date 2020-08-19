@@ -23,5 +23,7 @@ namespace OfficeMart.Business.Dtos
         public DateTime RegDate { get; set; }
         public ProductDto Product { get; set; }
         public int ProductId { get; set; }
+        public bool IsOverflow { get; set; }
+        
     }
 }

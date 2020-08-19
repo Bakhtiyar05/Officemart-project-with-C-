@@ -15,15 +15,16 @@ namespace OfficeMart.Business.Logic
     {
         public async Task<List<OrderNumberDto>> GetNotApprovedOrders()
         {
-            var order = new List<OrderNumberDto>();
+            var orders = new List<OrderNumberDto>();
             using (var context = TransactionConfig.AppDbContext)
             {
                 var dbOrders = await context.OrderNumbers
                     .Include(i => i.Orders)
                     .Where(m => m.IsApproved == false).ToListAsync();
-                order = TransactionConfig.Mapper.Map<List<OrderNumberDto>>(dbOrders);
+                orders = TransactionConfig.Mapper.Map<List<OrderNumberDto>>(dbOrders);
+
             }
-            return order;
+            return orders;
         }
         public async Task<List<OrderDto>> GetOrderDetails(int id)
         {
@@ -34,6 +35,11 @@ namespace OfficeMart.Business.Logic
                     .Include(i => i.Product)
                     .Where(m => m.OrderNumberId == id).ToListAsync();
                 orderDetail = TransactionConfig.Mapper.Map<List<OrderDto>>(dbOrders);
+
+                orderDetail.ForEach(x =>
+                {
+                    x.IsOverflow = x.Product.Count < x.OrderCount ? true : false;
+                });
             }
             return orderDetail;
         }

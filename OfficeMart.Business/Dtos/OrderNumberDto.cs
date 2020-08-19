@@ -14,8 +14,9 @@ namespace OfficeMart.Business.Dtos
         public int Id { get; set; }
         public string OrderCheckNumber { get; set; }
         public string BuyerUserId { get; set; }
-        public ICollection<OrderDto> Orders { get; set; }
+        public List<OrderDto> Orders { get; set; }
         public DateTime RegDate { get; set; }
         public bool IsApproved { get; set; }
+
     }
 }

@@ -36,13 +36,26 @@
                             foreach (var item in Model)
                             {
                                 totalPrice += item.TotalPrice;
-                                <tr data-expanded="true">
-                                    <td>@item.Product.ProductName</td>
-                                    <td>@item.Product.Count</td>
-                                    <td>@item.OrderCount</td>
-                                    <td>@item.SaledPrice</td>
-                                    <td>@item.TotalPrice</td>
-                                </tr>
+                                if (item.IsOverflow)
+                                {
+                                    <tr data-expanded="true" style="border:2px solid #D9534F">
+                                        <td>@item.Product.ProductName</td>
+                                        <td style="color:red">@item.Product.Count</td>
+                                        <td style="color:red">@item.OrderCount</td>
+                                        <td>@item.SaledPrice</td>
+                                        <td>@item.TotalPrice</td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr data-expanded="true">
+                                        <td>@item.Product.ProductName</td>
+                                        <td>@item.Product.Count</td>
+                                        <td>@item.OrderCount</td>
+                                        <td>@item.SaledPrice</td>
+                                        <td>@item.TotalPrice</td>
+                                    </tr>
+                                }
                             }
                             <tr data-expanded="true">
                                 <td></td>
