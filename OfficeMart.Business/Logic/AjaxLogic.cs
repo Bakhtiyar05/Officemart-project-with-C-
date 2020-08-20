@@ -13,7 +13,6 @@ namespace OfficeMart.Business.Logic
 {
     public class AjaxLogic
     {
-        
         public async Task<ProductDto> GetProductForQuickView(int id)
         {
             

@@ -1,7 +1,11 @@
 ﻿@model List<OrderNumberDto>
 
+@{ 
+    var routeValue = Model.Select(x => x.RootValue).FirstOrDefault();
+}
 
 <div class="com-md-12">
+    <input value="@routeValue" hidden id="routeValue"/>
     <div class="form-group row col-md-2 col-md-offset-2">
         <label for="example-date-input" class="col-2 col-form-label" style="font-size:14px">Başlanğıc tarixi</label>
         <div class="col-10">

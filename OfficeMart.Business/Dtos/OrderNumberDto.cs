@@ -17,6 +17,6 @@ namespace OfficeMart.Business.Dtos
         public List<OrderDto> Orders { get; set; }
         public DateTime RegDate { get; set; }
         public bool IsApproved { get; set; }
-
+        public string RootValue { get; set; }
     }
 }

@@ -8,13 +8,14 @@
         var _beginDate = $("#beginDate").val();
         var _endDate = $("#endDate").val();
         var _pattern = $("#pattern").val();
+        var _routeValue = $("#routeValue").val();
         var _requestUrl = "/Admin/Ajax/SearchOrders";
 
         $.ajax({
             url: _requestUrl,
             type: "GET",
             dataType: 'json',
-            data: { beginDate: _beginDate, endDate: _endDate, pattern: _pattern },
+            data: { beginDate: _beginDate, endDate: _endDate, pattern: _pattern, routeValue: _routeValue },
             contentType: 'application/json; charset=utf-8',
             success: function (result) {
                 console.log(result)
@@ -23,9 +24,8 @@
                     _body_tbl.empty();
 
                     result.forEach(function (elem) {
-                        console.log(elem)
-                        _body_tbl.append(` <tr data-expanded="true" id='trBody'></tr>`)
-                        var body_tr = $("#trBody");
+                        _body_tbl.append(` <tr data-expanded="true" id='trBody${_counter}'></tr>`)
+                        var body_tr = $(`#trBody${_counter}`);
                         body_tr.append(`<td>${_counter}</td>`)
                         body_tr.append(`<td>${elem.buyerName + " " + elem.buyerSurname}</td>`)
                         body_tr.append(`<td>${elem.buyerPhone}</td>`)

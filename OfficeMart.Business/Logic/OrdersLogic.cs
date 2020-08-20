@@ -31,6 +31,10 @@ namespace OfficeMart.Business.Logic
                     .Include(i => i.Orders)
                     .Where(m => m.IsApproved == true).ToListAsync();
                 orders = TransactionConfig.Mapper.Map<List<OrderNumberDto>>(dbOrders);
+                orders.ForEach(x =>
+                {
+                    x.RootValue = "Approved";
+                });
             }
             return orders;
         }
