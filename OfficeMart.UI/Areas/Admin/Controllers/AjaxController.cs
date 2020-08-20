@@ -10,9 +10,9 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AjaxController : Controller
     {
-        public async Task<IActionResult> SearchOrders(DateTime beginDate, DateTime endDate, string pattern,string routeValue)
+        public async Task<IActionResult> SearchOrders(DateTime beginDate, DateTime endDate,string routeValue)
         {
-            var result = await new SearchingLogic().GetOrders(beginDate, endDate, pattern,routeValue);
+            var result = await new SearchingLogic().GetOrders(beginDate, endDate,routeValue);
             return Json(result);
         }
     }

@@ -27,11 +27,11 @@
                         _body_tbl.append(` <tr data-expanded="true" id='trBody${_counter}'></tr>`)
                         var body_tr = $(`#trBody${_counter}`);
                         body_tr.append(`<td>${_counter}</td>`)
-                        body_tr.append(`<td>${elem.buyerName + " " + elem.buyerSurname}</td>`)
-                        body_tr.append(`<td>${elem.buyerPhone}</td>`)
-                        body_tr.append(`<td>${elem.deliveryAddress}</td>`)
-                        body_tr.append(`<td>${elem.regDate}</td>`)
-                        body_tr.append(`<td><a href='/Admin/Order/OrderDetail/${elem.orderNumberId}' target="_blank"><i class="fa fa-info btn btn-info"></i></a></td>`)
+                        body_tr.append(`<td>${elem.orders[0].buyerName + " " + elem.orders[0].buyerSurname}</td>`)
+                        body_tr.append(`<td>${elem.orders[0].buyerPhone}</td>`)
+                        body_tr.append(`<td>${elem.orders[0].deliveryAddress}</td>`)
+                        body_tr.append(`<td>${elem.orders[0].regDate}</td>`)
+                        body_tr.append(`<td><a href='/Admin/Order/OrderDetail/${elem.orders[0].orderNumberId}' target="_blank"><i class="fa fa-info btn btn-info"></i></a></td>`)
                        
                         _counter++;
                     });
