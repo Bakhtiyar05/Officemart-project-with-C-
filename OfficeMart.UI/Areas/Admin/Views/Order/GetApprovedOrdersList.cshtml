@@ -1,0 +1,7 @@
+﻿@model List<OrderNumberDto>
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<partial name="_OrdersList" model="@Model" />

@@ -21,6 +21,20 @@ namespace OfficeMart.Business.Logic
             }
             return orders;
         }
+
+        public async Task<List<OrderNumberDto>> GetApprovedOrders()
+        {
+            var orders = new List<OrderNumberDto>();
+            using (var context = TransactionConfig.AppDbContext)
+            {
+                var dbOrders = await context.OrderNumbers
+                    .Include(i => i.Orders)
+                    .Where(m => m.IsApproved == true).ToListAsync();
+                orders = TransactionConfig.Mapper.Map<List<OrderNumberDto>>(dbOrders);
+            }
+            return orders;
+        }
+
         public async Task<List<OrderNumberDto>> GetNotApprovedOrdersByCheckNumber(string checkNumber)
         {
             var orders = new List<OrderNumberDto>();
@@ -40,6 +54,7 @@ namespace OfficeMart.Business.Logic
             {
                 var dbOrders = await context.Orders
                     .Include(i => i.Product)
+                    .Include(x=>x.OrderNumber)
                     .Where(m => m.OrderNumberId == id).ToListAsync();
                 orderDetail = TransactionConfig.Mapper.Map<List<OrderDto>>(dbOrders);
 
@@ -47,6 +62,7 @@ namespace OfficeMart.Business.Logic
                 {
                     x.IsOverflow = x.Product.Count < x.OrderCount ? true : false;
                     x.OrderNumberId = id;
+                    x.IsApproved = dbOrders.Where(x => x.OrderNumber.Id == id).Select(x => x.OrderNumber.IsApproved).FirstOrDefault();
                 });
             }
             return orderDetail;

@@ -11,7 +11,7 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
     [Area("Admin")]
     public class OrderController : Controller
     {
-        public async Task<IActionResult> List(string id)
+        public async Task<IActionResult> NotApprovedOrdersList(string id)
         {
             if(id == null)
             {
@@ -25,6 +25,12 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
             }
             
             
+        }
+
+        public async Task<IActionResult> GetApprovedOrdersList()
+        {
+            var approvedOrders = await new OrdersLogic().GetApprovedOrders();
+            return View(approvedOrders);
         }
       
         public async Task<IActionResult> OrderDetail(int id, ResultDto result)
