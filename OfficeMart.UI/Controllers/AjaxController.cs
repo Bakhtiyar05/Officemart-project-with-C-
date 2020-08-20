@@ -11,7 +11,6 @@ namespace OfficeMart.UI.Controllers
     {
         public async Task<IActionResult> GetByIdForQuickView(int id)
         {
-
             var product = await new AjaxLogic().GetProductForQuickView(id);
      
            return Ok(product);

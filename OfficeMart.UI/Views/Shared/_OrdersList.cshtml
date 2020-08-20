@@ -5,19 +5,19 @@
     <div class="form-group row col-md-2 col-md-offset-2">
         <label for="example-date-input" class="col-2 col-form-label" style="font-size:14px">Başlanğıc tarixi</label>
         <div class="col-10">
-            <input class="form-control" type="date" id="example-date-input">
+            <input class="form-control" type="date" id="beginDate">
         </div>
     </div>
     <div class="form-group row col-md-2" style="margin-left:1%">
         <label for="example-date-input" class="col-2 col-form-label" style="font-size:14px">Son tarix</label>
         <div class="col-10">
-            <input class="form-control" type="date" id="example-date-input">
+            <input class="form-control" type="date" id="endDate">
         </div>
     </div>
     <div class="form-group row col-md-3" style="margin-left:1%">
         <label for="example-search-input" class="col-2 col-form-label" style="font-size:14px">Termin</label>
         <div class="col-10">
-            <input class="form-control" type="search" value="Termin daxil edin..." id="example-search-input">
+            <input class="form-control" type="search" placeholder="Termin daxil edin..." id="pattern">
         </div>
     </div>
     <div class="form-group row col-md-2" style="margin-left:1%">
@@ -55,18 +55,22 @@
                             <th class="text-center" data-breakpoints="xs sm md">Ətraflı</th>
                         </tr>
                     </thead>
-                    <tbody class="text-center">
+                    <tbody class="text-center" id="tableBody">
                         @{
                             int counter = 1;
                             foreach (var item in Model)
                             {
-                                <tr data-expanded="true">
-                                    <td>@counter</td>
-                                    <td>@item.Orders.Select(x => x.BuyerName + " " + x.BuyerSurname).FirstOrDefault()</td>
-                                    <td>@item.Orders.Select(x => x.BuyerPhone).FirstOrDefault()</td>
-                                    <td>@item.Orders.Select(x => x.DeliveryAddress).FirstOrDefault()</td>
-                                    <td>@item.Orders.Select(x => x.RegDate.ToString("dd-MM-yyyy")).FirstOrDefault()</td>
-                                    <td><a asp-controller="Order" asp-action="OrderDetail" asp-route-id="@item.Id" target="_blank"><i class="fa fa-info btn btn-info"></i></a></td>
+                                <tr data-expanded="true" id="trBody">
+                                    <td id="rowNumber">@counter</td>
+                                    <td id="buyerNameSurname">@item.Orders.Select(x => x.BuyerName + " " + x.BuyerSurname).FirstOrDefault()</td>
+                                    <td id="buyerPhone">@item.Orders.Select(x => x.BuyerPhone).FirstOrDefault()</td>
+                                    <td id="deliveryAddress">@item.Orders.Select(x => x.DeliveryAddress).FirstOrDefault()</td>
+                                    <td id="regDate">@item.Orders.Select(x => x.RegDate.ToString("dd-MM-yyyy")).FirstOrDefault()</td>
+                                    <td id="orderDetail">
+                                        <a asp-controller="Order" asp-action="OrderDetail" asp-route-id="@item.Id" target="_blank">
+                                            <i class="fa fa-info btn btn-info"></i>
+                                        </a>
+                                    </td>
                                 </tr>
                                 counter++;
                             }
@@ -79,3 +83,4 @@
         </div>
     </div>
 </section>
+<script src="~/Admin/js/Orders/SearchingOrders.js"></script>
