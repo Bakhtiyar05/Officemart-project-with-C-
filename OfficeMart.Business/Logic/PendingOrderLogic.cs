@@ -22,7 +22,7 @@ namespace OfficeMart.Business.Logic
                     .ThenInclude(x => x.Product)
                     .ThenInclude(i=>i.ProductImages)
                     .ThenInclude(c=>c.Product.Category)
-                    .Where(u => u.BuyerUserId == userId).ToListAsync();
+                    .Where(u => u.BuyerUserId == userId && u.IsApproved == IsApprover).ToListAsync();
                 productsDto = TransactionConfig.Mapper.Map<List<OrderNumberDto>>(orders);
             }
 
