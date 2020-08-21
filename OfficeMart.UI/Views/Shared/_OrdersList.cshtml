@@ -1,11 +1,11 @@
 ﻿@model List<OrderNumberDto>
 
-@{ 
+@{
     var routeValue = Model.Select(x => x.RootValue).FirstOrDefault();
+    var totalSum = Model.SelectMany(x => x.Orders).Select(x => x.TotalPrice).Sum();
 }
-
 <div class="com-md-12">
-    <input value="@routeValue" hidden id="routeValue"/>
+    <input value="@routeValue" hidden id="routeValue" />
     <div class="form-group row col-md-2 col-md-offset-7">
         <label for="example-date-input" class="col-2 col-form-label" style="font-size:14px">Başlanğıc tarixi</label>
         <div class="col-10">
@@ -33,16 +33,8 @@
                 Sifarişlər
             </div>
             <div>
-                <table class="table" ui-jq="footable" ui-options='{
-        "paging": {
-          "enabled": true
-        },
-        "filtering": {
-          "enabled": true
-        },
-        "sorting": {
-          "enabled": true
-        }}'>
+                <table class="table" ui-jq="footable">
+       
                     <thead class="text-center">
                         <tr>
                             <th data-breakpoints="xs" class="text-center">Sıra №</th>
@@ -79,6 +71,9 @@
                 </table>
             </div>
         </div>
+        <p style="text-align:right;margin-right:4%;font-size:20px"><span style="font-weight:bold">Cəmi: @totalSum ₼</span></p>
     </div>
 </section>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="~/Admin/js/Orders/SearchingOrders.js"></script>
