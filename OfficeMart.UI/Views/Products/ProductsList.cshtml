@@ -15,7 +15,7 @@
                 <div class="section-top">
 
                     <h1 class="maincont-ttl">Məhsullar</h1>
-                   
+
                     <div class="section-top-sort">
                         <div class="section-view">
                             <p>View</p>
@@ -65,21 +65,32 @@
                         </form>
                     </div>
                 </div>
+                @{
+                    if (Model.Count > 0)
+                    {
+                        <div class="section-wrap-withsb">
+                            <partial name="_CategoriesPartial" />
+                            <div class="section-list-withsb" id="section-list-withsb">
+                                <div class="theiaStickySidebar">
 
-                <!-- To make Sidebar "Not Sticky" just remove  id="section-list-withsb" -->
-                <div class="section-wrap-withsb">
-                    <partial name="_CategoriesPartial" />     
-                    <div class="section-list-withsb" id="section-list-withsb">
-                        <div class="theiaStickySidebar">
+                                    <div class="prod-litems section-list">
+                                        <partial name="_ProductPartial" model="Model.ToList()" />
+                                    </div>
 
-                            <div class="prod-litems section-list">
-                                <partial name="_ProductPartial" model="Model.ToList()" />
+                                    <partial name="_PaginationPartial" model="@paginationDto" />
+                                </div>
                             </div>
-
-                            <partial name="_PaginationPartial" model="@paginationDto" />
                         </div>
-                    </div>
-                </div>
+                    }
+                    else
+                    {
+                        <div style="font-size:40px;text-align:center;margin:15px 0;">
+                            <h1>Axtarışınıza uyğun məhsul tapılmadı!</h1>
+                        </div>
+                    }
+
+                }
+
 
             </div>
         </main>

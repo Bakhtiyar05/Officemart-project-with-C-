@@ -38,6 +38,7 @@
                     <thead class="text-center">
                         <tr>
                             <th data-breakpoints="xs" class="text-center">Sıra №</th>
+                            <th class="text-center">Çek</th>
                             <th class="text-center">Sifarişçi</th>
                             <th class="text-center">Əlaqə</th>
                             <th class="text-center" data-breakpoints="xs">Çatdırılma ünvanı</th>
@@ -50,18 +51,19 @@
                             int counter = 1;
                             foreach (var item in Model)
                             {
-                                <tr data-expanded="true" id="trBody">
-                                    <td id="rowNumber">@counter</td>
-                                    <td id="buyerNameSurname">@item.Orders.Select(x => x.BuyerName + " " + x.BuyerSurname).FirstOrDefault()</td>
-                                    <td id="buyerPhone">@item.Orders.Select(x => x.BuyerPhone).FirstOrDefault()</td>
-                                    <td id="deliveryAddress">@item.Orders.Select(x => x.DeliveryAddress).FirstOrDefault()</td>
-                                    <td id="regDate">@item.Orders.Select(x => x.RegDate.ToString("dd-MM-yyyy")).FirstOrDefault()</td>
-                                    <td id="orderDetail">
-                                        <a asp-controller="Order" asp-action="OrderDetail" asp-route-id="@item.Id" target="_blank">
-                                            <i class="fa fa-info btn btn-info"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                                <tr data-expanded="true" id="trBody">
+                                                    <td id="rowNumber">@counter</td>
+                                                    <td id="chek">@item.OrderCheckNumber</td>
+                                                    <td id="buyerNameSurname">@item.Orders.Select(x => x.BuyerName + " " + x.BuyerSurname).FirstOrDefault()</td>
+                                                    <td id="buyerPhone">@item.Orders.Select(x => x.BuyerPhone).FirstOrDefault()</td>
+                                                    <td id="deliveryAddress">@item.Orders.Select(x => x.DeliveryAddress).FirstOrDefault()</td>
+                                                    <td id="regDate">@item.Orders.Select(x => x.RegDate.ToString("dd-MM-yyyy")).FirstOrDefault()</td>
+                                                    <td id="orderDetail">
+                                                        <a asp-controller="Order" asp-action="OrderDetail" asp-route-id="@item.Id" target="_blank">
+                                                            <i class="fa fa-info btn btn-info"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
                                 counter++;
                             }
 
