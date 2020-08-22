@@ -79,7 +79,7 @@ namespace OfficeMart.Business.Logic
                         {
                             orders = TransactionConfig.Mapper.Map<List<OrderNumberDto>>(dbOrders);
                         }
-                        catch(Exception e) { }
+                        catch(Exception) { }
                     }
                     return orders;
                 }

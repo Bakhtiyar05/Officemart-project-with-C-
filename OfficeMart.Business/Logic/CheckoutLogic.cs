@@ -38,7 +38,7 @@ namespace OfficeMart.Business.Logic
                        productsDto.Add(new BasketModelDto { Product = TransactionConfig.Mapper.Map<ProductDto>(product), ProductCount = counts[i] });
 
                     }
-                    catch (Exception ex)
+                    catch (Exception )
                     {}
                 }
 

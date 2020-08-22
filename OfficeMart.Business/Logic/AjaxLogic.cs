@@ -15,7 +15,6 @@ namespace OfficeMart.Business.Logic
     {
         public async Task<ProductDto> GetProductForQuickView(int id)
         {
-            
             var productDto = new ProductDto();
             using (var context = TransactionConfig.AppDbContext)
             {
