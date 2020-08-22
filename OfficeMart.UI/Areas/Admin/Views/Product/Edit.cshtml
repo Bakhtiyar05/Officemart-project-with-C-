@@ -65,8 +65,11 @@
                                     <span class="text-danger" asp-validation-for="ProductSizeId"></span>
                                 </div>
                                 <div class="form-group col-md-5 col-md-offset-3">
-                                    <label class="form-check-label" for="exampleCheck1">Xüsusi məhsuldurmu: </label>
-                                    <input type="checkbox" class="form-check-input" id="isSpecial" style="width:16px;height:16px;margin-left:1%">
+                                    <label class="form-check-label" for="exampleCheck1">Xüsusi məhsuldurmu </label>
+                                    <select class="form-control col-md-2" id="myselect">
+                                        <option value="1">Xeyir</option>
+                                        <option value="2">Bəli</option>
+                                    </select>
                                 </div>
                                 <div class="form-group col-md-5 col-md-offset-3">
                                     <label>Şəkli</label>
@@ -115,6 +118,7 @@
 
         $(document).on("click", "#saveBtn", function () {
 
+            var data =
             $.validator.unobtrusive.parse($('form'));
             $('form').validate();
             if ($('form').valid()) {
@@ -134,11 +138,11 @@
                 var Count = $("#Count").val();
                 var ColorId = $("#ColorId").val();
                 var ProductSizeId = $("#ProductSizeId").val();
-                var isSpecial = $("#isSpecial").val();
+                var IsSpecial = $("#myselect option:selected").text() == "Xeyir" ? false : true;
 
                 $.ajax({
                     url: "/Admin/Product/Edit",
-                    data: { Id:@Model.Id, DiscountPrice: DiscountPrice, Price: Price, ProductName: ProductName, CategoryId: CategoryId, ColorId: ColorId, Count: Count, ProductSizeId: ProductSizeId, src: Src },
+                    data: { Id:@Model.Id, DiscountPrice: DiscountPrice, Price: Price, ProductName: ProductName, CategoryId: CategoryId, ColorId: ColorId, Count: Count, ProductSizeId: ProductSizeId, src: Src, IsSpecial: IsSpecial },
                     type: "POST",
                     success: function (res) {
                         console.log(res)

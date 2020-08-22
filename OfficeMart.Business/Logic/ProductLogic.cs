@@ -54,8 +54,18 @@ namespace OfficeMart.Business.Logic
             {
                 using (var context = TransactionConfig.AppDbContext)
                 {
+                    if (editableProduct.IsSpecial)
+                    {
+                        var oldSpecialPRoduct = await context.Products.Where(x => x.IsSpecial == true).FirstOrDefaultAsync();
+                        if(oldSpecialPRoduct != null)
+                        {
+                            oldSpecialPRoduct.IsSpecial = false;
+                            context.Products.Update(oldSpecialPRoduct);
+                        }
+                    }
                     var baseProduct = context.Products.Find(editableProduct.Id);
                     baseProduct = TransactionConfig.Mapper.Map(editableProduct, baseProduct);
+                    baseProduct.IsSpecial = editableProduct.IsSpecial == true ? true : false;
                     context.Products.Update(baseProduct);
                     await context.SaveChangesAsync();
                 }

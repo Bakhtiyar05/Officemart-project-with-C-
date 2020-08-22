@@ -1,8 +1,10 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IEnumerable<CategoryDto>
 
-@model IEnumerable<CategoryDto>
+@{
+    ViewData["Title"] = "Home Page";
+    var specialProduct = Library.GetInstance().SpecialProduct;
+    var imagePath = specialProduct?.ProductImages.Select(x => x.ImageName).FirstOrDefault();
+}
 
 <div id="content" class="site-content">
     <div id="primary" class="content-area width-full">
@@ -91,31 +93,35 @@
                     </div>
                 </div>
 
-
-                <div class="page-styling row-wrap-full front-image-half">
-                    <section class="image-half image-half-right">
-                        <div class="image-half-img" style="background-image: url(~/../img/1/front/bg1.jpg);">
-                            <img src="~/../img/1/front/bg1.jpg" alt="">
-                        </div>
-                        <div class="cont image-half-cont">
-                            <div class="image-half-inner">
-                                <p class="maincont-subttl">Həftənin Təklifi</p>
-                                <h2>Məhsulun adı</h2>
-                                <div class="wpb_text_column wpb_content_element ">
-                                    <div class="wpb_wrapper">
-                                        <p>Məhsul haqqında</p>
+                @{
+                    if (specialProduct != null)
+                    {
+                        <div class="page-styling row-wrap-full front-image-half">
+                            <section class="image-half image-half-right">
+                                <div class="image-half-img" >
+                                    <img src="~/img/@imagePath" alt="" style="display:block;padding-top:2%;height:31.5vh;width:60%">
+                                </div>
+                                
+                                <div class="cont image-half-cont">
+                                    <div class="image-half-inner">
+                                        <p class="maincont-subttl">Həftənin Təklifi</p>
+                                        <h2>@specialProduct.ProductName</h2>
+                                        <div class="wpb_text_column wpb_content_element ">
+                                            <div class="wpb_wrapper">
+                                                <p>Məhsul haqqında</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </section>
                         </div>
-                    </section>
-                </div>
 
-                <div class="page-styling row-wrap-full align-center front-title-block">
-                    <h2>Məhsula keçid</h2>
-                    <a style="margin-right:5px" class="mb40 btn-multishop" href="catalog-gallery.html">Ətraflı Baxış</a>
-                    <a class="mb40 btn-multishop" href="catalog-gallery.html">Satın Al</a>
-                </div>
+                        <div class="page-styling row-wrap-full align-center front-title-block">
+                            <h2>Məhsula keçid</h2>
+                            <a style="margin-right:5px" class="mb40 btn-multishop" asp-action="Index" asp-controller="ProductDetail" asp-route-id="@specialProduct.Id">Ətraflı Baxış</a>
+                        </div>
+                    }
+                }
             </div>
         </main>
     </div>

@@ -165,6 +165,39 @@ namespace OfficeMart.Business.Infrastructure.Concrete
                     return categories;
                 }
             }
+
+        }
+
+        public Product SpecialProduct
+        {
+            get
+            {
+                using (TransactionConfig.AppDbContext)
+                {
+                    var specialProduct = new Product();
+
+                    if (!memoryCache.TryGetValue("SpecialProduct", out specialProduct))
+                    {
+                        memoryCache
+                            .Set
+                            (
+                                "SpecialProduct",
+                                TransactionConfig
+                                .AppDbContext
+                                .Products
+                                .Include(x=>x.ProductImages)
+                                .Where(x=>x.IsSpecial == true)
+                                .FirstOrDefault()
+                            );
+                    }
+
+                    specialProduct = memoryCache.Get("SpecialProduct") as Product;
+
+
+                    return specialProduct;
+                }
+            }
+
         }
     }
 }
