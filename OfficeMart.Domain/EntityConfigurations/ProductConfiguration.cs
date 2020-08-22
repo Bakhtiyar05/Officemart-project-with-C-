@@ -25,6 +25,10 @@ namespace OfficeMart.Domain.EntityConfigurations
             builder.Property(x => x.IsActive)
                 .IsRequired()
                 .HasDefaultValue(true);
+
+            builder.Property(x => x.IsSpecial)
+                .HasDefaultValue(false);
+
             builder.Property(x => x.Count)
                 .IsRequired();
         }

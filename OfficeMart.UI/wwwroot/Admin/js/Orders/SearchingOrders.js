@@ -10,7 +10,6 @@
         var _pattern = $("#pattern").val();
         var _routeValue = $("#routeValue").val();
         var _requestUrl = "/Admin/Ajax/SearchOrders";
-
         $.ajax({
             url: _requestUrl,
             type: "GET",
@@ -28,7 +27,8 @@
                         var newDate = dateAr[2].substring(0, 2) + "-" + dateAr[1] + "-" + dateAr[0];
                         _body_tbl.append(` <tr data-expanded="true" id='trBody${_counter}'></tr>`)
                         var body_tr = $(`#trBody${_counter}`);
-                        body_tr.append(`<td>${_counter}</td>`)
+                        body_tr.append(`<td>${_counter}</td>`);
+                        body_tr.append(`<td>${elem.orderCheckNumber}</td>`)
                         body_tr.append(`<td>${elem.orders[0].buyerName + " " + elem.orders[0].buyerSurname}</td>`)
                         body_tr.append(`<td>${elem.orders[0].buyerPhone}</td>`)
                         body_tr.append(`<td>${elem.orders[0].deliveryAddress}</td>`)

@@ -22,6 +22,7 @@ namespace OfficeMart.Domain.Models.Entities
         public int CategoryId { get; set; }
         public Color Color { get; set; }
         public int ColorId { get; set; }
+        public bool IsSpecial { get; set; }
         public ProductSize ProductSize { get; set; }
         public int ProductSizeId { get; set; }
         public ICollection<ProductImage> ProductImages { get; set; }

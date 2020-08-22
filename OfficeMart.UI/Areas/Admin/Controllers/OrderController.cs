@@ -23,8 +23,6 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
                 var notApprovedOrders = await new OrdersLogic().GetNotApprovedOrdersByCheckNumber(id);
                 return View(notApprovedOrders);
             }
-            
-            
         }
 
         public async Task<IActionResult> GetApprovedOrdersList()
