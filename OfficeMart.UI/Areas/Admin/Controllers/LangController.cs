@@ -10,8 +10,10 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using DocumentFormat.OpenXml.Drawing;
+using ICSharpCode.Decompiler.Util;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using OfficeMart.Business.Logic;
 
 namespace OfficeMart.UI.Areas.Admin.Controllers
 {
@@ -29,16 +31,20 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Index(string key, string value)
+        public async Task<IActionResult> Index(string key, string value)
         {
-            //using (System.Resources.ResXResourceReader rw = new System.Resources.ResXResourceReader(System.IO.Path.Combine(_env.ContentRootPath, "Resources", "SharedResources.ru-RU.resx")))
-            //{
-            //    foreach (var d in rw)
-            //    {
-            //        Console.WriteLine(d.Key.ToString() + ":\t" + d.Value.ToString());
-            //    }
-            //}
-            return NoContent();
+            var result = await new LangLogic().AddResource(key, value);
+            ViewBag.IsSuccessfullAdded = result.OperationIsSuccessfull;
+
+            var resourcesFile = await new LangLogic().GetAllResources();
+            using (ResXResourceWriter resx = new ResXResourceWriter(System.IO.Path.Combine(_env.ContentRootPath, "Resources", "SharedResources.ru-RU.resx")))
+            {
+                foreach (var resource in resourcesFile)
+                {
+                    resx.AddResource(resource.Name, resource.Value);
+                }
+            }
+            return View();
         }
     }
 }

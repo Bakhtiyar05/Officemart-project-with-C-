@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.95.3" />
+    <PackageReference Include="ICSharpCode.Decompiler" Version="6.1.0.5902" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.7">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
