@@ -1,4 +1,4 @@
-﻿
+﻿@model AdminHomeDto
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -26,8 +26,8 @@
                     <i class="fa fa-users"></i>
                 </div>
                 <div class="col-md-8 market-update-left">
-                    <h4>Users</h4>
-                    <h3>1,250</h3>
+                    <h4>İstifadəçilər</h4>
+                    <h3>@Model.UsersCount</h3>
                     <p>Other hand, we denounce</p>
                 </div>
                 <div class="clearfix"> </div>
@@ -39,8 +39,8 @@
                     <i class="fa fa-usd"></i>
                 </div>
                 <div class="col-md-8 market-update-left">
-                    <h4>Sales</h4>
-                    <h3>1,500</h3>
+                    <h4>Satış Ümumi</h4>
+                    <h3>@Model.TotalSalesPrice</h3>
                     <p>Other hand, we denounce</p>
                 </div>
                 <div class="clearfix"> </div>
@@ -52,8 +52,8 @@
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                 </div>
                 <div class="col-md-8 market-update-left">
-                    <h4>Orders</h4>
-                    <h3>1,500</h3>
+                    <h4>Sifarişlər</h4>
+                    <h3>@Model.TotalOrdersCount</h3>
                     <p>Other hand, we denounce</p>
                 </div>
                 <div class="clearfix"> </div>
@@ -69,7 +69,7 @@
                 <div class="agileinfo-grap">
                     <div class="agileits-box">
                         <header class="agileits-box-header clearfix">
-                            <h3>Visitor Statistics</h3>
+                            <h3>İstifadəçilərin Statistikası</h3>
                             <div class="toolbar">
 
 
@@ -196,7 +196,7 @@
                     <h3>Monthly</h3>
                 </div>
                 <div id="graph7"></div>
-                <script>
+                @*<script>
                                 // This crosses a DST boundary in the UK.
                                 Morris.Area({
                                     element: 'graph7',
@@ -210,7 +210,7 @@
                                     ykeys: ['y', 'z'],
                                     labels: ['Y', 'Z']
                                 });
-                </script>
+                </script>*@
 
             </div>
         </div>
@@ -234,14 +234,14 @@
                                     { "period": "2016-09-15", "licensed": 3201, "sorned": 656 },
                                     { "period": "2016-09-10", "licensed": 3215, "sorned": 622 }
                                 ];
-                                Morris.Bar({
-                                    element: 'graph8',
-                                    data: day_data,
-                                    xkey: 'period',
-                                    ykeys: ['licensed', 'sorned'],
-                                    labels: ['Licensed', 'SORN'],
-                                    xLabelAngle: 60
-                                });
+                                //Morris.Bar({
+                                //    element: 'graph8',
+                                //    data: day_data,
+                                //    xkey: 'period',
+                                //    ykeys: ['licensed', 'sorned'],
+                                //    labels: ['Licensed', 'SORN'],
+                                //    xLabelAngle: 60
+                                //});
                 </script>
             </div>
         </div>
@@ -264,14 +264,14 @@
                                     { "elapsed": "IX", "value": 12 },
                                     { "elapsed": "X", "value": 19 }
                                 ];
-                                Morris.Line({
-                                    element: 'graph9',
-                                    data: day_data,
-                                    xkey: 'elapsed',
-                                    ykeys: ['value'],
-                                    labels: ['value'],
-                                    parseTime: false
-                                });
+                                //Morris.Line({
+                                //    element: 'graph9',
+                                //    data: day_data,
+                                //    xkey: 'elapsed',
+                                //    ykeys: ['value'],
+                                //    labels: ['value'],
+                                //    parseTime: false
+                                //});
                 </script>
 
             </div>
