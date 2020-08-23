@@ -117,10 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Biz Çatdıraq" xml:space="preserve">
+    <value>Мы Доставим</value>
+  </data>
   <data name="Home Page" xml:space="preserve">
     <value>Əsas Səhifə</value>
   </data>
   <data name="Kateqoriyalar" xml:space="preserve">
     <value>Kатегории</value>
+  </data>
+  <data name="Sifariş Edin" xml:space="preserve">
+    <value>Заказывайте</value>
+  </data>
+  <data name="Siz Seçin" xml:space="preserve">
+    <value>Вы Выбирайте</value>
   </data>
 </root>
