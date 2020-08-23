@@ -31,10 +31,16 @@ namespace OfficeMart.UI.Controllers
         public async Task<IActionResult> Registration(AppUserDto appUserDto)
         {
             if (ModelState.IsValid)
-                if (await new AccountLogic().RegistrationAppUser(appUserDto, _userManager, _signInManager))
+            {
+                var result = await new AccountLogic().RegistrationAppUser(appUserDto, _userManager, _signInManager);
+                if (appUserDto.LogicResult.OperationIsSuccessfull)
                     return Redirect("/Home/Index");
+                else
+                    ModelState.AddModelError("", result.LogicResult.ErrorMessage);
+            }
 
-            return RedirectToAction("Index");
+
+            return View("Index",appUserDto);
         }
 
         [HttpPost]

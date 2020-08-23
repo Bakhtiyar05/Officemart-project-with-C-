@@ -4,6 +4,7 @@ using OfficeMart.Business.Models;
 using OfficeMart.Domain.Models.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,10 +12,11 @@ namespace OfficeMart.Business.Logic
 {
     public class AccountLogic
     {
-        public async Task<bool> RegistrationAppUser(AppUserDto appUserDto,
+        public async Task<AppUserDto> RegistrationAppUser(AppUserDto appUserDto,
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager)
         {
+            appUserDto.LogicResult = new LogicResult();
             var appUser = new AppUser
             {
                 Name = appUserDto.Name,
@@ -30,10 +32,19 @@ namespace OfficeMart.Business.Logic
             {
                 var result = await signInManager.PasswordSignInAsync(appUserDto.Email, appUserDto.Password, true , false);
                 if (result.Succeeded)
-                    return true;
+                {
+                    appUserDto.LogicResult.OperationIsSuccessfull = true;
+                    return appUserDto;
+                }  
             }
 
-            return false;
+            if(userResult.Errors.Count() != 0)
+            {
+                var isDuplicate = userResult.Errors.Where(x => x.Code == "DuplicateUserName").FirstOrDefault();
+                appUserDto.LogicResult.ErrorMessage = isDuplicate != null ? "Email artıq istifadə olunur" : null;
+                return appUserDto;
+            }
+            return appUserDto;
         }
 
         public async Task<LogicResult> Login(LoginDto loginDto,SignInManager<AppUser> signInManager)
