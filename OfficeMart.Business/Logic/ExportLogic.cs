@@ -21,6 +21,7 @@ namespace OfficeMart.Business.Logic
                 var dbProducts =await context.OrderNumbers
                     .Include(m => m.Orders)
                     .ThenInclude(p=>p.Product)
+                    .ThenInclude(c=>c.Category)
                     .Where(m => m.IsApproved == true && m.RegDate >= startDate && m.RegDate <= endDate)
                     .SelectMany(m=>m.Orders)
                     .ToListAsync();
