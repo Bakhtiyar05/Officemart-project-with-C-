@@ -114,6 +114,16 @@ namespace OfficeMart.Business.Logic
             }
         }
 
+        public async Task<bool> RejectOrder(int orderNumberId)
+        {
+            using(var context = TransactionConfig.AppDbContext)
+            {
+                context.OrderNumbers.Remove(context.OrderNumbers.Find(orderNumberId));
+                await context.SaveChangesAsync();
+            }
+            return true;
+        }
+
         public async Task<List<string>> GetCheckOutNumbersForNotification()
         {
             using(var context = TransactionConfig.AppDbContext)

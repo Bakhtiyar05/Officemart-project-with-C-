@@ -35,6 +35,7 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
         {
             var orderDetails = await new OrdersLogic().GetOrderDetails(id);
             ViewBag.isApprovedSuccessful = result.IsSuccessful;
+            ViewBag.isRejected = result.IsRejected;
             return View(orderDetails);
         }
 
@@ -44,6 +45,14 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
             var result = new ResultDto();
             result.IsSuccessful = await new OrdersLogic().ApproveOrder(orderNumberId);
             return RedirectToAction(nameof(OrderDetail), result); 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RejectOrder(int orderNumberId)
+        {
+            var result = new ResultDto();
+            result.IsRejected = await new OrdersLogic().RejectOrder(orderNumberId);
+            return RedirectToAction(nameof(OrderDetail), result);
         }
     }
 }
