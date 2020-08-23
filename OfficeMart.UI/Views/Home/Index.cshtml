@@ -1,9 +1,7 @@
 ﻿@model IEnumerable<CategoryDto>
-@using Microsoft.AspNetCore.Localization
-@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer _localizer
 
 @{
-    ViewData["Title"] = _localizer["Home Page"];
+    ViewData["Title"] = Localizer["Home Page"];
     var specialProduct = Library.GetInstance().SpecialProduct;
     var imagePath = specialProduct?.ProductImages.Select(x => x.ImageName).FirstOrDefault();
 }
@@ -30,7 +28,7 @@
 
 
                 <div class="container mb60 page-styling row-wrap-container row-wrap-nottl">
-                    <h2 class="mb35 heading-multishop">@_localizer["Kateqoriyalar"]</h2>
+                    <h2 class="mb35 heading-multishop">@Localizer["Kateqoriyalar"]</h2>
                     <div class="row prod-items prod-items-3">
                         @{
                             foreach (var item in Model)

@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using OfficeMart.Business.Middlewares;
+using OfficeMart.UI.Resources;
 using System.Globalization;
 
 namespace OfficeMart.UI
@@ -24,7 +25,7 @@ namespace OfficeMart.UI
         {
             AppMiddleware.ConfigureMyServices(services,Configuration);
             services.AddLocalization(options => options.ResourcesPath = "Resources");
-
+            services.AddSingleton<SharedViewLocalizer>();
             services.AddMvc()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                 .AddDataAnnotationsLocalization();

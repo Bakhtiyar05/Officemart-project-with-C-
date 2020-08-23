@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using OfficeMart.Business.Logic;
+using OfficeMart.UI.Models;
 using System;
 using System.Threading.Tasks;
 
@@ -10,8 +11,8 @@ namespace OfficeMart.UI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IStringLocalizer<HomeController> _localizer;
-        public HomeController(IStringLocalizer<HomeController> localizer)
+        private readonly IStringLocalizer<SharedResources> _localizer;
+        public HomeController(IStringLocalizer<SharedResources> localizer)
         {
             _localizer = localizer;
         }
