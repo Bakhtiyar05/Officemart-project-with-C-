@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using OfficeMart.Business.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace OfficeMart.Business.Dtos
 {
@@ -24,5 +25,6 @@ namespace OfficeMart.Business.Dtos
         public string PhoneNumber { get; set; }
 
         public LoginDto LoginDto { get; set; }
+        public LogicResult LogicResult { get; set; }
     }
 }

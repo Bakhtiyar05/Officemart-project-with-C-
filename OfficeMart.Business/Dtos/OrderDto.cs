@@ -27,5 +27,6 @@ namespace OfficeMart.Business.Dtos
         public OrderNumberDto OrderNumberDto { get; set; }
         public bool IsOverflow { get; set; }
         public bool IsApproved { get; set; }
+        public bool IsRejected { get; set; }
     }
 }

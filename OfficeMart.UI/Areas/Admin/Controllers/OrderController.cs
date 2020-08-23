@@ -11,23 +11,23 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
     [Area("Admin")]
     public class OrderController : Controller
     {
-        public async Task<IActionResult> NotApprovedOrdersList(string id)
+        public async Task<IActionResult> NotApprovedOrdersList(string checkNumber, int page = 1)
         {
-            if(id == null)
+            if(checkNumber == null)
             {
-                var notApprovedOrders = await new OrdersLogic().GetNotApprovedOrders();
+                var notApprovedOrders = await new OrdersLogic().GetNotApprovedOrders(page);
                 return View(notApprovedOrders);
             }
             else
             {
-                var notApprovedOrders = await new OrdersLogic().GetNotApprovedOrdersByCheckNumber(id);
+                var notApprovedOrders = await new OrdersLogic().GetNotApprovedOrdersByCheckNumber(checkNumber);
                 return View(notApprovedOrders);
             }
         }
 
-        public async Task<IActionResult> GetApprovedOrdersList()
+        public async Task<IActionResult> GetApprovedOrdersList(int page)
         {
-            var approvedOrders = await new OrdersLogic().GetApprovedOrders();
+            var approvedOrders = await new OrdersLogic().GetApprovedOrders(page);
             return View(approvedOrders);
         }
       
@@ -35,6 +35,7 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
         {
             var orderDetails = await new OrdersLogic().GetOrderDetails(id);
             ViewBag.isApprovedSuccessful = result.IsSuccessful;
+            ViewBag.isRejected = result.IsRejected;
             return View(orderDetails);
         }
 
@@ -44,6 +45,14 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
             var result = new ResultDto();
             result.IsSuccessful = await new OrdersLogic().ApproveOrder(orderNumberId);
             return RedirectToAction(nameof(OrderDetail), result); 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RejectOrder(int orderNumberId)
+        {
+            var result = new ResultDto();
+            result.IsRejected = await new OrdersLogic().RejectOrder(orderNumberId);
+            return RedirectToAction(nameof(OrderDetail), result);
         }
     }
 }

@@ -15,11 +15,11 @@
                     <li>Daxil ol & Qeydiyyat</li>
                 </ul>
                 <article class="page-cont">
+                    <div asp-validation-summary="All" class="text-danger" style="text-align:center"></div>
                     <div class="page-styling">
                         <div class="auth-wrap">
                             <div class="auth-col">
                                 <h2>Daxil ol</h2>
-                                <div asp-validation-summary="All" class="text-danger"></div>
                                 <form asp-action="Login" asp-controller="Account" method="post" class="login">
                                     <p>
                                         <label for="username">E-mail <span class="required">*</span></label>

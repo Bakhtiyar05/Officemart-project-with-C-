@@ -71,12 +71,8 @@ namespace OfficeMart.UI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                      name: "areas",
-                      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
-                endpoints.MapControllerRoute(
-                     name: "areas",
-                     pattern: "{area:exists}/{controller=Product}/{action=Index}/{id?}/{page?}");
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=Product}/{action=Index}/{page=1}");         
 
                 endpoints.MapControllerRoute(
                     name: "default",

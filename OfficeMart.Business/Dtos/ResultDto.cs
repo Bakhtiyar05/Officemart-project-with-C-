@@ -7,5 +7,6 @@ namespace OfficeMart.Business.Dtos
     public class ResultDto
     {
         public bool IsSuccessful { get; set; }
+        public bool IsRejected { get; set; }
     }
 }
