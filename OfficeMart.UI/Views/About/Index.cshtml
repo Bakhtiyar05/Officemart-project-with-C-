@@ -42,12 +42,12 @@
                                 <div class="vc_column-inner ">
                                     <div class="wpb_wrapper">
                                         <h3 class="mb20">Bizimlə əlaqə</h3>
-                                        <form action="#" method="post"
+                                        <form asp-action="Contact" asp-controller="About" method="post"
                                               class="form-validate wpcf7 wpcf7-form">
-                                            <p class="wpcf7-form-control-wrap"><input type="text" data-required="text" placeholder="Ad"></p>
-                                            <p class="wpcf7-form-control-wrap"><input type="email" data-required-email="email" data-required="text" placeholder="E-mail"></p>
-                                            <p class="wpcf7-form-control-wrap"><input type="text" data-required="text" placeholder="Əlaqə nömrəsi"></p>
-                                            <p class="wpcf7-form-control-wrap"><input type="text" data-required="text" placeholder="Mesaj"></p>
+                                            <p class="wpcf7-form-control-wrap"><input type="text" data-required="text" name="name" placeholder="Ad"></p>
+                                            <p class="wpcf7-form-control-wrap"><input type="email" data-required-email="email" name="email" data-required="text" placeholder="E-mail"></p>
+                                            <p class="wpcf7-form-control-wrap"><input type="text" data-required="text" name="phone" placeholder="Əlaqə nömrəsi"></p>
+                                            <p class="wpcf7-form-control-wrap"><input type="text" data-required="text" name="message" placeholder="Mesaj"></p>
                                             <p><input type="submit" value="Send"></p>
                                         </form>
                                     </div>

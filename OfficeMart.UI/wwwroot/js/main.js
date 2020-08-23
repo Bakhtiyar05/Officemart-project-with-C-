@@ -13,6 +13,17 @@ function calcPrice() {
         totalPrice = parseFloat(price) + totalPrice;
     });
     $(".sum-money").text(totalPrice.toFixed(2));
+    if (totalPrice > 15) {
+        $('#checkPrice').attr('data-toggle', "modal");
+        $('#checkPrice').removeClass('disabled');
+        $('.saleBorder').css('display', 'none');
+    }
+    else {
+        $('#checkPrice').removeAttr('data-toggle');
+        $('#checkPrice').addClass('disabled');
+        $('.saleBorder').css('display', 'inline');
+
+    }
 }
 
 function clickForBasket(id, isArrow = false) {
@@ -61,7 +72,6 @@ function appendBask(clickedId) {
                                     </li>`;
 
         $(".cart_list").append(element);
-        console.log(element);
         setStorage();
     }
 }
@@ -178,10 +188,10 @@ jQuery(document).ready(function ($) {
         }
     });
 
-    $('.prod-li-add').css('cursor', 'pointer'); 
-    $('.LoginRegUser').css('cursor', 'pointer'); 
-    $('.LoginRegUser').css('cursor', 'pointer'); 
-    
+    $('.prod-li-add').css('cursor', 'pointer');
+    $('.LoginRegUser').css('cursor', 'pointer');
+    $('.LoginRegUser').css('cursor', 'pointer');
+
     // Fancybox Images
     $('.fancy-img').fancybox({
         padding: 0,
@@ -515,7 +525,7 @@ jQuery(document).ready(function ($) {
                 return false;
             });
         }
-  
+
         // Slider "About Us"
         if ($('.content_carousel').length > 0) {
             $('.content_carousel').each(function () {
@@ -660,6 +670,7 @@ jQuery(document).ready(function ($) {
             var qnt = $(this).parent().find('input').val();
             var clickedId = $(this).attr('data-id');
             var price = $(`#price-${clickedId}`).val();
+
             if ($(this).hasClass('qnt-plus')) {
                 qnt++;
             } else if ($(this).hasClass('qnt-minus')) {
@@ -667,8 +678,8 @@ jQuery(document).ready(function ($) {
             }
             if (qnt > 0) {
                 $(this).parent().find('input').attr('value', qnt);
-                $(`#total-${clickedId}`).text(`${(price * qnt).toFixed(2)}₼`);
-                $(`#total-value-${clickedId}`).val((price * qnt).toFixed(2));
+                $(`#total-${clickedId}`).text(`${(price.replace(',', '.') * qnt).toFixed(2)}₼`);
+                $(`#total-value-${clickedId}`).val((price.replace(',', '.') * qnt).toFixed(2));
             }
             var id = $(this).attr("data-id");
             clickForBasket(id, true);
@@ -820,19 +831,7 @@ jQuery(document).ready(function ($) {
         });
         if (errors === 0) {
             var form1 = $(this);
-            $.ajax({
-                type: "POST",
-                url: 'php/email.php',
-                data: $(this).serialize(),
-                success: function (data) {
-                    if (data == 'PSD') {
-                        form1.html('<p style="margin: 10px 0 20px; font-weight: 600; font-size: 16px;" class="form-result"><a target="_blank" href="https://yadi.sk/i/14-2AkkU3N6FaQ">Download PSD</a></p>');
-                    } else {
-                        form1.append('<p class="form-result">Thank you!</p>');
-                    }
-                    $("form").trigger('reset');
-                }
-            });
+            form1.submit();
         }
         return false;
     });
