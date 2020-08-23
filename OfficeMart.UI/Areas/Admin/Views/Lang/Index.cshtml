@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var isSuccessfullAdded = ViewBag.IsSuccessfullAdded != null ? Convert.ToBoolean(ViewBag.IsSuccessfullAdded) : false;
 }
 
 <form asp-action="Index" asp-controller="Lang" method="post">
@@ -24,3 +25,14 @@
         </div>
     </div>
 </form>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@{
+    if (isSuccessfullAdded == true)
+    {
+        <script>
+            swal("İnformasiya uğurlu əldə edildi", "", "success");
+        </script>
+    }
+}

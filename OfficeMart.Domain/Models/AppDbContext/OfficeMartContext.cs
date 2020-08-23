@@ -22,6 +22,7 @@ namespace OfficeMart.Domain.Models.AppDbContext
         public DbSet<ProductSize> ProductSizes { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderNumber> OrderNumbers { get; set; }
+        public DbSet<Resource> Resources { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
