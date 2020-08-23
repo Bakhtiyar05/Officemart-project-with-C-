@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta charset="UTF-8">
-    <title>MultiShop - eCommerce HTML Template</title>
+    <title>@ViewData["Title"]</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
@@ -254,6 +254,9 @@
                                 <a asp-action="Index" asp-controller="Account">Daxil ol / Qeydiyyat</a>
                             </li>
                         }
+                        <li class="menu-item-has-children">
+                            <partial name="_SelectLanguagePartial"/>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -265,7 +268,6 @@
         <div class="container-fluid blog-sb-widgets page-styling site-footer">
 
             <div class="row">
-
                 <div class="col-sm-12 col-md-4 widget align-center-tablet f-logo-wrap">
 
                     <a href="/Home/Index" class="f-logo">
