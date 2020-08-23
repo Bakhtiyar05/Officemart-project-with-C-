@@ -9,30 +9,65 @@ namespace OfficeMart.Business.Logic
 {
     public class OrdersLogic
     {
-        public async Task<List<OrderNumberDto>> GetNotApprovedOrders()
+        public async Task<List<OrderNumberDto>> GetNotApprovedOrders(int page)
         {
             var orders = new List<OrderNumberDto>();
             using (var context = TransactionConfig.AppDbContext)
             {
+                int itemsPerPage = 3;
                 var dbOrders = await context.OrderNumbers
                     .Include(i => i.Orders)
-                    .Where(m => m.IsApproved == false).ToListAsync();
+                    .Where(m => m.IsApproved == false)
+                    .Skip((page - 1) * itemsPerPage)
+                    .Take(3)
+                    .ToListAsync();
                 orders = TransactionConfig.Mapper.Map<List<OrderNumberDto>>(dbOrders);
+
+                var ordersCount = await context.OrderNumbers.Where(x => x.IsApproved == false).CountAsync();
+
+                orders.ForEach(x =>
+                {
+                    x.PaginationDto = new PaginationDto();
+                    x.PaginationDto.CurrentPage = page;
+                    x.PaginationDto.ItemsPerPage = 3;
+                    x.PaginationDto.TotalItemsCount = ordersCount;
+                    x.PaginationDto.AspAction = "NotApprovedOrdersList";
+                    x.PaginationDto.AspController = "Order";
+                    x.PaginationDto.Area = "Admin";
+                });
             }
+
+            
+
             return orders;
         }
 
-        public async Task<List<OrderNumberDto>> GetApprovedOrders()
+        public async Task<List<OrderNumberDto>> GetApprovedOrders(int page)
         {
             var orders = new List<OrderNumberDto>();
             using (var context = TransactionConfig.AppDbContext)
             {
+                int itemsPerPage = 3;
                 var dbOrders = await context.OrderNumbers
                     .Include(i => i.Orders)
-                    .Where(m => m.IsApproved == true).ToListAsync();
+                    .Where(m => m.IsApproved == true)
+                    .Skip((page - 1) * itemsPerPage)
+                    .Take(3)
+                    .ToListAsync();
+
                 orders = TransactionConfig.Mapper.Map<List<OrderNumberDto>>(dbOrders);
+
+                var ordersCount = await context.OrderNumbers.Where(x => x.IsApproved == true).CountAsync();
+
                 orders.ForEach(x =>
                 {
+                    x.PaginationDto = new PaginationDto();
+                    x.PaginationDto.CurrentPage = page;
+                    x.PaginationDto.ItemsPerPage = 3;
+                    x.PaginationDto.TotalItemsCount = ordersCount;
+                    x.PaginationDto.AspAction = "GetApprovedOrdersList";
+                    x.PaginationDto.AspController = "Order";
+                    x.PaginationDto.Area = "Admin";
                     x.RootValue = "Approved";
                 });
             }

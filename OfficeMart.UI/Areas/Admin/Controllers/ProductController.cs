@@ -18,7 +18,7 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int id,int page=1)
+        public async Task<IActionResult> Index(int page)
         {
             var productsDto = await new ProductLogic().GetAdminPageProducts(page);
             return View(productsDto);

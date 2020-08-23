@@ -18,5 +18,6 @@ namespace OfficeMart.Business.Dtos
         public DateTime RegDate { get; set; }
         public bool IsApproved { get; set; }
         public string RootValue { get; set; }
+        public PaginationDto PaginationDto { get; set; }
     }
 }

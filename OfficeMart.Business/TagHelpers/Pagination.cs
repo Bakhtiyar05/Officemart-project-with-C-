@@ -36,9 +36,9 @@ namespace OfficeMart.Business.TagHelpers
                 else
                 {
                     if (i == CurrentPage)
-                        builder.Append($"<li><span class='page-numbers current'><a href='/{Area}/{AspController}/{AspAction}/{CategoryId}/{i}'>{i}</a></span></li>");
+                        builder.Append($"<li><span class='page-numbers current'><a href='/{Area}/{AspController}/{AspAction}/{i}'>{i}</a></span></li>");
                     else
-                        builder.Append($"<li><a class='page-numbers' href='/{Area}/{AspController}/{AspAction}/{CategoryId}/{i}'>{i}</a></li>");
+                        builder.Append($"<li><a class='page-numbers' href='/{Area}/{AspController}/{AspAction}/{i}'>{i}</a></li>");
                 }
             }
 
