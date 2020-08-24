@@ -28,7 +28,7 @@ namespace OfficeMart.Business.Dtos
 
         [Required(ErrorMessage = "Sahə tələb olunandır")]
         public int Count { get; set; }
-
+        public string Description { get; set; }
         [Required(ErrorMessage = "Səkil tələb olunandır")]
         public IFormFile Image { get; set; }
         public string Size { get; set; }
