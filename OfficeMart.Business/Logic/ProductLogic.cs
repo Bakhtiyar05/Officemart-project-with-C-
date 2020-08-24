@@ -184,7 +184,12 @@ namespace OfficeMart.Business.Logic
                    .Include(m => m.ProductSize)
                    .Include(m => m.ProductImages)
                    .ToListAsync();
+                    if (products.Count > 0)
+                    {
+                        productsDto = TransactionConfig.Mapper.Map<List<ProductDto>>(products);
+                    }
                 }
+               
                 productsDto.ForEach(x =>
                 {
                     x.PaginationDto = new PaginationDto();
