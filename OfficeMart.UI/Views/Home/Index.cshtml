@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CategoryDto>
 
 @{
-    ViewData["Title"] = Localizer["Home Page"];
+    ViewData["Title"] = Localizer["OfficeMart"];
     var specialProduct = Model.Select(x => x.ProductDto).FirstOrDefault();
     var imagePath = specialProduct?.ProductImages.Select(x => x).FirstOrDefault();
 }
@@ -42,7 +42,7 @@
                                         </div>
                                         <div class="prod-i-bot">
                                             <h3 class="prod-i-ttl">
-                                                <a asp-action="CategoryProducts" asp-controller="Products" asp-route-id="@item.Id">@item.CategoryName</a>
+                                                <a asp-action="Məhsullar" asp-controller="Kateqoriya" asp-route-id="@item.Id">@item.CategoryName</a>
                                             </h3>
                                         </div>
                                     </div>

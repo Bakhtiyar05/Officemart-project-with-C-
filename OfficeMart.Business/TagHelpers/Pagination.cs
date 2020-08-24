@@ -26,7 +26,7 @@ namespace OfficeMart.Business.TagHelpers
 
             for (int i = 1; i <= totalPages; i++)
             {
-                if(Area == "")
+                if(Area == "" && AspAction != "ProductsList")
                 {
                     if (i == CurrentPage)
                         builder.Append($"<li><span class='page-numbers current'><a href='/{AspController}/{AspAction}/{CategoryId}/{i}'>{i}</a></span></li>");
