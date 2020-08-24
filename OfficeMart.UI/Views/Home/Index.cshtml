@@ -2,8 +2,8 @@
 
 @{
     ViewData["Title"] = Localizer["Home Page"];
-    var specialProduct = Library.GetInstance().SpecialProduct;
-    var imagePath = specialProduct?.ProductImages.Select(x => x.ImageName).FirstOrDefault();
+    var specialProduct = Model.Select(x => x.ProductDto).FirstOrDefault();
+    var imagePath = specialProduct?.ProductImages.Select(x => x).FirstOrDefault();
 }
 
 <div id="content" class="site-content">

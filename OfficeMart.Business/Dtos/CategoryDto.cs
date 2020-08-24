@@ -15,11 +15,11 @@ namespace OfficeMart.Business.Dtos
         public string CategoryName { get; set; }
         public DateTime RegDate { get; set; }
         public bool IsActive { get; set; }
-
         [Required(ErrorMessage ="Şəkil tələbolunandır")]
         public IFormFile Image { get; set; }
         public IFormFile ImageForEdit { get; set; }
         public bool IsSuccessfull { get; set; }
         public string ImageName { get; set; }
+        public ProductDto ProductDto { get; set; }
     }
 }

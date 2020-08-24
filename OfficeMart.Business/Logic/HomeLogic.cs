@@ -56,7 +56,20 @@ namespace OfficeMart.Business.Logic
                     .Where(x => x.IsActive != false)
                     .ToListAsync();
 
+                var specialProductEntity = await context
+                    .Products
+                    .Include(x=>x.ProductImages)
+                    .Where(x => x.IsSpecial == true)
+                    .FirstOrDefaultAsync();
+
                 categories = TransactionConfig.Mapper.Map<List<CategoryDto>>(categoriesEntity);
+                var specialProduct = TransactionConfig.Mapper.Map<ProductDto>(specialProductEntity);
+
+                categories.ForEach(x =>
+                {
+                    x.ProductDto = new ProductDto();
+                    x.ProductDto = specialProduct;
+                });
             }
 
             return categories;

@@ -19,7 +19,7 @@
                     <div class="panel-body">
                         <div class="form">
                             <form method="post" asp-controller="Category" asp-action="Edit" enctype="multipart/form-data">
-                                <input value="@Model.Id" hidden />
+                                <input asp-for="@Model.Id" style="visibility:hidden" />
                                 <div class="form-group col-md-5 col-md-offset-3">
                                     <label>Şəkil</label>
                                     <div>
