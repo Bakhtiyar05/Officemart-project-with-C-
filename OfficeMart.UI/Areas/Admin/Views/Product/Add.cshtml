@@ -107,10 +107,11 @@
                 var Count = $("#Count").val();
                 var ColorId = $("#ColorId").val();
                 var ProductSizeId = $("#ProductSizeId").val();
+                var Description = $("#Description").val();
 
                 $.ajax({
                     url: "/Admin/Product/Add",
-                    data: { Price: Price, ProductName: ProductName, CategoryId: CategoryId, ColorId: ColorId, Count: Count,ProductSizeId:ProductSizeId, src: Src },
+                    data: { Price: Price, ProductName: ProductName, CategoryId: CategoryId, ColorId: ColorId, Count: Count, ProductSizeId: ProductSizeId, src: Src, Description: Description },
                     type: "POST",
                     success: function (res) {
                         swal("Uğurlu", "Elan Uğurla əlavə edildi", "success")

@@ -139,9 +139,11 @@
                 var ColorId = $("#ColorId").val();
                 var ProductSizeId = $("#ProductSizeId").val();
                 var IsSpecial = $("#myselect option:selected").text() == "Xeyir" ? false : true;
+                var Description = $("#Description").val();
+
                 $.ajax({
                     url: "/Admin/Product/Edit",
-                    data: { Id:@Model.Id, DiscountPrice: DiscountPrice, Price: Price, ProductName: ProductName, CategoryId: CategoryId, ColorId: ColorId, Count: Count, ProductSizeId: ProductSizeId, src: Src, IsSpecial: IsSpecial },
+                    data: { Id:@Model.Id, DiscountPrice: DiscountPrice, Price: Price, ProductName: ProductName, CategoryId: CategoryId, ColorId: ColorId, Count: Count, ProductSizeId: ProductSizeId, src: Src, IsSpecial: IsSpecial, Description: Description },
                     type: "POST",
                     success: function (res) {
                         console.log(res)

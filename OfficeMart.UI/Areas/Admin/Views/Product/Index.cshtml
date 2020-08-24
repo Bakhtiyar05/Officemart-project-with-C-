@@ -39,6 +39,9 @@
                     @Html.DisplayName("Kateqoriya")
                 </th>
                 <th>
+                    @Html.DisplayName("Haqqında")
+                </th>
+                <th>
                     @Html.DisplayName("Əməliyyatlar")
                 </th>
             </tr>
@@ -116,6 +119,26 @@
                             @Html.DisplayFor(modelItem => item.Category.CategoryName)
                         </p>
                     </td>
+                    @{ 
+                        if(item.Description != null)
+                        {
+                             <td>
+                                <p>
+
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </p>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <p>
+
+                                    @Html.Display("")
+                                </p>
+                            </td>
+                        }
+                    }
 
                     <td>
                         <div class="operations">
