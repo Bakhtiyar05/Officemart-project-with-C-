@@ -1,7 +1,10 @@
 ﻿$(document).ready(() => {
-
+    var count = $(".cart_list li").length;
+    if (count==0) {
+        $(".allprods").css('display', 'none');
+    }
     $(document).on("click", "#submit-checkout", function (e) {
-
+        
         var counter = 0;
         var errorText = "Sahə tələbolunandır";
 

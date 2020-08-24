@@ -17,7 +17,7 @@
                     <li>Səbət</li>
                 </ul>
                 <div class="page-styling">
-                    <div class="woocommerce prod-litems section-list">
+                    <div class="woocommerce allprods prod-litems section-list">
                         @{
                             if (Model != null)
                             {
@@ -177,6 +177,7 @@
         var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
         e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
     });
+    
 </script>
 
 @{ 
