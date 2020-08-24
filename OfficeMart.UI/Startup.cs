@@ -48,13 +48,16 @@ namespace OfficeMart.UI
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //we will use this in production mod
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseExceptionHandler("/404");
+                app.UseStatusCodePagesWithReExecute("/404");
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/404");
+                app.UseStatusCodePagesWithReExecute("/404");
                 app.UseHsts();
             }
 
