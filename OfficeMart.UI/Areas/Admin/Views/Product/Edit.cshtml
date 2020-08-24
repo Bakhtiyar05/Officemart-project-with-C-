@@ -117,8 +117,6 @@
     $(function () {
 
         $(document).on("click", "#saveBtn", function () {
-
-            var data =
             $.validator.unobtrusive.parse($('form'));
             $('form').validate();
             if ($('form').valid()) {
@@ -129,8 +127,6 @@
                         Src.push(src);
                     }
                 });
-
-
                 var ProductName = $("#ProductName").val();
                 var Price = $("#Price").val();
                 var CategoryId = $("#CategoryId").val();
@@ -139,7 +135,6 @@
                 var ColorId = $("#ColorId").val();
                 var ProductSizeId = $("#ProductSizeId").val();
                 var IsSpecial = $("#myselect option:selected").text() == "Xeyir" ? false : true;
-
                 $.ajax({
                     url: "/Admin/Product/Edit",
                     data: { Id:@Model.Id, DiscountPrice: DiscountPrice, Price: Price, ProductName: ProductName, CategoryId: CategoryId, ColorId: ColorId, Count: Count, ProductSizeId: ProductSizeId, src: Src, IsSpecial: IsSpecial },
@@ -155,6 +150,8 @@
 
                     }
                 })
+            }
+            else {
             }
         })
 

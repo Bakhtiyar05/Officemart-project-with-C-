@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using OfficeMart.Business.Dtos;
 using OfficeMart.Business.Logic;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace OfficeMart.UI.Areas.Admin.Controllers
@@ -15,6 +17,8 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
         public ProductController(IWebHostEnvironment environment)
         {
             _environment = environment;
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
         }
 
         [HttpGet]

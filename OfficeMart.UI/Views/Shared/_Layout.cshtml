@@ -366,11 +366,12 @@
             </div>
         </div>
         <div class="form-validate modal-form" id="modal-form">
-            <form action="#" method="POST" class="form-validate">
+            <form asp-action="Contact" asp-controller="About" method="post" class="form-validate">
                 <h4>Bizimlə Əlaqə</h4>
                 <input type="text" placeholder="Adınız" data-required="text" name="name">
                 <input type="text" placeholder="Nömrə" data-required="text" name="phone">
                 <input type="text" placeholder="Email" data-required="text" data-required-email="email" name="email">
+                <textarea type="text" placeholder="Mesaj" data-required="text" name="message"></textarea>
                 <input class="btn1" type="submit" value="Göndər">
             </form>
         </div>
