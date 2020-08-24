@@ -106,8 +106,8 @@ namespace OfficeMart.Business.Logic
                     x.PaginationDto.CurrentPage = page;
                     x.PaginationDto.ItemsPerPage = 3;
                     x.PaginationDto.TotalItemsCount = productsCount;
-                    x.PaginationDto.AspAction = "ProductsList";
-                    x.PaginationDto.AspController = "Products";
+                    x.PaginationDto.AspAction = "Məhsullarımız";
+                    x.PaginationDto.AspController = "Məhsul";
                 });
             }
             return productsDto;
@@ -339,8 +339,8 @@ namespace OfficeMart.Business.Logic
                     x.PaginationDto.ItemsPerPage = 3;
                     x.PaginationDto.TotalItemsCount = productsCount;
                     x.PaginationDto.CategoryId = categoryId;
-                    x.PaginationDto.AspAction = "CategoryProducts";
-                    x.PaginationDto.AspController = "Products";
+                    x.PaginationDto.AspAction = "Məhsullar";
+                    x.PaginationDto.AspController = "Kateqoriya";
                 });
             }
             return products;
