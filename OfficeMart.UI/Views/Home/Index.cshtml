@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CategoryDto>
 
 @{
-    ViewData["Title"] = Localizer["Home Page"];
+    ViewData["Title"] = Localizer["OfficeMart"];
     var specialProduct = Model.Select(x => x.ProductDto).FirstOrDefault();
     var imagePath = specialProduct?.ProductImages.Select(x => x).FirstOrDefault();
 }
