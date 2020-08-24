@@ -9,6 +9,7 @@ namespace OfficeMart.UI.Controllers
 {
     public class ProductDetailController : Controller
     {
+        [Route("Məhsul_Haqqında")]
         public async Task<IActionResult> Index(int id)
         {
             var categoryProducts = await new ProductLogic().GetProductsForDetailPage(id);

@@ -12,6 +12,7 @@ using OfficeMart.Domain.Models.Entities;
 
 namespace OfficeMart.UI.Controllers
 {
+    
     public class AccountController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -22,6 +23,8 @@ namespace OfficeMart.UI.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
+
+        [Route("Daxil Ol_Qeydiyyat")]
         public IActionResult Index()
         {
             return View();

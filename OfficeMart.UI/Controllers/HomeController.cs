@@ -18,7 +18,6 @@ namespace OfficeMart.UI.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            ViewData["Message"] = _localizer["Your application description page."];
             var categories = await new HomeLogic().GetCategories();
             return View(categories);
         }

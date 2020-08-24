@@ -10,6 +10,7 @@ namespace OfficeMart.UI.Controllers
 {
     public class AboutController : Controller
     {
+        [Route("Haqqımızda")]
         public IActionResult Index()
         {
             return View();
