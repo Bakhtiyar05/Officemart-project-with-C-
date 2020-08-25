@@ -1631,8 +1631,8 @@ body .widget_search .dgwt-wcas-si img {
 	border-radius: 80px;
 	text-transform: uppercase;
 	position: relative;
-	padding-left: 22px;
-	padding-right: 22px;
+	padding-left: 12px;
+	padding-right: 12px;
 }
 .mainmenu nav.menu > ul > li.menu-item-has-children > a:after,
 .site-header .h-menu > ul > li.menu-item-has-children > a:after {
@@ -1783,7 +1783,7 @@ body .widget_search .dgwt-wcas-si img {
 .site-header .mainmenu {
 	display: inline-block;
 	vertical-align: middle;
-	width: 45%;
+	width: 44%;
 	padding: 5px 0;
 }
 .site-header .cmm-toggle-wrapper {
@@ -1815,7 +1815,7 @@ body .widget_search .dgwt-wcas-si img {
 		background-color: #fff;
 	}
 	.site-header .h-shop {
-		width: 360px;
+		width: 320px;
 		padding: 0;
 		height: 30px;
 	}
@@ -1851,7 +1851,7 @@ body .widget_search .dgwt-wcas-si img {
 
 @media only screen and (max-width : 1300px) {
 	.site-header .h-shop {
-		width: 315px;
+		width: 272px;
 	}
 	.site-header .h-shop-links {
 	}

@@ -96,7 +96,13 @@ namespace OfficeMart.Business.Logic
                     .Include(m => m.ProductImages)
                     .ToListAsync();
 
-                var categoryCount = await context.Categories.CountAsync();
+                var categories = await context
+                    .Categories
+                    .Include(x=>x.Products)
+                    .Where(x => x.IsActive != false)
+                    .ToListAsync();
+
+                var categoriesDto = TransactionConfig.Mapper.Map<List<CategoryDto>>(categories);
 
                 productsDto = TransactionConfig.Mapper.Map<List<ProductDto>>(products);
 
@@ -108,6 +114,12 @@ namespace OfficeMart.Business.Logic
                     x.PaginationDto.TotalItemsCount = productsCount;
                     x.PaginationDto.AspAction = "Məhsullarımız";
                     x.PaginationDto.AspController = "Məhsul";
+                });
+
+                productsDto.ForEach(x =>
+                {
+                    x.CategoryDtos = new List<CategoryDto>();
+                    x.CategoryDtos.AddRange(categoriesDto);
                 });
             }
             return productsDto;
@@ -335,7 +347,19 @@ namespace OfficeMart.Business.Logic
                     .Include(m => m.ProductImages)
                     .ToListAsync();
 
+                var categories = await context
+                    .Categories
+                    .Include(x=>x.Products)
+                    .Where(x => x.IsActive != false)
+                    .ToListAsync();
+
+
+                var categoriesDto = TransactionConfig.Mapper.Map<List<CategoryDto>>(categories);
+
                 products = TransactionConfig.Mapper.Map<List<ProductDto>>(productsEntity);
+
+                if (products.Count == 0)
+                    products.Add(new ProductDto());
 
                 products.ForEach(x =>
                 {
@@ -346,6 +370,12 @@ namespace OfficeMart.Business.Logic
                     x.PaginationDto.CategoryId = categoryId;
                     x.PaginationDto.AspAction = "Məhsullar";
                     x.PaginationDto.AspController = "Kateqoriya";
+                });
+
+                products.ForEach(x =>
+                {
+                    x.CategoryDtos = new List<CategoryDto>();
+                    x.CategoryDtos.AddRange(categoriesDto); 
                 });
             }
             return products;

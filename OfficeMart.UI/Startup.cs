@@ -49,17 +49,24 @@ namespace OfficeMart.UI
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             //we will use this in production mod
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseExceptionHandler("/404");
+            //    app.UseStatusCodePagesWithReExecute("/404");
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/404");
+            //    app.UseStatusCodePagesWithReExecute("/404");
+            //    app.UseHsts();
+            //}
+
             if (env.IsDevelopment())
             {
-                app.UseExceptionHandler("/404");
-                app.UseStatusCodePagesWithReExecute("/404");
+                app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/404");
-                app.UseStatusCodePagesWithReExecute("/404");
-                app.UseHsts();
-            }
+
+
 
             var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(options.Value);
