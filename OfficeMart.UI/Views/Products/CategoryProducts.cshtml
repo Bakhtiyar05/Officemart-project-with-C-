@@ -73,13 +73,13 @@
                         <div class="theiaStickySidebar">
 
                             @{
-                                if (Model.ToList().Count != 0)
+                                if (Model.ToList().Count != 0 && Model.Any(x=>x.ProductName != null))
                                 {
                                     <div class="prod-litems section-list">
                                         <partial name="_ProductPartial" model="Model.ToList()" />
                                     </div>
                                 }
-                                if (paginationDto != null)
+                                if (paginationDto != null && paginationDto.TotalItemsCount != 0)
                                 {
                                     <partial name="_PaginationPartial" model="@paginationDto" />
                                 }

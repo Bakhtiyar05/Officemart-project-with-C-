@@ -358,6 +358,9 @@ namespace OfficeMart.Business.Logic
 
                 products = TransactionConfig.Mapper.Map<List<ProductDto>>(productsEntity);
 
+                if (products.Count == 0)
+                    products.Add(new ProductDto());
+
                 products.ForEach(x =>
                 {
                     x.PaginationDto = new PaginationDto();
