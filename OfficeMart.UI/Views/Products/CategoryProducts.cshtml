@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="section-wrap-withsb">
-                    <partial name="_CategoriesPartial"/>        
+                    <partial name="_CategoriesPartial" model="@Model.Select(x=>x.CategoryDtos).FirstOrDefault()"/>        
                     <div class="section-list-withsb" id="section-list-withsb">
                         <div class="theiaStickySidebar">
 

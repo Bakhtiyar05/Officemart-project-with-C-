@@ -38,6 +38,7 @@ namespace OfficeMart.Business.Dtos
         public List<string> ImagesBase64 { get; set; }
         public int CategoryCount { get; set; }
         public CategoryDto Category { get; set; }
+        public List<CategoryDto> CategoryDtos { get; set; }
         [Required(ErrorMessage = "Sahə tələb olunandır")]
         [RegularExpression(@"^[0-9]*$", ErrorMessage = "Yalnız rəqəm daxil edə bilərsiz")]
         public int CategoryId { get; set; }
@@ -46,6 +47,7 @@ namespace OfficeMart.Business.Dtos
         public ProductSizeDto ProductSize { get; set; }
         public int ProductSizeId { get; set; }
         public PaginationDto PaginationDto { get; set; }
+        public bool IsActive { get; set; }
         public bool IsSpecial { get; set; }
     }
 }

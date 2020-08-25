@@ -1,6 +1,4 @@
-﻿@{ 
-    var categories = Library.GetInstance().CategoryProducts;
-}
+﻿@model List<CategoryDto>
 
 <aside class="blog-sb-widgets section-sb" id="section-sb">
 
@@ -19,14 +17,14 @@
                         <ul class="section-sb-list">
                             @{
 
-                                foreach (var item in categories)
+                                foreach (var item in Model)
                                 {
                                     <li>
                                         <a asp-action="CategoryProducts" asp-controller="Products" asp-route-id="@item.Id">
                                             <span class="section-sb-label">
                                                 @item.CategoryName
                                                 <span class="count">
-                                                    @item.Products.Count()
+                                                    @item.Products.Where(x=>x.IsActive != false).Count()
                                                 </span>
                                             </span>
                                         </a>
