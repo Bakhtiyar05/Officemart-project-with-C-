@@ -21,5 +21,6 @@ namespace OfficeMart.Business.Dtos
         public bool IsSuccessfull { get; set; }
         public string ImageName { get; set; }
         public ProductDto ProductDto { get; set; }
+        public List<SliderDto> SliderDtos { get; set; }
     }
 }

@@ -1,0 +1,54 @@
+﻿@model List<SliderDto>
+@{
+    ViewData["Title"] = "ImagesList";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="customProductIndex">
+
+    <p style="text-align:center">
+        <a asp-action="Add" asp-controller="Slider" class="btn btn-large d-block btn-success"><i class="fa fa-plus"></i> Yeni Kateqoriya</a>
+    </p>
+    <table class="table table-bordered" style="margin-top:15px;text-align:center">
+        <thead>
+            <tr>
+                <th style="text-align:center">
+                    @Html.DisplayName("Şəkil")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("Əməliyyatlar")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="padding:0px!important">
+                        <p style="display:inline-block;">
+                            <img src="~/img/@item.ImageName" alt="slider-image" style="height:70px;margin:5px 0" />
+                        </p>
+                    </td>
+                    <td style="padding:0px!important">
+                        <div class="operations" style="margin-top:25px;display:flex;justify-content:center" > 
+                            <a asp-action="Edit" asp-controller="Slider" asp-route-id="@item.Id"><i class="fa fa-edit btn btn-small btn-primary"></i></a> |
+                            <form asp-action="Remove" asp-controller="Slider" asp-route-id="@item.Id" method="post">
+                                <i class="fa fa-trash btn btn-small btn-danger" id="submitForm"></i>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(function () {
+
+
+        $(document).on("click", "#submitForm", function () {
+            $(this).parent().submit();
+        });
+    });
+</script>

@@ -17,6 +17,7 @@ namespace OfficeMart.Business.Mappings
             CreateMap<ProductSize, ProductSizeDto>().ReverseMap();
             CreateMap<OrderNumber, OrderNumberDto>().ReverseMap();
             CreateMap<Order, OrderDto>().ReverseMap();
+            CreateMap<Slider, SliderDto>().ReverseMap();
         }
     }
 }

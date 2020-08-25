@@ -23,6 +23,7 @@ namespace OfficeMart.Domain.Models.AppDbContext
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderNumber> OrderNumbers { get; set; }
         public DbSet<Resource> Resources { get; set; }
+        public DbSet<Slider> Sliders { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -42,6 +43,7 @@ namespace OfficeMart.Domain.Models.AppDbContext
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductImageConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(OrderConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(OrderNumberConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(SliderConfiguration).Assembly);
         }
 
     }
