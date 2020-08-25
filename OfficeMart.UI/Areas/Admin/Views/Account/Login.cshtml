@@ -1,0 +1,33 @@
+﻿@model LoginDto
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Admin/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Admin/css/style.css" rel="stylesheet" />
+    <link href="~/Admin/css/style-responsive.css" rel="stylesheet" />
+    <link href="~/Admin/css/font.css" rel="stylesheet" />
+    <link href="~/Admin/css/font-awesome.css" rel="stylesheet" />
+    <title>Login</title>
+</head>
+<body id="loginBody">
+    <div class="log-w3">
+        <div class="w3layouts-main">
+            <h2>Daxil Ol</h2>
+            <form asp-action="Login" asp-controller="Account" method="post">
+                <div asp-validation-summary="All"></div>
+                <input type="email" class="ggg" name="Email" placeholder="Email" asp-for="Email">
+                <input type="password" class="ggg" name="Password" placeholder="Şifrə" asp-for="Password">
+                <div class="clearfix"></div>
+                <input type="submit" class="btn btn-primary" value="Daxil Ol" name="login" >
+            </form>
+        </div>
+    </div>
+</body>
+</html>

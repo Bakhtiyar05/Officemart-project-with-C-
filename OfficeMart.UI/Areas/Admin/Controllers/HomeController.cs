@@ -4,13 +4,15 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OfficeMart.Business.Logic;
 
 namespace OfficeMart.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("AdminPage_pass--0201")]
+    [Authorize]
     public class HomeController : Controller
     {
         public async Task<IActionResult> Index()

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using OfficeMart.Business.Dtos;
 using OfficeMart.Business.Logic;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 namespace OfficeMart.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly IWebHostEnvironment _environment;

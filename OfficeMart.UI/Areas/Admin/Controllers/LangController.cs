@@ -11,6 +11,7 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using DocumentFormat.OpenXml.Drawing;
 using ICSharpCode.Decompiler.Util;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using OfficeMart.Business.Logic;
@@ -18,6 +19,7 @@ using OfficeMart.Business.Logic;
 namespace OfficeMart.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class LangController : Controller
     {
         IWebHostEnvironment _env;

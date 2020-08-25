@@ -12,7 +12,10 @@ p {margin: 0;}
 /*----------------------------------
 10 - Pagination
 ----------------------------------*/
-
+#loginBody {
+    background-image: url('../../img/imgback.jpg');
+    min-height:100vh;
+}
 ul.page-numbers {
     clear: both;
     text-align: center;
@@ -2478,7 +2481,6 @@ ul.inbox-pagination li {
 }
 /*-- gallery --*/
 .w3layouts-main h2 {
-	color: #8b5c7e;
     font-size: 29px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -2540,7 +2542,6 @@ input.ggg{
     font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    background: #f0bcb4;
     color: white;
     border: none;
     outline: none;

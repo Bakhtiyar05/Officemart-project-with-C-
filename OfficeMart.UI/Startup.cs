@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +12,7 @@ using Microsoft.Extensions.Options;
 using OfficeMart.Business.Middlewares;
 using OfficeMart.UI.Resources;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace OfficeMart.UI
 {
@@ -24,6 +28,17 @@ namespace OfficeMart.UI
         public void ConfigureServices(IServiceCollection services)
         {
             AppMiddleware.ConfigureMyServices(services,Configuration);
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Events = new CookieAuthenticationEvents
+                {
+                    OnRedirectToLogin = x =>
+                    {
+                        x.Response.Redirect("/Admin__pass--0201");
+                        return Task.CompletedTask;
+                    }
+                };
+            });
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddSingleton<SharedViewLocalizer>();
             services.AddMvc()
