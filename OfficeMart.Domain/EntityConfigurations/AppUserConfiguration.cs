@@ -21,6 +21,10 @@ namespace OfficeMart.Domain.EntityConfigurations
 
             builder.Property(m => m.LivingPlace)
                    .HasMaxLength(350);
+
+            builder.Property(m => m.IsPasswordReset)
+                .HasDefaultValue(false);
+
         }
     }
 }

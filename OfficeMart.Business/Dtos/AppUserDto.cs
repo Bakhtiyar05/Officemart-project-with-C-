@@ -1,4 +1,5 @@
 ﻿using OfficeMart.Business.Models;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace OfficeMart.Business.Dtos
@@ -26,5 +27,8 @@ namespace OfficeMart.Business.Dtos
 
         public LoginDto LoginDto { get; set; }
         public LogicResult LogicResult { get; set; }
+
+        public DateTime PasswordResetDate { get; set; }
+        public bool IsPasswordReset { get; set; }
     }
 }

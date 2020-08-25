@@ -1422,14 +1422,17 @@ body .widget_search .dgwt-wcas-si img {
 	width: 0;
 	overflow: hidden;
 }
-.h-cart:hover .widget_shopping_cart {
-	opacity: 1;
-	height: auto;
-	width: auto;
-	overflow: initial;
-	transition: opacity 0.3s;
-	z-index: 10;
+@media only screen and (min-width : 1024px) {
+	.h-cart:hover .widget_shopping_cart {
+		opacity: 1;
+		height: auto;
+		width: auto;
+		overflow: initial;
+		transition: opacity 0.3s;
+		z-index: 10;
+	}
 }
+
 .h-cart .widget_shopping_cart .widget_shopping_cart_content {
 	border: 1px solid #e9e9ef;
 	width: 230px;
@@ -2261,7 +2264,7 @@ body .widget_search .dgwt-wcas-si img {
 		margin: 0;
 	}
 	.site-header .h-shop-links .h-cart-total {
-		display: none;
+/*		display: none;*/
 	}
 }
 

@@ -37,8 +37,15 @@
                                         <label for="rememberme">Yadda saxla</label>
                                     </p>
                                     <p class="auth-lost_password">
-                                        <a href="#">Şifrəni unutmusunuz?</a>
+                                        <a class="resetPass" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Şifrəni unutmusunuz?</a>
                                     </p>
+                                    <div class="collapse" id="collapseExample">
+                                        <div class="card card-body">
+                                            <input type="email" placeholder="Emaili daxil edin..." id="senderMail">
+                                            <i id="sendResetMail" style="color:#6bc67c;font-weight:bold;font-size:17px;text-align:center;" class="m-3 resetPass"><span style="margin-left:5px;font-style:normal;border:2px solid;border-radius:10%;padding:0 5px;">Göndər</span></i>
+                                        </div>
+
+                                    </div>
                                 </form>
                             </div>
                             <div class="auth-col">
@@ -86,8 +93,58 @@
         </main>
     </div>
 </div>
-
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script>
+
+    $(document).on("click", "#sendResetMail", function (e) {
+        e.preventDefault();
+         function validateEmail($email) {
+  var emailReg = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+  return emailReg.test( $email );
+}
+        let email = $('#senderMail').val();
+        if (!email) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Xəta',
+                text: 'Email daxil edin...!'
+            });
+        } else {
+            if (validateEmail(email)) {
+                $.ajax({
+                    url:'/Account/ResetPassword',
+                    type: "POST",
+                    data: { email: email},
+                    success: function (result) {
+                        if (result.status ==400) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Xəta',
+                                text: result.message
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Uğurlu',
+                                text: `Şifrə bərpası ${email} adresinə göndərildi.`
+                            });
+                        }
+                      
+                    }
+                })
+            }
+            else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Xəta',
+                    text: 'Düzgün email daxil edin...!'
+                });
+            }
+        }
+
+    });
+</script>
 <partial name="_ValidationScriptsPartial" />
 <script>
     document.getElementById('phone').addEventListener('input', function (e) {

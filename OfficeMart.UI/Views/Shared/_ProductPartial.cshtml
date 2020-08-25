@@ -2,7 +2,7 @@
 @{
     foreach (var item in Model)
     {
-        <input value="@item.Count" id="prodCount" hidden/>
+        <input value="@item.Count" class="prodCount" hidden/>
         <article class="prod-li sectls">
             <div class="prod-li-inner">
                 <a class="prod-li-img" asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.Id">

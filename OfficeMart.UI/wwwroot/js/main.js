@@ -26,6 +26,7 @@ function calcPrice() {
     }
 }
 
+
 function clickForBasket(id, isArrow = false) {
 
     if ($(".cart_list li").length > 0) {
@@ -190,8 +191,9 @@ jQuery(document).ready(function ($) {
 
     $('.prod-li-add').css('cursor', 'pointer');
     $('.LoginRegUser').css('cursor', 'pointer');
-    $('.LoginRegUser').css('cursor', 'pointer');
+    $('.resetPass').css('cursor', 'pointer');
 
+    
     // Fancybox Images
     $('.fancy-img').fancybox({
         padding: 0,
@@ -942,3 +944,4 @@ jQuery(document).ready(function ($) {
         $('.wccm-compare-table').setDraggable();
     });
 })(jQuery);
+
