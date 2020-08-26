@@ -1964,6 +1964,13 @@ body .widget_search .dgwt-wcas-si img {
 }
 
 @media only screen and (max-width : 768px) {
+	#specialProductImg {
+		width: 92%!important;
+		margin-left:4%;
+	}
+	.maincont-subttl{
+		text-align:center;
+	}
 	.site-header-before {
 		padding-left: 15px;
 		padding-right: 15px;
@@ -6903,7 +6910,9 @@ div.product.product-type-grouped .prod-add form.cart > .single_add_to_cart_butto
 			padding: 0;
 			min-height: inherit;
 		}
-
+		#services{
+			display:none;
+		}
 		.prod .prod-slider-wrap {
 			position: relative;
 			top: auto;

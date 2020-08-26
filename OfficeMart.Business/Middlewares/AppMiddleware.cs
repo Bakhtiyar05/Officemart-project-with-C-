@@ -16,7 +16,7 @@ namespace OfficeMart.Business.Middlewares
     {
         public static void ConfigureMyServices(this IServiceCollection services, IConfiguration Configuration)
         {
-            services.AddDbContext<OfficeMartContext>(options => options.UseSqlServer("Data Source=.;Initial Catalog=OfficeMart;Integrated Security=SSPI"));
+            services.AddDbContext<OfficeMartContext>(options => options.UseSqlServer("Data Source=SQL6010.site4now.net;Initial Catalog=DB_A66876_officemart;User Id=DB_A66876_officemart_admin;Password=Gulsum_2009"));
 
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<OfficeMartContext>()

@@ -27,7 +27,7 @@ namespace OfficeMart.Domain.Models.AppDbContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=OfficeMart;Integrated Security=SSPI");
+            optionsBuilder.UseSqlServer("Data Source=SQL6010.site4now.net;Initial Catalog=DB_A66876_officemart;User Id=DB_A66876_officemart_admin;Password=Gulsum_2009");
             base.OnConfiguring(optionsBuilder);
 
         }
