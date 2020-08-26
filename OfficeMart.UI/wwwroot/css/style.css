@@ -6897,6 +6897,11 @@ div.product.product-type-grouped .prod-add form.cart > .single_add_to_cart_butto
 	.prod .prod-slider .slides li a {
 		height: 80%!important;
 	}
+	#specialProductImg {
+		width: 89% !important;
+		margin-top: 9% !important;
+		height: 19.5vh!important;
+	}
 }
 	@media only screen and (min-width: 769px) and (max-width: 992px) {
 		.prod .prod-li-qnt {
