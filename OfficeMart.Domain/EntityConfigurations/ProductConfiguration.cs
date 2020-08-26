@@ -16,7 +16,6 @@ namespace OfficeMart.Domain.EntityConfigurations
                 .HasMaxLength(75);
 
             builder.Property(x => x.Description)
-                .IsRequired()
                 .HasMaxLength(850);
 
             builder.Property(x => x.Price)

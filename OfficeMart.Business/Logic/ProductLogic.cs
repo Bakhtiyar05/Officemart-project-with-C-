@@ -65,13 +65,14 @@ namespace OfficeMart.Business.Logic
                     }
                     var baseProduct = context.Products.Find(editableProduct.Id);
                     baseProduct = TransactionConfig.Mapper.Map(editableProduct, baseProduct);
+                    baseProduct.IsActive = true;
                     baseProduct.IsSpecial = editableProduct.IsSpecial == true ? true : false;
                     context.Products.Update(baseProduct);
                     await context.SaveChangesAsync();
                 }
                 return true;
             }
-            catch
+            catch(Exception e)
             {
                 return false;
             }
@@ -180,12 +181,16 @@ namespace OfficeMart.Business.Logic
                     .Include(m => m.ProductImages)
                     .ToListAsync();
                 var productCount = categoryResult.Count;
+
                 if (categoryResult.Count > 0)
                 {
                     productsDto = TransactionConfig.Mapper.Map<List<ProductDto>>(categoryResult);
                 }
                 else
                 {
+                    var data = await context
+                        .Products
+                        .ToListAsync();
                     var products = await context
                    .Products
                    .Where(m => m.IsActive != false && m.ProductName.ToLower().Contains(search))
@@ -201,7 +206,16 @@ namespace OfficeMart.Business.Logic
                         productsDto = TransactionConfig.Mapper.Map<List<ProductDto>>(products);
                     }
                 }
-               
+
+
+                var categories = await context
+                    .Categories
+                    .Include(x => x.Products)
+                    .Where(x => x.IsActive != false)
+                    .ToListAsync();
+
+                var categoriesDto = TransactionConfig.Mapper.Map<List<CategoryDto>>(categories);
+
                 productsDto.ForEach(x =>
                 {
                     x.PaginationDto = new PaginationDto();
@@ -210,6 +224,12 @@ namespace OfficeMart.Business.Logic
                     x.PaginationDto.TotalItemsCount = productCount;
                     x.PaginationDto.AspAction = "ProductsList";
                     x.PaginationDto.AspController = "Products";
+                });
+
+                productsDto.ForEach(x =>
+                {
+                    x.CategoryDtos = new List<CategoryDto>();
+                    x.CategoryDtos.AddRange(categoriesDto);
                 });
             }
 

@@ -6,6 +6,7 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using OfficeMart.Business.Dtos;
 using OfficeMart.Business.Logic;
 using OfficeMart.Business.Models;
@@ -27,6 +28,7 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
         }
         public IActionResult Login()
         {
+
             return View();
         }
 
