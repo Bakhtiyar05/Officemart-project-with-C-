@@ -50,7 +50,16 @@
                             <div class="variations_form cart">
                                 <p class="prod-price">₼ @Model.ProductDto.Price</p>
                                 <input type="hidden" id="price-@Model.ProductDto.Id" value="@Model.ProductDto.Price" />
-                                <p class="prod-excerpt">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget... <a id="prod-showdesc" class="prod-excerpt-more" href="#">read more</a></p>
+                                @{
+                                    if (Model.ProductDto.Description != null)
+                                    {
+                                        <p class="prod-excerpt">@Model.ProductDto.Description</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="prod-excerpt"></p>
+                                    }
+                                }
                                 <div class="prod-add">
                                     <button id="@Model.ProductDto.Id" class="button prod-addbtn"><i class="icon ion-android-cart"></i>Səbətə Əlavə Et</button>
                                     <p class="qnt-wrap prod-li-qnt">
@@ -62,7 +71,7 @@
                                         <p>Cəmi : </p>
                                         <p style=" color: #6bc67c" id="total-@Model.ProductDto.Id" class="prod-li-total ml-1">@Model.ProductDto.Price ₼</p>
                                         <input type="hidden" id="total-value-@Model.ProductDto.Id" value="@Model.ProductDto.Price">
-                                        <input value="@Model.ProductDto.Count" hidden class="prodCount"/>
+                                        <input value="@Model.ProductDto.Count" hidden class="prodCount" />
                                     </div>
                                 </div>
                             </div>
