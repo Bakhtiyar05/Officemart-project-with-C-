@@ -57,6 +57,19 @@
 
                                 <a href="#" rel="nofollow">
 
+                                    <i class="fa fa-linkedin"></i>
+
+                                </a>
+
+                            </p>
+
+                        </li>
+                        <li>
+
+                            <p class="links_list-value">
+
+                                <a href="#" rel="nofollow">
+
                                     <i class="fa fa-instagram"></i>
 
                                 </a>
@@ -208,7 +221,7 @@
 
                         </li>
 
-                        <li >
+                        <li>
 
                             <a asp-action="Məhsullarımız" asp-controller="Məhsul">Məhsullarımız</a>
 
@@ -221,16 +234,24 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             var user = await _userManager.GetUserAsync(User);
-                            <li class="LoginRegUser" id="dropdownMenuButton" data-toggle="dropdown">
-                                <a>@user.Name @user.Surname <i class="fa fa-chevron-circle-down"></i></a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" onclick="location.href = '/User/Orders?stat=false';"><i class="fa fa-clock-o mr-2"></i>Gözləyən sifarişlər</a>
-                                    <a class="dropdown-item" onclick="location.href = '/User/Orders?stat=true';"><i class="fa fa-check-circle-o mr-2"></i>Təsdiqlənmiş sifarişlər</a>
-                                    <a class="dropdown-item" onclick="location.href = '/Account/Restore';"><i class="fa fa-cog mr-2"></i>Parametrlər</a>
-                                    <a class="dropdown-item" onclick="location.href = '/Account/Signout';"><i class="fa fa-sign-out mr-2"></i>Çıxış</a>
-                                </div>
-                            </li>
-
+                            if (user != null)
+                            {
+                                <li class="LoginRegUser" id="dropdownMenuButton" data-toggle="dropdown">
+                                    <a>@user.Name @user.Surname <i class="fa fa-chevron-circle-down"></i></a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" onclick="location.href = '/User/Orders?stat=false';"><i class="fa fa-clock-o mr-2"></i>Gözləyən sifarişlər</a>
+                                        <a class="dropdown-item" onclick="location.href = '/User/Orders?stat=true';"><i class="fa fa-check-circle-o mr-2"></i>Təsdiqlənmiş sifarişlər</a>
+                                        <a class="dropdown-item" onclick="location.href = '/Account/Restore';"><i class="fa fa-cog mr-2"></i>Parametrlər</a>
+                                        <a class="dropdown-item" onclick="location.href = '/Account/Signout';"><i class="fa fa-sign-out mr-2"></i>Çıxış</a>
+                                    </div>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="LoginRegUser">
+                                    <a asp-action="Index" asp-controller="Account">Daxil ol / Qeydiyyat</a>
+                                </li>
+                            }
                         }
                         else
                         {
@@ -238,9 +259,9 @@
                                 <a asp-action="Index" asp-controller="Account">Daxil ol / Qeydiyyat</a>
                             </li>
                         }
-                        <li class="menu-item-has-children">
-                            <partial name="_SelectLanguagePartial"/>
-                        </li>
+                        @*<li class="menu-item-has-children">
+                            <partial name="_SelectLanguagePartial" />
+                        </li>*@
                     </ul>
                 </nav>
             </div>

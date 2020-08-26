@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@inject UserManager<AppUser> _userManager
+@inject SignInManager<AppUser> SignInManager
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>Visitors an Admin Panel </title>
@@ -138,7 +141,7 @@
                                 <a href="#">
                                     <span class="photo"><img alt="avatar" src="~/Admin/images/1.png"></span>
                                     <span class="subject">
-                                        <span class="from">Jane Doe</span>
+                                       
                                         <span class="time">2 min ago</span>
                                     </span>
                                     <span class="message">
@@ -192,13 +195,19 @@
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <img alt="" src="~/Admin/images/2.png">
-                            <span class="username">John Doe</span>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                var user = await _userManager.GetUserAsync(User);
+                                if (user != null)
+                                {
+                                    <span class="from">@user.Name @user.Surname</span>
+                                }
+                            }
+
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
-                            <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-                            <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                            <li><a href="login.html"><i class="fa fa-key"></i> Log Out</a></li>
+                            <li><a href="/Account/SignOut"><i class="fa fa-key"></i> Çıxış</a></li>
                         </ul>
                     </li>
                     <!-- user login dropdown end -->
@@ -263,12 +272,6 @@
                                 <li><a href="/Admin/Slider/Add">Şəkil Əlavə Et</a></li>
                                 <li><a href="/Admin/Slider/ImagesList">Şəkillərə Baxış</a></li>
                             </ul>
-                        </li>
-                        <li>
-                            <a href="login.html">
-                                <i class="fa fa-user"></i>
-                                <span>Login Page</span>
-                            </a>
                         </li>
                     </ul>
                 </div>

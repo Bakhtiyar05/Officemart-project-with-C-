@@ -39,6 +39,7 @@ namespace OfficeMart.Business.Dtos
         public int CategoryCount { get; set; }
         public CategoryDto Category { get; set; }
         public List<CategoryDto> CategoryDtos { get; set; }
+
         [Required(ErrorMessage = "Sahə tələb olunandır")]
         [RegularExpression(@"^[0-9]*$", ErrorMessage = "Yalnız rəqəm daxil edə bilərsiz")]
         public int CategoryId { get; set; }
