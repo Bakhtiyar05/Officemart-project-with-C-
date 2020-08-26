@@ -8,18 +8,22 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OfficeMart.Business.Dtos;
 using OfficeMart.Business.Logic;
+using OfficeMart.Business.Models;
 using OfficeMart.Domain.Models.Entities;
 
 namespace OfficeMart.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("Admin__pass--0201")]
+    [Route("__rommor__")]
     public class AccountController : Controller
     {
         private readonly SignInManager<AppUser> _signInManager;
-        public AccountController(SignInManager<AppUser> signInManager)
+        private readonly UserManager<AppUser> _userManager;
+        public AccountController(SignInManager<AppUser> signInManager,
+            UserManager<AppUser> userManager)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
         }
         public IActionResult Login()
         {
@@ -31,7 +35,7 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await new AccountLogic().Login(loginDto, _signInManager);
+                var result = await new AccountLogic().AdminLogin(loginDto, _signInManager,_userManager);
                 if (result.OperationIsSuccessfull)
                     return RedirectToAction("Index","Home");
                 else

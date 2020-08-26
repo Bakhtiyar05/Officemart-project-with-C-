@@ -12,5 +12,6 @@ namespace OfficeMart.Domain.Models.Entities
         public string LivingPlace { get; set; }
         public DateTime PasswordResetDate { get; set; }
         public bool IsPasswordReset { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

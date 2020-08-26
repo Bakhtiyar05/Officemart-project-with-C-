@@ -25,6 +25,9 @@ namespace OfficeMart.Domain.EntityConfigurations
             builder.Property(m => m.IsPasswordReset)
                 .HasDefaultValue(false);
 
+            builder.Property(x => x.IsAdmin)
+                .HasDefaultValue(false);
+
         }
     }
 }

@@ -34,7 +34,7 @@ namespace OfficeMart.UI
                 {
                     OnRedirectToLogin = x =>
                     {
-                        x.Response.Redirect("/Admin__pass--0201");
+                        x.Response.Redirect("/__rommor__");
                         return Task.CompletedTask;
                     }
                 };
@@ -64,22 +64,22 @@ namespace OfficeMart.UI
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             //we will use this in production mod
+            if (env.IsProduction())
+            {
+                app.UseExceptionHandler("/404");
+                app.UseStatusCodePagesWithReExecute("/404");
+            }
+            else
+            {
+                app.UseExceptionHandler("/404");
+                app.UseStatusCodePagesWithReExecute("/404");
+                app.UseHsts();
+            }
+
             //if (env.IsDevelopment())
             //{
-            //    app.UseExceptionHandler("/404");
-            //    app.UseStatusCodePagesWithReExecute("/404");
+            //    app.UseDeveloperExceptionPage();
             //}
-            //else
-            //{
-            //    app.UseExceptionHandler("/404");
-            //    app.UseStatusCodePagesWithReExecute("/404");
-            //    app.UseHsts();
-            //}
-
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
 
 
 
