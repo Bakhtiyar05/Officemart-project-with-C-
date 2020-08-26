@@ -1968,8 +1968,15 @@ body .widget_search .dgwt-wcas-si img {
 		width: 92%!important;
 		margin-left:4%;
 	}
-	.maincont-subttl{
+	#specialProductName{
+		font-size:20px;
 		text-align:center;
+	}
+	.front-image-half .image-half-cont h2{
+		margin-bottom:14px!important;
+	}
+	.maincont-subttl {
+		text-align: center;
 	}
 	.site-header-before {
 		padding-left: 15px;
