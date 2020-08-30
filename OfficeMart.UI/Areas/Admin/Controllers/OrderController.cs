@@ -40,6 +40,10 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
             ViewBag.isRejected = result.IsRejected;
             return View(orderDetails);
         }
+        public async Task<IActionResult> PdfExport(int orderNumberId)
+        {
+            return await new PdfExportLogic().ExportToPdf(orderNumberId);
+        }
 
         [HttpPost]
         public async Task<IActionResult> ApproveOrder(int orderNumberId)

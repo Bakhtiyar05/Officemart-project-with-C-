@@ -31,8 +31,8 @@ namespace OfficeMart.UI.Controllers
                 sc.Credentials = new NetworkCredential("officemartbaku@gmail.com", "OfficeMart2020");
                 MailMessage mail = new MailMessage();
                 mail.From = new MailAddress("officemartbaku@gmail.com", "OfficeMart");
-                mail.To.Add(email);
-                mail.Subject = "TEst";
+                mail.To.Add("info@officemart.az");
+                mail.Subject = "Əlaqə üçün müraciət";
                 mail.IsBodyHtml = true;
                 mail.Body = String.Format(
                     $"<h3> Ad: <span style =\"color:green;font-size:20px;\">{name}</span></h3>" +

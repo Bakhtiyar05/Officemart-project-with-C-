@@ -419,7 +419,7 @@ namespace OfficeMart.Business.Logic
 
                 var categoryProducts = await context
                     .Products
-                    .Where(x => x.IsActive != false && x.CategoryId == product.CategoryId)
+                    .Where(x => x.IsActive != false && x.CategoryId == product.CategoryId&& x.Id!=productId)
                     .Include(m => m.Category)
                     .Include(m => m.ProductImages)
                     .Take(4)
