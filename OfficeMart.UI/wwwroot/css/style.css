@@ -6915,7 +6915,10 @@ div.product.product-type-grouped .prod-add form.cart > .single_add_to_cart_butto
 	}
 
 	@media only screen and (max-width : 768px) {
-		.maincont .prod {
+		.btn {
+			padding: 11px 56px 12px!important;
+		}
+			.maincont .prod {
 			margin-bottom: 49px;
 			z-index: 2;
 			position: relative;
