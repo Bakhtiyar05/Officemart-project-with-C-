@@ -27,8 +27,6 @@ namespace OfficeMart.Business.Logic
                         var product = await context
                            .Products
                            .Where(m => m.IsActive != false && m.Id == ids[i])
-                           //.Skip((page - 1) * itemsPerPage)
-                           //.Take(3)
                            .Include(m => m.Category)
                            .Include(m => m.Color)
                            .Include(m => m.ProductSize)
