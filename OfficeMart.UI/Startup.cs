@@ -41,14 +41,6 @@ namespace OfficeMart.UI
                 };
             });
 
-            services.AddDistributedMemoryCache();
-
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromSeconds(60 * 60 * 4000);
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddSingleton<SharedViewLocalizer>();
@@ -97,7 +89,6 @@ namespace OfficeMart.UI
             var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(options.Value);
 
-            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
