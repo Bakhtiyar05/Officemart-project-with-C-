@@ -88,9 +88,9 @@ namespace OfficeMart.UI
 
             var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(options.Value);
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseXMLSitemap(env.ContentRootPath);
             app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();
