@@ -90,7 +90,6 @@ namespace OfficeMart.UI
             app.UseRequestLocalization(options.Value);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseXMLSitemap(env.ContentRootPath);
             app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();

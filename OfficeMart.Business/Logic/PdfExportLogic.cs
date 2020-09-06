@@ -25,7 +25,7 @@ namespace OfficeMart.Business.Logic
                     .OrderNumbers
                     .FindAsync(orderNumberId);
 
-                var buyedUser = await context.Users.Where(m => m.Id == orderNumber.BuyerUserId).FirstOrDefaultAsync();
+                var buyedUser = await context.Orders.Where(m => m.OrderNumberId == orderNumberId).FirstOrDefaultAsync();
 
                 var orderNumberProducts = await context
                     .OrderNumbers
@@ -43,11 +43,11 @@ namespace OfficeMart.Business.Logic
                 PdfFont font = new PdfStandardFont(PdfFontFamily.Courier, 15);
                 int lineHeight = 40;
                 decimal totalSum = 0;
-                graphics.DrawString($"Tarix : {DateTime.Now.ToString("dd.MM.yyyy")}", font, PdfBrushes.Black, new PointF(0, lineHeight));
-                lineHeight += 25;
-                graphics.DrawString($"Cek № : {orderNumber.OrderCheckNumber}", font, PdfBrushes.Black, new PointF(0, lineHeight));
-                lineHeight += 25;
-                graphics.DrawString($"Musteri : {buyedUser.Name} {buyedUser.Surname}", font, PdfBrushes.Black, new PointF(0, lineHeight));
+                graphics.DrawString($"Tarix : {DateTime.Now.ToString("dd.MM.yyyy")}", font, PdfBrushes.Black, new PointF(0, lineHeight+=25));
+                graphics.DrawString($"Cek № : {orderNumber.OrderCheckNumber}", font, PdfBrushes.Black, new PointF(0, lineHeight+=25));
+                graphics.DrawString($"Musteri : {buyedUser.BuyerName} {buyedUser.BuyerSurname}", font, PdfBrushes.Black, new PointF(0, lineHeight+=25));
+                graphics.DrawString($"Elaqe : {buyedUser.BuyerPhone}", font, PdfBrushes.Black, new PointF(0, lineHeight+=25));
+                graphics.DrawString($"Unvan : {buyedUser.DeliveryAddress}", font, PdfBrushes.Black, new PointF(0, lineHeight+=25));
                 PdfGrid pdfGrid = new PdfGrid();
                 List<object> data = new List<object>();
 
@@ -65,11 +65,10 @@ namespace OfficeMart.Business.Logic
                 }
                 Object total = new { Ad = " ", Say = " ", Qiymet = " ", Toplam = $" {totalSum}" };
                 data.Add(total);
-                lineHeight += 30;
                 IEnumerable<object> dataTable = data;
                 pdfGrid.DataSource = dataTable;
 
-                pdfGrid.Draw(page, new Syncfusion.Drawing.PointF(0, lineHeight));
+                pdfGrid.Draw(page, new Syncfusion.Drawing.PointF(0, lineHeight+=25));
 
                 MemoryStream stream = new MemoryStream();
 
