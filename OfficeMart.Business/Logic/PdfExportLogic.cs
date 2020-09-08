@@ -5,6 +5,7 @@ using OfficeMart.Business.Models;
 using Syncfusion.Drawing;
 using Syncfusion.Pdf;
 using Syncfusion.Pdf.Graphics;
+using Syncfusion.Pdf.Grid;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,7 +25,7 @@ namespace OfficeMart.Business.Logic
                     .OrderNumbers
                     .FindAsync(orderNumberId);
 
-                var buyedUser = await context.Users.Where(m => m.Id == orderNumber.BuyerUserId).FirstOrDefaultAsync();
+                var buyedUser = await context.Orders.Where(m => m.OrderNumberId == orderNumberId).FirstOrDefaultAsync();
 
                 var orderNumberProducts = await context
                     .OrderNumbers
@@ -33,50 +34,49 @@ namespace OfficeMart.Business.Logic
                     .ThenInclude(x => x.Product)
                     .ToListAsync();
 
-
-
-
-
-
-                foreach (var item in orderNumberProducts)
-                {
-                    foreach (var order in item.Orders)
-                    {
-                       
-                        var productEntity = orderNumberProducts
-                            .Select(x => x.Orders.Select(x => x.Product).Where(x => x.Id == order.Product.Id).FirstOrDefault())
-                            .FirstOrDefault();
-                       
-
-                    }
-                }
-
-
-
-
                 PdfDocument document = new PdfDocument();
 
-                //Add a page to the document
                 PdfPage page = document.Pages.Add();
 
-                //Create PDF graphics for the page
                 PdfGraphics graphics = page.Graphics;
 
-                //Set the standard font
-                PdfFont font = new PdfStandardFont(PdfFontFamily.Helvetica, 20);
+                PdfFont font = new PdfStandardFont(PdfFontFamily.Courier, 15);
+                int lineHeight = 40;
+                decimal totalSum = 0;
+                graphics.DrawString($"Tarix : {DateTime.Now.ToString("dd.MM.yyyy")}", font, PdfBrushes.Black, new PointF(0, lineHeight+=25));
+                graphics.DrawString($"Cek № : {orderNumber.OrderCheckNumber}", font, PdfBrushes.Black, new PointF(0, lineHeight+=25));
+                graphics.DrawString($"Musteri : {buyedUser.BuyerName} {buyedUser.BuyerSurname}", font, PdfBrushes.Black, new PointF(0, lineHeight+=25));
+                graphics.DrawString($"Elaqe : {buyedUser.BuyerPhone}", font, PdfBrushes.Black, new PointF(0, lineHeight+=25));
+                graphics.DrawString($"Unvan : {buyedUser.DeliveryAddress}", font, PdfBrushes.Black, new PointF(0, lineHeight+=25));
+                PdfGrid pdfGrid = new PdfGrid();
+                List<object> data = new List<object>();
 
-                //Draw the text
-                graphics.DrawString("Hello World!!!", font, PdfBrushes.Black, new PointF(0, 0));
 
-                //Saving the PDF to the MemoryStream
+                foreach (var order in orderNumber.Orders)
+                {
+
+                    var productEntity = orderNumberProducts
+                        .Select(x => x.Orders.Select(x => x.Product).Where(x => x.Id == order.Product.Id).FirstOrDefault())
+                        .FirstOrDefault();
+                    totalSum += productEntity.Count * productEntity.Price;
+                    Object row = new { Ad = " " + productEntity.ProductName.ToString(), Say = " " + productEntity.Count.ToString(), Qiymet = " " + productEntity.Price.ToString(), Toplam = " " + (productEntity.Count * productEntity.Price).ToString() };
+                    data.Add(row);
+
+                }
+                Object total = new { Ad = " ", Say = " ", Qiymet = " ", Toplam = $" {totalSum}" };
+                data.Add(total);
+                IEnumerable<object> dataTable = data;
+                pdfGrid.DataSource = dataTable;
+
+                pdfGrid.Draw(page, new Syncfusion.Drawing.PointF(0, lineHeight+=25));
+
                 MemoryStream stream = new MemoryStream();
 
                 document.Save(stream);
 
-                //Set the position as '0'.
+
                 stream.Position = 0;
 
-                //Download the PDF document in the browser
                 FileStreamResult fileStreamResult = new FileStreamResult(stream, "application/pdf");
 
                 fileStreamResult.FileDownloadName = "Sample.pdf";
