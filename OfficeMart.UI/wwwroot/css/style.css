@@ -2947,7 +2947,7 @@ ul.page-numbers li {
 }
 ul.page-numbers li a {
 	transition: all 0.2s;
-	color: #283346;
+	color: #fff;
 	text-align: center;
 	display: block;
 	position: relative;
@@ -2960,9 +2960,9 @@ ul.page-numbers li span {
 	position: relative;
 	padding: 1px 12px;
 }
-ul.page-numbers li a:hover {
+/*ul.page-numbers li a:hover {
 	color: #6bc67c;
-}
+}*/
 ul.page-numbers li a.prev {
 	font-size: 17px;
 }

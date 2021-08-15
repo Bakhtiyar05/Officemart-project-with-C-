@@ -7,9 +7,39 @@
 
   <ItemGroup>
     <Compile Remove="Views\Partials\**" />
+    <Compile Remove="wwwroot\Admin\**" />
     <Content Remove="Views\Partials\**" />
+    <Content Remove="wwwroot\Admin\**" />
     <EmbeddedResource Remove="Views\Partials\**" />
+    <EmbeddedResource Remove="wwwroot\Admin\**" />
     <None Remove="Views\Partials\**" />
+    <None Remove="wwwroot\Admin\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Admin\Views\Account\Login.cshtml" />
+    <None Include="Areas\Admin\Views\Category\Add.cshtml" />
+    <None Include="Areas\Admin\Views\Category\CategoryList.cshtml" />
+    <None Include="Areas\Admin\Views\Category\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Lang\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Order\GetApprovedOrdersList.cshtml" />
+    <None Include="Areas\Admin\Views\Order\NotApprovedOrdersList.cshtml" />
+    <None Include="Areas\Admin\Views\Order\OrderDetail.cshtml" />
+    <None Include="Areas\Admin\Views\ProductSize\Add.cshtml" />
+    <None Include="Areas\Admin\Views\ProductSize\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\ProductSize\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Product\Add.cshtml" />
+    <None Include="Areas\Admin\Views\Product\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Product\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Shared\Components\OrderList\Default.cshtml" />
+    <None Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <None Include="Areas\Admin\Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Areas\Admin\Views\Slider\Add.cshtml" />
+    <None Include="Areas\Admin\Views\Slider\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Slider\ImagesList.cshtml" />
+    <None Include="Areas\Admin\Views\_ViewImports.cshtml" />
+    <None Include="Areas\Admin\Views\_ViewStart.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,11 +54,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OfficeMart.Business\OfficeMart.Business.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
 
 </Project>
