@@ -83,14 +83,14 @@ namespace OfficeMart.Business.Logic
 
             using (var context = TransactionConfig.AppDbContext)
             {
-                int itemsPerPage = 3;
+                int itemsPerPage = 25;
                 var productsCount = await context.Products.Where(x => x.IsActive != false).CountAsync();
 
                 var products = await context
                     .Products
                     .Where(m => m.IsActive != false)
                     .Skip((page - 1) * itemsPerPage)
-                    .Take(3)
+                    .Take(25)
                     .Include(m => m.Category)
                     .Include(m => m.Color)
                     .Include(m => m.ProductSize)
@@ -111,7 +111,7 @@ namespace OfficeMart.Business.Logic
                 {
                     x.PaginationDto = new PaginationDto();
                     x.PaginationDto.CurrentPage = page;
-                    x.PaginationDto.ItemsPerPage = 3;
+                    x.PaginationDto.ItemsPerPage = 25;
                     x.PaginationDto.TotalItemsCount = productsCount;
                     x.PaginationDto.AspAction = "Məhsullarımız";
                     x.PaginationDto.AspController = "Məhsul";
@@ -131,14 +131,14 @@ namespace OfficeMart.Business.Logic
 
             using (var context = TransactionConfig.AppDbContext)
             {
-                int itemsPerPage = 3;
+                int itemsPerPage = 25;
                 var productsCount = await context.Products.Where(x => x.IsActive != false).CountAsync();
 
                 var products = await context
                     .Products
                     .Where(m => m.IsActive != false)
                     .Skip((page - 1) * itemsPerPage)
-                    .Take(3)
+                    .Take(25)
                     .Include(m => m.Category)
                     .Include(m => m.Color)
                     .Include(m => m.ProductSize)
@@ -153,7 +153,7 @@ namespace OfficeMart.Business.Logic
                 {
                     x.PaginationDto = new PaginationDto();
                     x.PaginationDto.CurrentPage = page;
-                    x.PaginationDto.ItemsPerPage = 3;
+                    x.PaginationDto.ItemsPerPage = 25;
                     x.PaginationDto.TotalItemsCount = productsCount;
                     x.PaginationDto.AspAction = "Index";
                     x.PaginationDto.AspController = "Product";
@@ -168,13 +168,13 @@ namespace OfficeMart.Business.Logic
 
             using (var context = TransactionConfig.AppDbContext)
             {
-                int itemsPerPage = 3;
+                int itemsPerPage = 25;
                 var categoryResult = await context.Categories
                     .Where(m => m.CategoryName.ToLower().Contains(search) && m.IsActive != false)
                     .Include(m => m.Products)
                     .SelectMany(x => x.Products)
                     .Skip((page - 1) * itemsPerPage)
-                    .Take(3)
+                    .Take(25)
                     .Include(m => m.Category)
                     .Include(m => m.Color)
                     .Include(m => m.ProductSize)
@@ -195,7 +195,7 @@ namespace OfficeMart.Business.Logic
                    .Products
                    .Where(m => m.IsActive != false && m.ProductName.ToLower().Contains(search))
                    .Skip((page - 1) * itemsPerPage)
-                   .Take(3)
+                   .Take(25)
                    .Include(m => m.Category)
                    .Include(m => m.Color)
                    .Include(m => m.ProductSize)
@@ -220,7 +220,7 @@ namespace OfficeMart.Business.Logic
                 {
                     x.PaginationDto = new PaginationDto();
                     x.PaginationDto.CurrentPage = page;
-                    x.PaginationDto.ItemsPerPage = 3;
+                    x.PaginationDto.ItemsPerPage = 25;
                     x.PaginationDto.TotalItemsCount = productCount;
                     x.PaginationDto.AspAction = "ProductsList";
                     x.PaginationDto.AspController = "Products";
@@ -349,7 +349,7 @@ namespace OfficeMart.Business.Logic
         }
         public async Task<List<ProductDto>> GetProductsPerPage(int categoryId, int page)
         {
-            int itemsPerPage = 3;
+            int itemsPerPage = 25;
             var products = new List<ProductDto>();
 
             using (var context = TransactionConfig.AppDbContext)
@@ -360,7 +360,7 @@ namespace OfficeMart.Business.Logic
                     .Products
                     .Where(m => m.IsActive != false && m.CategoryId == categoryId)
                     .Skip((page - 1) * itemsPerPage)
-                    .Take(3)
+                    .Take(25)
                     .Include(m => m.Category)
                     .Include(m => m.Color)
                     .Include(m => m.ProductSize)
@@ -385,7 +385,7 @@ namespace OfficeMart.Business.Logic
                 {
                     x.PaginationDto = new PaginationDto();
                     x.PaginationDto.CurrentPage = page;
-                    x.PaginationDto.ItemsPerPage = 3;
+                    x.PaginationDto.ItemsPerPage = 25;
                     x.PaginationDto.TotalItemsCount = productsCount;
                     x.PaginationDto.CategoryId = categoryId;
                     x.PaginationDto.AspAction = "Məhsullar";

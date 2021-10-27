@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OfficeMart.Business.Dtos;
 using OfficeMart.Business.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -51,36 +52,40 @@ namespace OfficeMart.Business.Logic
 
             using(var context = TransactionConfig.AppDbContext)
             {
-                var categoriesEntity = await context
+                try
+                {
+                    var categoriesEntity = await context
                     .Categories
                     .Where(x => x.IsActive != false)
                     .ToListAsync();
 
-                var specialProductEntity = await context
-                    .Products
-                    .Include(x=>x.ProductImages)
-                    .Where(x => x.IsSpecial == true)
-                    .FirstOrDefaultAsync();
+                    var specialProductEntity = await context
+                        .Products
+                        .Include(x => x.ProductImages)
+                        .Where(x => x.IsSpecial == true)
+                        .FirstOrDefaultAsync();
 
-                var sliderPhotos = await context
-                    .Sliders
-                    .ToListAsync();
+                    var sliderPhotos = await context
+                        .Sliders
+                        .ToListAsync();
 
-                categories = TransactionConfig.Mapper.Map<List<CategoryDto>>(categoriesEntity);
-                var specialProduct = TransactionConfig.Mapper.Map<ProductDto>(specialProductEntity);
-                var sliderDtos = TransactionConfig.Mapper.Map<List<SliderDto>>(sliderPhotos);
+                    categories = TransactionConfig.Mapper.Map<List<CategoryDto>>(categoriesEntity);
+                    var specialProduct = TransactionConfig.Mapper.Map<ProductDto>(specialProductEntity);
+                    var sliderDtos = TransactionConfig.Mapper.Map<List<SliderDto>>(sliderPhotos);
 
-                categories.ForEach(x =>
-                {
-                    x.ProductDto = new ProductDto();
-                    x.ProductDto = specialProduct;
-                });
+                    categories.ForEach(x =>
+                    {
+                        x.ProductDto = new ProductDto();
+                        x.ProductDto = specialProduct;
+                    });
 
-                categories.ForEach(x =>
-                {
-                    x.SliderDtos = new List<SliderDto>();
-                    x.SliderDtos.AddRange(sliderDtos);
-                });
+                    categories.ForEach(x =>
+                    {
+                        x.SliderDtos = new List<SliderDto>();
+                        x.SliderDtos.AddRange(sliderDtos);
+                    });
+                }
+                catch (Exception ex) { }
             }
 
             return categories;
