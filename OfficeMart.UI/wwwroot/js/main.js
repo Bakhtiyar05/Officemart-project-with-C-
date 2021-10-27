@@ -13,17 +13,17 @@ function calcPrice() {
         totalPrice = parseFloat(price) + totalPrice;
     });
     $(".sum-money").text(totalPrice.toFixed(2));
-    if (totalPrice > 15) {
-        $('#checkPrice').attr('data-toggle', "modal");
-        $('#checkPrice').removeClass('disabled');
-        $('.saleBorder').css('display', 'none');
-    }
-    else {
-        $('#checkPrice').removeAttr('data-toggle');
-        $('#checkPrice').addClass('disabled');
-        $('.saleBorder').css('display', 'inline');
+    //if (totalPrice > 15) {
+    //    $('#checkPrice').attr('data-toggle', "modal");
+    //    $('#checkPrice').removeClass('disabled');
+    //    $('.saleBorder').css('display', 'none');
+    //}
+    //else {
+    //    $('#checkPrice').removeAttr('data-toggle');
+    //    $('#checkPrice').addClass('disabled');
+    //    $('.saleBorder').css('display', 'inline');
 
-    }
+    //}
 }
 
 
