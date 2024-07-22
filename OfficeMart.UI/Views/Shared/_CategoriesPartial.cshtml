@@ -1,4 +1,4 @@
-﻿@model List<CategoryDto>
+﻿@model IEnumerable<OfficeMart.UI.Models.API.Category>
 
 <aside class="blog-sb-widgets section-sb" id="section-sb">
 
@@ -14,122 +14,40 @@
 
                     <div class="section-sb-current">
 
-                        <ul class="section-sb-list">
+                        <ul class="section-sb-list productCategories">
                             @{
-
                                 foreach (var item in Model)
                                 {
-                                    <li>
-                                        <a asp-action="CategoryProducts" asp-controller="Products" asp-route-id="@item.Id">
-                                            <span class="section-sb-label">
-                                                @item.CategoryName
-                                                <span class="count">
-                                                    @item.Products.Where(x=>x.IsActive != false).Count()
-                                                </span>
-                                            </span>
+                                    <li class="d-flex align-items-center flex-wrap">
+                                        <input type="checkbox"/>
+                                        <a class="d-flex justify-content-between align-items-center pr-0 @(item.SubCategory.Count > 0 ? "subcategoried" : "")" asp-controller="Products" asp-action="ProductsList" asp-route-categoryGUID="@item.GUID" data-category-GUID="@item.GUID">
+                                            <span class="section-sb-label">@item.Name</span>
+                                            @if (item.SubCategory.Count > 0)
+                                            {
+                                                <i class='icon ion-chevron-down'></i>
+                                            }
                                         </a>
+                                        <ul class="subCategories" style="display: none">
+                                            @foreach (var subCategory in item.SubCategory)
+                                            {
+                                                <li class="d-flex align-items-center">
+                                                    <input type="checkbox" value="false" />
+
+                                                    <a asp-controller="Products" asp-action="ProductsList" asp-route-categoryGUID="@subCategory.GUID" data-category-GUID="@subCategory.GUID">
+                                                        <span class="section-sb-label">@subCategory.Name</span>
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
                                     </li>
                                 }
                             }
                         </ul>
+
+                        <a class="searchByCategories btn m-0 w-100 text-white" href="#" style="box-shadow: none">Axtar</a>
+                        <p class="m-0 text-danger text-center font-weight-bold mt-2 d-none errorMessageForCategory">Kateqoriya seçin.</p>
                     </div>
                 </div>
-                @*<div class="blog-sb-widget multishopfeaturedproducts_widget">
-                    <h3 class="widgettitle">Featured</h3>
-                    <div class="products-featured-wrap">
-                        <div class="products-featured">
-                            <p class="products-featured-categ">
-                                <a href="#">Tools</a>
-                            </p>
-                            <h5 class="products-featured-ttl"><a href="product.html">Rechargeable Battery</a></h5>
-                            <p class="products-featured-price">$201.00</p>
-                        </div>
-                        <div class="products-featured">
-                            <p class="products-featured-categ">
-                                <a href="#">Pipes</a>
-                            </p>
-                            <h5 class="products-featured-ttl"><a href="product.html">Wholesale Brass</a></h5>
-                            <p class="products-featured-price">$15.00</p>
-                        </div>
-                        <div class="products-featured">
-                            <p class="products-featured-categ">
-                                <a href="#">Pipes</a>
-                            </p>
-                            <h5 class="products-featured-ttl"><a href="product.html">Fittings Pipe</a></h5>
-                            <p class="products-featured-price">$77.00</p>
-                        </div>
-
-                        <div class="products-featured">
-
-                            <p class="products-featured-categ">
-
-                                <a href="#">Pipes</a>
-
-                            </p>
-
-                            <h5 class="products-featured-ttl"><a href="product.html">Fittings Pipe</a></h5>
-
-                            <p class="products-featured-price">$105.00</p>
-
-                        </div>
-
-                        <div class="products-featured">
-
-                            <p class="products-featured-categ">
-
-                                <a href="#">Fasteners</a>
-
-                            </p>
-
-                            <h5 class="products-featured-ttl"><a href="product.html">Flat Bolt</a></h5>
-
-                            <p class="products-featured-price">$45.00</p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="blog-sb-widget multishopbrands_widget">
-
-                    <h3 class="widgettitle">Brands</h3>
-
-                    <ul class="brands-list-sb">
-
-                        <li>
-
-                            <a href="#">HOOK <span class="count">5</span></a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">Fuel Tank <span class="count">7</span></a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">BMP <span class="count">17</span></a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">BISON <span class="count">9</span></a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">AIR <span class="count">6</span></a>
-
-                        </li>
-
-                    </ul>
-
-                </div>*@
 
             </div>
 

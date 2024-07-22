@@ -1,11 +1,8 @@
-﻿@model IEnumerable<ProductDto>
+﻿@model List<OfficeMart.UI.Models.API.Product>
 
 @{
     ViewData["Title"] = "Kateqoriya Məhsulları";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
-    var categories = Library.GetInstance().CategoryProducts;
-    var paginationDto = Model.Select(x => x.PaginationDto).FirstOrDefault();
 }
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
@@ -68,23 +65,16 @@
                     </div>
                 </div>
                 <div class="section-wrap-withsb">
-                    <partial name="_CategoriesPartial" model="@Model.Select(x=>x.CategoryDtos).FirstOrDefault()"/>        
                     <div class="section-list-withsb" id="section-list-withsb">
                         <div class="theiaStickySidebar">
-
                             @{
-                                if (Model.ToList().Count != 0 && Model.Any(x=>x.ProductName != null))
+                                if (Model.Count != 0 && Model.Any(x => x.Name != null))
                                 {
                                     <div class="prod-litems section-list">
-                                        <partial name="_ProductPartial" model="Model.ToList()" />
+                                        <partial name="_ProductPartial" model="Model" />
                                     </div>
                                 }
-                                if (paginationDto != null && paginationDto.TotalItemsCount != 0)
-                                {
-                                    <partial name="_PaginationPartial" model="@paginationDto" />
-                                }
                             }
-
                         </div>
                     </div>
                 </div>

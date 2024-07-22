@@ -16,8 +16,8 @@ namespace OfficeMart.Business.Logic
             var statisticDto = new AdminHomeDto();
             using(var context = TransactionConfig.AppDbContext)
             {
-                statisticDto.TotalOrdersCount = await context.OrderNumbers.CountAsync();
-                statisticDto.TotalSalesPrice =  context.Orders.Select(x => x.TotalPrice).Sum();
+                //statisticDto.TotalOrdersCount = await context.OrderNumbers.CountAsync();
+                //statisticDto.TotalSalesPrice =  context.Orders.Select(x => x.TotalPrice).Sum();
                 statisticDto.UsersCount = await context.Users.CountAsync();
                 return statisticDto;
             }

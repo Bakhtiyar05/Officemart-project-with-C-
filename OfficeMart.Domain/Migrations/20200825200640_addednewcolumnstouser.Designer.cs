@@ -11,7 +11,7 @@ namespace OfficeMart.Domain.Migrations
 {
     [DbContext(typeof(OfficeMartContext))]
     [Migration("20200825200640_addednewcolumnstouser")]
-    partial class addednewcolumnstouser
+    partial class Addednewcolumnstouser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

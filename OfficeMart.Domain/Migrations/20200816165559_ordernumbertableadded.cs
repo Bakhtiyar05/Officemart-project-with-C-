@@ -2,7 +2,7 @@
 
 namespace OfficeMart.Domain.Migrations
 {
-    public partial class ordernumbertableadded : Migration
+    public partial class Ordernumbertableadded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -2,7 +2,7 @@
 
 namespace OfficeMart.Domain.Migrations
 {
-    public partial class checkoutproducttableuseriddatatypechangedtostring : Migration
+    public partial class Checkoutproducttableuseriddatatypechangedtostring : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

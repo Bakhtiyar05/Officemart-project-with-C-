@@ -2,7 +2,7 @@
 
 namespace OfficeMart.Domain.Migrations
 {
-    public partial class addnewcolumnstocheckouttable : Migration
+    public partial class Addnewcolumnstocheckouttable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

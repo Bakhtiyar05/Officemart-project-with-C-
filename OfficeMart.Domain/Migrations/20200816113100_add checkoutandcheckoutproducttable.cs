@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OfficeMart.Domain.Migrations
 {
-    public partial class addcheckoutandcheckoutproducttable : Migration
+    public partial class Addcheckoutandcheckoutproducttable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -11,7 +11,7 @@ namespace OfficeMart.Domain.Migrations
 {
     [DbContext(typeof(OfficeMartContext))]
     [Migration("20200731161750_productadded")]
-    partial class productadded
+    partial class Productadded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

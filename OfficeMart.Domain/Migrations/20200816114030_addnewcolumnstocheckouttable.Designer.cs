@@ -11,7 +11,7 @@ namespace OfficeMart.Domain.Migrations
 {
     [DbContext(typeof(OfficeMartContext))]
     [Migration("20200816114030_addnewcolumnstocheckouttable")]
-    partial class addnewcolumnstocheckouttable
+    partial class Addnewcolumnstocheckouttable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

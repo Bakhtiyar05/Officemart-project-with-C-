@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OfficeMart.Domain.Migrations
 {
-    public partial class productadded : Migration
+    public partial class Productadded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

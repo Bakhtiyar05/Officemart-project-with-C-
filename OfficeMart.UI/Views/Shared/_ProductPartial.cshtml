@@ -1,78 +1,77 @@
-﻿@model List<ProductDto>
+﻿@*@model ProductsViewModel
 @{
-    foreach (var item in Model)
+    var categories = Model.Categories;
+
+    foreach (var product in Model.Products)
     {
-        <input value="@item.Count" class="prodCount" hidden/>
-        <article class="prod-li sectls">
+        var productGUID = product.GUID;
+        <article class="prod-li sectls" data-guid="@productGUID">
             <div class="prod-li-inner">
-                <a class="prod-li-img" asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.Id">
-                    <img id="baseimage-@item.Id" src="~/img/@item.ProductImages.FirstOrDefault()" alt="">
+                <a class="prod-li-img" asp-action="Index" asp-controller="ProductDetail" asp-route-id="@productGUID">
+                    <img src="@product.ImageUrl" id="baseimage-@product.GUID" alt="@product.Name" />
                 </a>
+
                 <div class="prod-li-cont">
                     <div class="prod-li-ttl-wrap">
-                        <p>
-                            <a asp-action="CategoryProducts" asp-controller="Products" asp-route-id="@item.Category.Id">@item.Category.CategoryName</a>
-                        </p>
-                        <h3><a id="product-name-@item.Id" asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.Id">@item.ProductName</a></h3>
+                        <p><a asp-controller="Products" asp-action="ProductsList" asp-route-categoryGUID="@product.CategoryGUID">@product.CategoryName</a></p>
+                        <h3>
+                            <a id="product-name-@productGUID" asp-action="Index" asp-controller="ProductDetail" asp-route-id="@productGUID">
+                                @product.Name
+                            </a>
+                        </h3>
                     </div>
+
                     <div class="prod-li-prices">
                         <div class="prod-li-price-wrap">
                             <p>Qiyməti</p>
-                            @{
-                                if (item.DiscountPrice > 0)
-                                {
-                                    <del>₼ @item.DiscountPrice</del>
-                                }
-                            }
-                            <p class="prod-li-price">₼ @item.Price</p>
-                            <input type="hidden" id="price-@item.Id" value="@item.Price" />
+                            <p class="prod-li-price">₼ @product.Price.ToString("F1", System.Globalization.CultureInfo.InvariantCulture)</p>
+                            <input type="hidden" id="price-@productGUID" value="@product.Price.ToString("F1", System.Globalization.CultureInfo.InvariantCulture)" />
                         </div>
+
                         <div class="prod-li-qnt-wrap">
                             <p class="qnt-wrap prod-li-qnt">
-                                <a data-id="@item.Id" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
-                                <input type="text" readonly id="count-@item.Id" value="1">
-                                <a data-id="@item.Id" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
+                                <a data-id="@productGUID" class="qnt-plus prod-li-plus">
+                                    <i class="icon ion-arrow-up-b"></i>
+                                </a>
+                                <input type="text" id="count-@productGUID" readonly value="1" />
+                                <a data-id="@productGUID" class="qnt-minus prod-li-minus">
+                                    <i class="icon ion-arrow-down-b"></i>
+                                </a>
                             </p>
                         </div>
+
                         <div class="prod-li-total-wrap">
                             <p>Cəm</p>
-                            <p id="total-@item.Id" class="prod-li-total">@item.Price₼</p>
-                            <input type="hidden" id="total-value-@item.Id" value="@item.Price">
+                            <p id="total-@productGUID" class="prod-li-total">₼ @product.Price.ToString("F1", System.Globalization.CultureInfo.InvariantCulture)</p>
+                            <input type="hidden" id="total-value-@productGUID" value="@product.Price.ToString("F1", System.Globalization.CultureInfo.InvariantCulture)" />
                         </div>
                     </div>
                 </div>
+
                 <div class="prod-li-info">
                     <p class="prod-li-add">
-                        <a id="@item.Id" class="button hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Səbətə əlavə et</span></a>
+                        <a id="@productGUID" class="button hover-label prod-addbtn">
+                            <i class="icon ion-android-cart"></i>
+                            <span>Səbətə əlavə et</span>
+                        </a>
                     </p>
-                    <p class="prod-li-information">
-                        <a href="#" class="hover-label"><i class="icon ion-more"></i><span>Əlava məlumat</span></a>
+                    <p class="prod-li-information d-none">
+                        <a href="#" class="hover-label">
+                            <i class="icon ion-more"></i>
+                            <span>Əlava məlumat</span>
+                        </a>
                     </p>
                 </div>
-            </div>
-            <div class="page-styling prod-li-informations">
 
-                <dl class="prod-li-props">
-                    @{
-                        if (!item.ProductSize.Size.Contains("---"))
-                        {
-                            <dt>Ölçüsü :</dt>
-                            <dd><a href="#">@item.ProductSize.Size</a></dd>
-                        }
-                        else if (!item.Color.ColorName.Contains("---"))
-                        {
-                            <dt>Rəngi :</dt>
-                            <dd>@item.Color.ColorName</dd>
-                        }
-                        else if (item.Description != null)
-                        {
-                            <dt>Haqqında :</dt>
-                            <dd>@item.Description</dd>
-                        }
-                    }
-
-                </dl>
+                <div class="page-styling prod-li-informations">
+                    <dl class="prod-li-props">
+                    </dl>
+                </div>
             </div>
         </article>
     }
 }
+
+<script>
+    
+</script>*@

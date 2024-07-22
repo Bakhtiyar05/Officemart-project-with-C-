@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Slider>
+<h1 class="text-center mb-3">Slayder</h1>
+
+<a asp-area="admin" asp-controller="slider" asp-action="create" class="btn btn-success" style="display:block; margin: 0 20px">Əlavə et</a>
+<h1 class="sliderSuccessMessage text-success text-center"></h1>
+<table class="table table-hover table-dark table-responsive slidersTable">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Şəkil</th>
+            <th scope="col">Başlıq</th>
+            <th scope="col">URL</th>
+            <th scope="col">Status</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var slider in Model)
+        {
+            <tr data-id="@slider.Id">
+                <th scope="row">@slider.Id</th>
+                <td>
+                    <img src="@slider.ImageUrl" width="200" class="img-fluid" alt="slider" />
+                </td>
+                <td>@slider.Title</td>
+                <td>@slider.UrlPath</td>
+                <td>@slider.Status</td>
+                <td>
+                    <a asp-area="admin" asp-controller="slider" asp-action="update" asp-route-id="@slider.Id" class="btn btn-warning">Dəyiş</a>
+                    <a class="btn btn-danger removeSlider" data-toggle="modal" data-target="#removeModal">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="modal fade" id="removeModal" tabindex="-1" aria-hidden="true" data-id="">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img src="" width="100%"/>
+                <p class="sliderTitleInfo"></p>
+                <p class="sliderUrlInfo"></p>
+                <p class="sliderStatusInfo"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success sliderRemoveConfirm" data-dismiss="modal">HƏ</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">YOX</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".removeSlider").on('click', function (e) {
+        $("#removeModal img").attr('src', $(this).parents("tr").children("td").first().children().attr('src'))
+        $("#removeModal").attr('data-id', $(this).parents("tr").attr('data-id'))
+        $("#removeModal .sliderTitleInfo").text(`Title: ${$(this).parents("tr").children("td")[1].innerText}`)
+        $("#removeModal .sliderUrlInfo").text(`UrlPath: ${$(this).parents("tr").children("td")[2].innerText}`)
+        $("#removeModal .sliderStatusInfo").text(`Status: ${$(this).parents("tr").children("td")[3].innerText}`)
+    })
+    $("#removeModal .sliderRemoveConfirm").on('click', function (e) {
+        const sliderId = parseInt($("#removeModal").attr('data-id'))
+        fetch(`/admin/Ajax/RemoveSlider`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ "sliderId": sliderId })
+        })
+            .then(response => {
+                if (response.status == 200) {
+                    $(".sliderSuccessMessage").removeClass("text-danger").text("Slider uğurla silinmişdir").show("fast").delay(5000).hide("fast")
+                    $(`.slidersTable tr[data-id="${sliderId}"]`).remove()
+                }
+                else {
+                    $(".sliderSuccessMessage").addClass("text-danger").text("Slider silinmədi. Zəhmət olmasa yenidən cəhd edin").show("fast").delay(5000).hide("fast")
+                }
+            })
+    })
+</script>

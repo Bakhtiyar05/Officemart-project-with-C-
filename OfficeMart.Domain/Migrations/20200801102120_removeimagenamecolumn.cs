@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OfficeMart.Domain.Migrations
 {
-    public partial class removeimagenamecolumn : Migration
+    public partial class Removeimagenamecolumn : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

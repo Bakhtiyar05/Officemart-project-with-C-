@@ -2,7 +2,7 @@
 
 namespace OfficeMart.Domain.Migrations
 {
-    public partial class addedcolortable : Migration
+    public partial class Addedcolortable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

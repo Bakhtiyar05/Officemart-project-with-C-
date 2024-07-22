@@ -1,4 +1,4 @@
-﻿@model CategoryProductsDto
+﻿@model ProductDetailViewModel
 
 @{
     ViewData["Title"] = "Ətraflı Baxış";
@@ -18,83 +18,43 @@
                         <div class="prod-slider-wrap prod-slider-shown">
                             <div class="flexslider prod-slider" id="prod-slider">
                                 <ul class="slides">
-                                    @{
-                                        foreach (var item in Model.ProductDto.ProductImages)
-                                        {
-                                            <li>
-                                                <a data-fancybox-group="prod" class="fancy-img">
-                                                    <img id="baseimage-@Model.ProductDto.Id" src="~/img/@item" alt="">
-                                                </a>
-                                            </li>
-                                        }
-                                    }
-                                </ul>
-                                <div class="prod-slider-count" style="display:none"><p><span class="count-cur">1</span> / <span class="count-all">2</span></p><p class="hover-label prod-slider-zoom"><i class="icon ion-search"></i><span>Zoom In</span></p></div>
-                            </div>
-                            <div class="flexslider prod-thumbs" id="prod-thumbs">
-                                <ul class="slides">
-                                    @{
-                                        foreach (var item in Model.ProductDto.ProductImages)
-                                        {
-                                            <li>
-                                                <img src="~/img/@item" alt="">
-                                            </li>
-                                        }
-                                    }
+                                    <li>
+                                        <a data-fancybox-group="prod" class="fancy-img">
+                                            <img id="baseimage-@Model.MainProduct.GUID" src="@Model.MainProduct.ImageUrl" alt="@Model.MainProduct.Name">
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="prod-cont">
-                            <p class="prod-categs"><a href="#">@Model.ProductDto.Category.CategoryName</a></p>
-                            <h1 id="product-name-@Model.ProductDto.Id">@Model.ProductDto.ProductName</h1>
-                            <div class="variations_form cart">
-                                <p class="prod-price">₼ @Model.ProductDto.Price</p>
-                                <input type="hidden" id="price-@Model.ProductDto.Id" value="@Model.ProductDto.Price" />
-                                @{
-                                    if (Model.ProductDto.Description != null)
-                                    {
-                                        <p class="prod-excerpt">@Model.ProductDto.Description</p>
-                                    }
-                                    else
-                                    {
-                                        <p class="prod-excerpt"></p>
-                                    }
-                                }
-                                <div class="prod-add">
-                                    <button id="@Model.ProductDto.Id" class="button prod-addbtn"><i class="icon ion-android-cart"></i>Səbətə Əlavə Et</button>
-                                    <p class="qnt-wrap prod-li-qnt">
-                                        <a data-id="@Model.ProductDto.Id" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
-                                        <input type="text" readonly id="count-@Model.ProductDto.Id" value="1">
-                                        <a data-id="@Model.ProductDto.Id" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
-                                    </p>
-                                    <div style="display:flex">
-                                        <p>Cəmi : </p>
-                                        <p style=" color: #6bc67c" id="total-@Model.ProductDto.Id" class="prod-li-total ml-1">@Model.ProductDto.Price ₼</p>
-                                        <input type="hidden" id="total-value-@Model.ProductDto.Id" value="@Model.ProductDto.Price">
-                                        <input value="@Model.ProductDto.Count" hidden class="prodCount" />
+                        <div class="prod-cont d-flex justify-content-center align-items-center">
+                            <div>
+                                <p class="prod-categs"><a asp-controller="Products" asp-action="ProductsList" asp-route-categoryGUID="@Model.MainProduct.CategoryGUID">@Model.MainProduct.CategoryName</a></p>
+                                
+                                <h1>
+                                    <a id="product-name-@Model.MainProduct.GUID" href="javascript:void(0)">
+                                        @Model.MainProduct.Name
+                                    </a>
+                                </h1>
+
+                                <div class="variations_form cart">
+                                    <p class="prod-price">₼ @Model.MainProduct.Price</p>
+                                    <input type="hidden" id="price-@Model.MainProduct.GUID" value="@Model.MainProduct.Price" />
+
+                                    <div class="prod-add">
+                                        <button id="@Model.MainProduct.GUID" class="button prod-addbtn"><i class="icon ion-android-cart"></i>Səbətə Əlavə Et</button>
+                                        <p class="qnt-wrap prod-li-qnt">
+                                            <a data-id="@Model.MainProduct.GUID" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
+                                            <input type="text" readonly id="count-@Model.MainProduct.GUID" value="1">
+                                            <a data-id="@Model.MainProduct.GUID" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
+                                        </p>
+                                        <div style="display:flex">
+                                            <p>Cəmi : </p>
+                                            <p style=" color: #6bc67c" id="total-@Model.MainProduct.GUID" class="prod-li-total ml-1">@Model.MainProduct.Price ₼</p>
+                                            <input type="hidden" id="total-value-@Model.MainProduct.GUID" value="@Model.MainProduct.Price">
+                                            <input value="@Model.MainProduct.Stock" hidden class="prodCount" />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="prod-props">
-                                <dl class="product_meta">
-                                    <dl class="prod-li-props">
-                                        @{
-                                            if (!Model.ProductDto.ProductSize.Size.Contains("---"))
-                                            {
-                                                <dt>Ölçüsü :</dt>
-                                                <dd><a href="#">@Model.ProductDto.ProductSize.Size</a></dd>
-                                            }
-                                            else if (!Model.ProductDto.Color.ColorName.Contains("---"))
-                                            {
-                                                <dt>Rəngi :</dt>
-                                                <dd>@Model.ProductDto.Color.ColorName</dd>
-                                            }
-                                           
-                                        }
-
-                                    </dl>
-                                </dl>
                             </div>
                         </div>
                         <p class="prod-badge">
@@ -103,26 +63,24 @@
                     </div>
                     <h2 class="prod-related-ttl">Bənzər məhsullar</h2>
                     <div class="row prod-items prod-items-4">
-                        @foreach (var item in Model.ProducstDto)
+                        @foreach (var item in Model.RelatedProducts)
                         {
-                           
                             <article class="cf-sm-6 cf-md-6 cf-lg-3 col-xs-6 col-sm-6 col-md-6 col-lg-3 sectgl-item sectgl-item">
                                     <div class="sectgl prod-i">
                                         <div class="prod-i-top">
-                                            <a class="prod-i-img" asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.Id">
-                                                <img src="~/img/@item.ProductImages.Select(x=>x).FirstOrDefault()" alt="">
+                                            <a class="prod-i-img" asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.GUID">
+                                                <img src="@item.ImageUrl" alt="@item.Name">
                                             </a>
                                         </div>
                                         <div class="prod-i-bot">
                                             <div class="prod-i-info">
                                                 <p class="prod-i-price">₼ @item.Price</p>
-                                                <p class="prod-i-categ"><a href="catalog-gallery.html">@item.Category.CategoryName</a></p>
+                                                <p class="prod-i-categ"><a asp-controller="Products" asp-action="ProductsList" asp-route-categoryGUID="@Model.MainProduct.CategoryGUID">@Model.MainProduct.CategoryName</a></p>
                                             </div>
-                                            <h3 class="prod-i-ttl"><a asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.Id">@item.ProductName</a></h3>
+                                            <h3 class="prod-i-ttl"><a asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.GUID">@item.Name</a></h3>
                                         </div>
                                     </div>
                             </article>
-                            <input value="@item.Count" hidden/>
                         }
                     </div>
                 </article>
@@ -130,3 +88,28 @@
         </main>
     </div>
 </div>
+
+<script>
+    var basketList = localStorage.getItem('basketList');
+    var beautifiedHTML = basketList
+        .replace(/\\/g, '')
+        .replace(/\n\s+/g, '\n')
+        .trim()
+
+    var tempDiv = document.createElement('div');
+    tempDiv.innerHTML = beautifiedHTML;
+    var listItems = tempDiv.querySelectorAll('li');
+    var mainProductId = "@Model.MainProduct.GUID"
+    listItems.forEach(function (item) {
+        var productIdFromHtml = item.getAttribute('pro-id');
+        var quantityFromHtml = item.querySelector('.quantity') ? parseInt(item.querySelector('.quantity').innerText.split("×")[0].trim()) : 1;
+        if (productIdFromHtml && quantityFromHtml) {
+            var productId = productIdFromHtml;
+            var quantityValue = quantityFromHtml;
+            if (productId == mainProductId) {
+                var input = document.querySelector("#count-@Model.MainProduct.GUID")
+                input.value = quantityValue
+            }
+        }
+    });
+</script>

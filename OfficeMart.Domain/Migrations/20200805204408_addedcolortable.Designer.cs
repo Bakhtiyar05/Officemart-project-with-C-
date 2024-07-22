@@ -11,7 +11,7 @@ namespace OfficeMart.Domain.Migrations
 {
     [DbContext(typeof(OfficeMartContext))]
     [Migration("20200805204408_addedcolortable")]
-    partial class addedcolortable
+    partial class Addedcolortable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

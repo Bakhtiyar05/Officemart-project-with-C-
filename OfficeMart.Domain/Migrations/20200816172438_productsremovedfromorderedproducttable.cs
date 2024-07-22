@@ -2,7 +2,7 @@
 
 namespace OfficeMart.Domain.Migrations
 {
-    public partial class productsremovedfromorderedproducttable : Migration
+    public partial class Productsremovedfromorderedproducttable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

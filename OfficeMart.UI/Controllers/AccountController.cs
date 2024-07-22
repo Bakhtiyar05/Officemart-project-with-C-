@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
-using System.Security.Policy;
+using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using OfficeMart.Business.Dtos;
-using OfficeMart.Business.Logic;
-using OfficeMart.Business.Models;
 using OfficeMart.Domain.Models.Entities;
+using OfficeMart.UI.Models.API;
+using Newtonsoft.Json;
+using static OfficeMart.UI.API.NetworkManager;
+using Microsoft.AspNetCore.Http;
+using OfficeMart.Domain.Models.AppDbContext;
 
 namespace OfficeMart.UI.Controllers
 {
@@ -23,18 +22,25 @@ namespace OfficeMart.UI.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IWebHostEnvironment _environment;
+        private readonly IConfiguration _configuration;
+        private readonly OfficeMartContext _context;
 
         public AccountController(UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager, IWebHostEnvironment environment)
+            SignInManager<AppUser> signInManager, IWebHostEnvironment environment,
+            IConfiguration configuration,
+            OfficeMartContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _environment = environment;
+            _configuration = configuration;
+            _context = context;
         }
 
         [Route("Daxil Ol_Qeydiyyat")]
         public IActionResult Index()
         {
+            ViewBag.Policy = _context.RegisterPolicy.FirstOrDefault().Policy;
             return View();
         }
 
@@ -43,15 +49,31 @@ namespace OfficeMart.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await new AccountLogic().RegistrationAppUser(appUserDto, _userManager, _signInManager);
-                if (appUserDto.LogicResult.OperationIsSuccessfull)
+                if (!appUserDto.IsPolicyAccepted)
+                {
+                    ModelState.AddModelError("", "Qeydiyyat şərtlərini oxuyun və qəbul edin.");
+                    return View("Index");
+                }
+                string jsonBody = JsonConvert.SerializeObject(appUserDto);
+                LoginResponse response = await RegisterUserAsync(jsonBody);
+                if (response.Success)
+                {
+                    var cookieOptions = new CookieOptions
+                    {
+                        HttpOnly = true,
+                        Secure = true,
+                        SameSite = SameSiteMode.Strict
+                    };
+                    Response.Cookies.Append("RememberMe", "false", cookieOptions);
+                    Response.Cookies.Append("ClientCode", response.ClientCode, cookieOptions);
+                    Response.Cookies.Append("Email", appUserDto.Email, cookieOptions);
+
                     return Redirect("/Home/Index");
+                }
                 else
-                    ModelState.AddModelError("", result.LogicResult.ErrorMessage);
+                    ModelState.AddModelError("", "Qeydiyyat uğursuz oldu, zəhmət olmasa bütün sahələri doldurduğunuzdan əmin olduqdan sonra yenidən cəhd edin.");
             }
-
-
-            return View("Index", appUserDto);
+            return View("Index");
         }
 
         [HttpPost]
@@ -59,172 +81,54 @@ namespace OfficeMart.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await new AccountLogic().Login(loginDto, _signInManager);
-                if (result.OperationIsSuccessfull)
+                string jsonBody = JsonConvert.SerializeObject(loginDto);
+                LoginResponse response = await LoginUserAsync(jsonBody);
+                if (response.Success)
+                {
+                    var cookieOptions = new CookieOptions
+                    {
+                        Expires = loginDto.RememberMe ? DateTimeOffset.Now.AddDays(365) : null,
+                        HttpOnly = true,
+                        Secure = true,
+                        SameSite = SameSiteMode.Strict
+                    };
+                    Response.Cookies.Append("RememberMe", loginDto.RememberMe.ToString(), cookieOptions);
+                    Response.Cookies.Append("ClientCode", response.ClientCode, cookieOptions);
+                    Response.Cookies.Append("Email", loginDto.Email, cookieOptions);
+
                     return Redirect("/Home/Index");
+                }
                 else
-                    ModelState.AddModelError("LoginError", result.ErrorMessage);
+                    ModelState.AddModelError("", "Email və ya şifrəniz yanlışdır.");
             }
             return View("Index");
         }
-        public async Task<IActionResult> SignOut()
+
+        public IActionResult Signout()
+        {
+            Response.Cookies.Delete("RememberMe");
+            Response.Cookies.Delete("ClientCode");
+            Response.Cookies.Delete("Email");
+            
+            return Redirect("/Home/Index");
+        }
+
+        public async Task<IActionResult> SignOutForAdmin()
         {
             await _signInManager.SignOutAsync();
             return Redirect("/Home/Index");
         }
-        [Authorize]
-        public async Task<IActionResult> Restore()
+
+        private async Task<LoginResponse> LoginUserAsync(string jsonBody)
         {
-            var tempUserName = User.Identity.Name;
-            var dbUser = await _userManager.FindByNameAsync(tempUserName);
-            return View(new RestorePasswordDto { PhoneNumber = dbUser.PhoneNumber });
-        }
-        [HttpPost]
-        public async Task<IActionResult> Restore(RestorePasswordDto passwordDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(passwordDto);
-            }
-
-            var tempUserName = User.Identity.Name;
-            var dbUser = await _userManager.FindByNameAsync(tempUserName);
-
-            var result = _userManager.PasswordHasher.VerifyHashedPassword(dbUser, dbUser.PasswordHash, passwordDto.Password);
-
-            if (PasswordVerificationResult.Failed == result)
-            {
-                ModelState.AddModelError("", "Mövcud şifrə düzgün deyil");
-                return View(passwordDto);
-            }
-            var hashedPassword = _userManager.PasswordHasher.HashPassword(dbUser, passwordDto.ConfPassword);
-            dbUser.PasswordHash = hashedPassword;
-            dbUser.PhoneNumber = passwordDto.PhoneNumber;
-            var updResult = await _userManager.UpdateAsync(dbUser);
-            if (updResult.Succeeded)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                ModelState.AddModelError("", "Əməliyyat uğursuz oldu");
-                return View(passwordDto);
-            }
-        }
-        [HttpPost]
-        public async Task<IActionResult> ResetPassword(string email)
-        {
-            try
-            {
-                MailAddress address = new MailAddress(email);
-                using (var context = TransactionConfig.AppDbContext)
-                {
-                    var userMail = context.Users.Where(m => m.UserName.ToLower() == email.ToLower()).FirstOrDefault();
-                    if (userMail == null)
-                    {
-                        return Json(new { status = "400", message = "Email tapılmadı!" });
-                    }
-                    try
-                    {
-                        SmtpClient sc = new SmtpClient();
-                        sc.Port = 587;
-                        sc.Host = "smtp.gmail.com";
-                        sc.EnableSsl = true;
-                        sc.Credentials = new NetworkCredential("officemartbaku@gmail.com", "OfficeMart2020");
-                        MailMessage mail = new MailMessage();
-                        mail.From = new MailAddress("officemartbaku@gmail.com", "OfficeMart");
-                        mail.To.Add(email.Trim());
-                        mail.Subject = "Office Mart Şifrə Bərpası";
-                        mail.IsBodyHtml = true;
-                        string body = string.Empty;
-                        using (StreamReader reader = new StreamReader(Path.Combine(_environment.WebRootPath, "templates", "ResetPassword.html")))
-                        {
-                            body = reader.ReadToEnd();
-                        }
-                        body = body.Replace("{email}", email.Trim()).Replace("{url}", $"https://localhost:44339/Account/ResetPasswordConfirm?email={email}");
-                        mail.Body = body;
-                        using (var smtpClient = new SmtpClient())
-                        {
-                            await sc.SendMailAsync(mail);
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        throw;
-                    }
-                    userMail.IsPasswordReset = true;
-                    userMail.PasswordResetDate = DateTime.Now;
-                    context.Users.Update(userMail);
-                    await context.SaveChangesAsync();
-                }
-                return Json(new { status = "200" });
-
-            }
-            catch (Exception)
-            {
-                return Json(new { status = "400", message = "Email tapılmadı!" });
-
-            }
-
-        }
-        [HttpGet]
-        public IActionResult ResetPasswordConfirm(string email)
-        {
-            try
-            {
-                MailAddress address = new MailAddress(email);
-                using (var context = TransactionConfig.AppDbContext)
-                {
-                    var userMail = context.Users.Where(m => m.UserName.ToLower() == email.ToLower()).FirstOrDefault();
-                    if (userMail == null)
-                    {
-                        return NotFound();
-                    }
-                    if (!userMail.IsPasswordReset || userMail.PasswordResetDate.AddHours(24) < DateTime.Now)
-                    {
-                        return NotFound();
-                    }
-                    return View(new EmailPassResentDto { email = email });
-                }
-            }
-            catch (Exception)
-            {
-                return NotFound();
-            }
+            var loginAPIResponse = await SendRequestAsync<LoginResponse>("Login", _configuration, HttpMethod.Post, jsonBody);
+            return loginAPIResponse ?? new LoginResponse();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> ResetPasswordConfirm(EmailPassResentDto resentDto)
+        private async Task<LoginResponse> RegisterUserAsync(string jsonBody)
         {
-            try
-            {
-                MailAddress address = new MailAddress(resentDto.email);
-                using (var context = TransactionConfig.AppDbContext)
-                {
-                    var userMail = context.Users.Where(m => m.UserName.ToLower() == resentDto.email.ToLower()).FirstOrDefault();
-                    if (userMail == null)
-                    {
-                        return NotFound();
-                    }
-                    if (!userMail.IsPasswordReset || userMail.PasswordResetDate.AddHours(24) < DateTime.Now)
-                    {
-                        return NotFound();
-                    }
-                    var hashedPassword = _userManager.PasswordHasher.HashPassword(userMail, resentDto.ConfPassword);
-                    userMail.PasswordHash = hashedPassword;
-                    userMail.IsPasswordReset = false;
-                    userMail.PasswordResetDate = DateTime.Now.AddHours(-24);
-                    context.Users.Update(userMail);
-                    await context.SaveChangesAsync();
-
-                    return RedirectToAction("Index", "Home");
-
-                }
-            }
-            catch (Exception ex)
-            {
-                return NotFound();
-            }
+            var loginAPIResponse = await SendRequestAsync<LoginResponse>("Registration", _configuration, HttpMethod.Post, jsonBody);
+            return loginAPIResponse ?? new LoginResponse();
         }
     }
 }

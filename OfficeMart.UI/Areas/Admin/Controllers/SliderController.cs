@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OfficeMart.Business.Dtos;
-using OfficeMart.Business.Logic;
+using OfficeMart.Domain.Models.AppDbContext;
+using OfficeMart.Domain.Models.Entities;
+using static OfficeMart.UI.IFormFileExtensions;
 
 namespace OfficeMart.UI.Areas.Admin.Controllers
 {
@@ -14,54 +15,136 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
     [Authorize]
     public class SliderController : Controller
     {
-        private readonly IWebHostEnvironment _environment;
-        public SliderController(IWebHostEnvironment environment)
+        private readonly IWebHostEnvironment _env;
+        private readonly OfficeMartContext _context;
+
+        public SliderController(IWebHostEnvironment env, OfficeMartContext context)
         {
-            _environment = environment;
-        }
-        public IActionResult Add()
-        {
-            return View();
+            _env = env;
+            _context = context;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Add(SliderDto sliderDto)
+        public IActionResult Index()
         {
-            if (ModelState.IsValid)
+            var sliders = _context.Sliders.ToList();
+            return View(sliders);
+        }
+
+        public IActionResult Create() => View();
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Slider slider)
+        {
+            if (!ModelState.IsValid)
+                return View(slider);
+
+            if (!IsValidImage(slider.Image, out string validationError))
             {
-                var result = await new SliderLogic().AddImage(_environment.WebRootPath, sliderDto);
-                return View(result);
+                ModelState.AddModelError("Image", validationError);
+                return View(slider);
             }
-            return View(sliderDto);
+
+            try
+            {
+                var imageUrl = await SaveImageAsync(slider.Image);
+                slider.ImageUrl = imageUrl;
+
+                await _context.Sliders.AddAsync(slider);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("Image", "Şəkli saxlama zamanı xəta baş verdi.");
+                return View(slider);
+            }
         }
 
-        public async Task<IActionResult> ImagesList()
+        public async Task<IActionResult> Update(int id)
         {
-            var images = await new SliderLogic().GetAllImages();
-            return View(images);
-        }
+            var slider = await _context.Sliders.FindAsync(id);
+            if (slider == null)
+                return NotFound();
 
-        public async Task<IActionResult> Edit(int id)
-        {
-            var result = await new SliderLogic().GetImageById(id);
-            return View(result);
+            return View(slider);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(SliderDto sliderDto)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(Slider slider)
         {
-            var result = await new SliderLogic().EditImage(_environment.WebRootPath, sliderDto);
-            return View(result);
+            if (!ModelState.IsValid)
+                return View(slider);
+
+            var sliderFromDb = await _context.Sliders.FindAsync(slider.Id);
+            if (sliderFromDb == null)
+                return NotFound();
+
+            sliderFromDb.Status = slider.Status;
+            sliderFromDb.Title = slider.Title;
+            sliderFromDb.UrlPath = slider.UrlPath;
+
+            if (slider.Image != null)
+            {
+                if (!IsValidImage(slider.Image, out string validationError))
+                {
+                    ModelState.AddModelError("Image", validationError);
+                    return View(slider);
+                }
+
+                try
+                {
+                    await ReplaceImageAsync(sliderFromDb, slider.Image);
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError("Image", "Şəkli saxlama zamanı xəta baş verdi.");
+                    return View(slider);
+                }
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Remove(int id)
+        private bool IsValidImage(IFormFile image, out string errorMessage)
         {
-            var result = await new SliderLogic().RemoveImage(id);
-            if (result)
-                return RedirectToAction("ImagesList");
-            else
-                throw new Exception("Image removing exception");
+            errorMessage = null;
+            if (image == null)
+            {
+                errorMessage = "Sahə tələb olunandır.";
+                return false;
+            }
+
+            if (!image.ContentType.Contains("image/"))
+            {
+                errorMessage = "Şəklin formatı düzgün deyil. JPEG, PNG, və ya GIF olmalıdır.";
+                return false;
+            }
+
+            return true;
+        }
+
+        private async Task<string> SaveImageAsync(IFormFile image)
+        {
+            string baseUrl = $"{Request.Scheme}://{Request.Host}/";
+            return await image.SavePhotoAsync(_env.WebRootPath, "Slider", baseUrl);
+        }
+
+        private async Task ReplaceImageAsync(Slider slider, IFormFile newImage)
+        {
+            string baseUrl = $"{Request.Scheme}://{Request.Host}/";
+
+            if (!string.IsNullOrWhiteSpace(slider.ImageUrl))
+            {
+                string relativePath = slider.ImageUrl.Replace(baseUrl, "");
+                RemovePhoto(_env.WebRootPath, relativePath);
+            }
+
+            string newImageUrl = await SaveImageAsync(newImage);
+            slider.ImageUrl = newImageUrl;
         }
     }
 }

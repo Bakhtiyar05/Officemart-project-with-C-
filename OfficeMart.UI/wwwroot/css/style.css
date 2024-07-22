@@ -363,15 +363,19 @@ body p.maincont-subttl {
 	display: block;
 	clear: both;
 }
-.page-styling a,
-.page-cont a {
-	color: #6bc67c;
-	text-decoration: none;
-	transition: all 0.2s;
-}
-.page-styling a {
-	border-bottom: 1px solid transparent;
-}
+	.page-styling a,
+	.page-cont a,
+	.orderPolicyLink {
+		color: #6bc67c;
+		text-decoration: none;
+		transition: all 0.2s;
+	}
+		.orderPolicyLink:hover {
+			color: #6bc67c;
+		}
+		.page-styling a {
+			border-bottom: 1px solid transparent;
+		}
 .page-styling a:hover {
 	text-decoration: none;
 	border-color: #6bc67c;
@@ -4563,7 +4567,6 @@ span.badge-1 {
 	vertical-align: middle;
 	width: 51%;
 	padding: 15px 20px 10px 25px;
-	text-transform: uppercase;
 	font-size: 12px;
 	color: #9292b4;
 	font-weight: 600;
@@ -5741,14 +5744,18 @@ span.badge-1 {
 	font-size: 18px;
 	font-weight: 700;
 }
-.section-sb-current .section-sb-list {
-	margin: -9px 0 0;
+section-sb-current a.search {
+	outline: none;
+	box-shadow: none;
 }
 .section-sb-current .section-sb-list li {
-	text-transform: uppercase;
-	font-size: 12px;
+	font-size: 14px;
 	font-weight: 600;
 	margin: 0;
+}
+.section-sb-current .section-sb-list li ul.subCategories {
+	flex-basis: 100%;
+	width: 100%;
 }
 .section-sb-current .section-sb-list li a {
 	color: #283346;
@@ -5757,7 +5764,56 @@ span.badge-1 {
 	border-top: 1px solid #f2f2f2;
 	position: relative;
 	padding: 14px 30px 14px 0;
+	width: calc(100% - 24px);
+	margin-left: 8px;
+	position: relative;
 }
+.section-sb-current .section-sb-list li ul.subCategories li a {
+	color: #9292b4;
+}
+.section-sb-current .section-sb-list li ul.subCategories li {
+	font-size: 12px;
+	padding-left: 30px;
+}
+.section-sb-current .section-sb-list li a i {
+	transition: all .3s ease;
+}
+.section-sb-current .section-sb-list li a i.active {
+	transform: rotate(180deg);
+}
+	.section-sb-current .section-sb-list li input,
+	#isRegisterPolicyAccepted,
+	#isOrderPolicyAccepted {
+		position: relative
+	}
+
+	.section-sb-current .section-sb-list li input::after,
+	#isRegisterPolicyAccepted::after,
+	#isOrderPolicyAccepted::after{
+		content: "\f00c";
+		display: block;
+		position: absolute;
+		top: -1px;
+		left: -1px;
+		right: -1px;
+		bottom: -1px;
+		border: 2px solid #6bc67c;
+		border-radius: 4px;
+		background-color: #fff;
+		color: #fff;
+		font-size: 10px;
+		padding: 0 0 0 1px;
+		text-align: center;
+		font-family: FontAwesome;
+		line-height: 13px;
+	}
+
+		.section-sb-current .section-sb-list li input.active::after,
+		#isRegisterPolicyAccepted.active::after,
+		#isOrderPolicyAccepted.active::after{
+			background-color: #6bc67c;
+		}
+
 .section-sb-current .section-sb-list > li:first-child > a {
 	border-top: none;
 }
@@ -5920,7 +5976,6 @@ span.badge-1 {
 	top: 0;
 	bottom: 0;
 	left: 0;
-	padding: 0 0 95px;
 	float: left;
 	width: 48.8%;
 	overflow: hidden;
@@ -5937,7 +5992,7 @@ span.badge-1 {
 	top: 0;
 	position: absolute;
 	width: 100%;
-	bottom: 95px;
+	bottom: 0;
 	overflow: hidden;
 }
 .prod .prod-slider.prod-thumb-only {
@@ -5953,9 +6008,9 @@ span.badge-1 {
 	vertical-align: middle;
 }
 .prod .prod-slider .slides li a {
-	height: 82%;
+	height: 100%;
 	width: 100%;
-	display: block;
+	display: block !important;
 	vertical-align: middle;
 }
 .prod .prod-slider .slides li a:before {
@@ -5963,6 +6018,10 @@ span.badge-1 {
 	display: inline-block;
 	vertical-align: middle;
 	height: 100%;
+}
+.prod .prod-slider .flex-direction-nav {
+	display: none;
+	visibility: hidden;
 }
 .prod .prod-slider .slides li img {
 	display: inline-block;
@@ -7717,7 +7776,7 @@ div.product.product-type-grouped .prod-add form.cart > .single_add_to_cart_butto
 	.cart-actions {
 		background: #fff;
 		padding: 20px 29px 24px;
-		margin: 0 0 80px;
+/*		margin: 0 0 80px;*/
 	}
 
 		.cart-actions:after {
@@ -7797,10 +7856,7 @@ div.product.product-type-grouped .prod-add form.cart > .single_add_to_cart_butto
 			}
 
 	.cart-actions .cart-collaterals {
-		float: left;
-		width: 100%;
 		font-size: 15px;
-		padding: 0 0 0 9.5%;
 		color: #686f8a;
 	}
 
@@ -7966,10 +8022,9 @@ div.product.product-type-grouped .prod-add form.cart > .single_add_to_cart_butto
 		}
 
 	.cart-actions .order-total {
-		float: right;
-		width: 14%;
+/*		width: 14%;
 		padding: 20px 0 0 0;
-		position: relative;
+		position: relative;*/
 	}
 
 		.cart-actions .order-total strong {
@@ -7990,16 +8045,12 @@ div.product.product-type-grouped .prod-add form.cart > .single_add_to_cart_butto
 		color: #fff;
 		font-weight: 700;
 		font-size: 14px;
-		text-transform: uppercase;
-		display: block;
 		border: none;
-		margin: 10px 0 0;
 		padding: 10px 35px;
 		cursor: pointer;
-		width: auto;
 		white-space: normal;
 		text-align: center;
-		float: right;
+		display: inline-block;
 	}
 
 		.cart-actions a.checkout-button:hover {
@@ -12540,8 +12591,51 @@ Compare List
 	/*----------------------------------
 28 - Footer
 ----------------------------------*/
+#main .owl-carousel .owl-item .item {
+	background-position: center center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+#main .owl-carousel .owl-item a {
+	height: 600px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 40px;
+}
 
+#main .owl-carousel-wrapper {
+	margin: 0 25px;
+	margin-bottom: 50px;
+	position: relative;
+}
 
+#main .owl-carousel .owl-dots {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: 20px;
+	z-index: 1;
+}
 
+#main .owl-carousel .owl-dots .owl-dot {
+	width: 10px;
+	height: 10px;
+	border-radius: 100%;
+	background-color: #D6D6D6;
+	margin: 0 4px;
+	transition: all .3s ease;
+}
 
+#main .owl-carousel .owl-dots .owl-dot.active,
+#main .owl-carousel .owl-dots .owl-dot:hover {
+	background-color: #6bc67c;
+}
 
+.loading {
+    width: 70px;
+/*    position: absolute;*/
+/*    left: 50%;*/
+/*    transform: translateX(-50%);*/
+}

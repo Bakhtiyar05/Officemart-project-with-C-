@@ -36,9 +36,9 @@
                                         <input type="checkbox" id="rememberme" asp-for="LoginDto.RememberMe">
                                         <label for="rememberme">Yadda saxla</label>
                                     </p>
-                                    <p class="auth-lost_password">
+                                    @*<p class="auth-lost_password">
                                         <a class="resetPass" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Şifrəni unutmusunuz?</a>
-                                    </p>
+                                    </p>*@
                                     <div class="collapse" id="collapseExample">
                                         <div class="card card-body">
                                             <input type="email" placeholder="Emaili daxil edin..." id="senderMail">
@@ -53,13 +53,13 @@
                                 <form asp-action="Registration" asp-controller="Account" method="post" class="register">
                                     <p>
                                         <label for="name">Ad <span class="required">*</span></label>
-                                        <input type="text" id="name" placeholder="Ad..." asp-for="Name">
-                                        <span class="text-danger" asp-validation-for="Name"></span>
+                                        <input type="text" id="name" placeholder="Ad..." asp-for="Firstname">
+                                        <span class="text-danger" asp-validation-for="Firstname"></span>
                                     </p>
                                     <p>
                                         <label for="surname">Soyad<span class="required">*</span></label>
-                                        <input type="text" id="surname" placeholder="Soyad..." asp-for="Surname">
-                                        <span class="text-danger" asp-validation-for="Surname"></span>
+                                        <input type="text" id="surname" placeholder="Soyad..." asp-for="Lastname">
+                                        <span class="text-danger" asp-validation-for="Lastname"></span>
                                     </p>
                                     <p>
                                         <label for="reg_email">Email <span class="required">*</span></label>
@@ -73,13 +73,20 @@
                                     </p>
                                     <p>
                                         <label for="living-place">Yaşayış ünvanı<span class="required">*</span></label>
-                                        <input type="text" id="living-place" placeholder="Yaşayış yeri..." asp-for="LivinPlace">
-                                        <span class="text-danger" asp-validation-for="LivinPlace"></span>
+                                        <input type="text" id="living-place" placeholder="Yaşayış yeri..." asp-for="Adrress">
+                                        <span class="text-danger" asp-validation-for="Adrress"></span>
                                     </p>
                                     <p>
                                         <label for="phone-number">Əlaqə nömrəsi<span class="required">*</span></label>
                                         <input type="tel" id="phone" placeholder="(0**)-***-****" asp-for="PhoneNumber">
                                         <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+                                    </p>
+                                    <p>
+                                    <p class="d-flex align-items-center m-0">
+                                        <input class="mr-2" type="checkbox" id="isRegisterPolicyAccepted" asp-for="IsPolicyAccepted">
+                                        Qeydiyyat<a href="#" class="border-0 px-1" data-toggle="modal" data-target="#registerPolicyModal"> şərtlərini </a>oxudum və qəbul edirəm.
+                                    </p>
+                                    <span class="text-danger" asp-validation-for="IsPolicyAccepted"></span>
                                     </p>
                                     <p class="auth-submit">
                                         <input type="submit" value="Qeydiyyat">
@@ -93,16 +100,32 @@
         </main>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="registerPolicyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header align-items-center">
+                <h5 class="modal-title" id="exampleModalLabel"> Qeydiyyat şərtləri </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @Html.Raw(ViewBag.policy)
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script>
-
-    $(document).on("click", "#sendResetMail", function (e) {
+<script>$(document).on("click", "#sendResetMail", function (e) {
         e.preventDefault();
-         function validateEmail($email) {
-  var emailReg = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
-  return emailReg.test( $email );
-}
+        function validateEmail($email) {
+            var emailReg = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+            return emailReg.test($email);
+        }
         let email = $('#senderMail').val();
         if (!email) {
             Swal.fire({
@@ -113,11 +136,11 @@
         } else {
             if (validateEmail(email)) {
                 $.ajax({
-                    url:'/Account/ResetPassword',
+                    url: '/Account/ResetPassword',
                     type: "POST",
-                    data: { email: email},
+                    data: { email: email },
                     success: function (result) {
-                        if (result.status ==400) {
+                        if (result.status == 400) {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Xəta',
@@ -130,7 +153,7 @@
                                 text: `Şifrə bərpası ${email} adresinə göndərildi.`
                             });
                         }
-                      
+
                     }
                 })
             }
@@ -143,15 +166,12 @@
             }
         }
 
-    });
-</script>
+    });</script>
 <partial name="_ValidationScriptsPartial" />
-<script>
-    document.getElementById('phone').addEventListener('input', function (e) {
+<script>document.getElementById('phone').addEventListener('input', function (e) {
         var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
         e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-    });
-</script>
+    });</script>
 
 
 

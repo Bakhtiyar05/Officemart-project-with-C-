@@ -11,7 +11,7 @@ namespace OfficeMart.Domain.Migrations
 {
     [DbContext(typeof(OfficeMartContext))]
     [Migration("20200801102120_removeimagenamecolumn")]
-    partial class removeimagenamecolumn
+    partial class Removeimagenamecolumn
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

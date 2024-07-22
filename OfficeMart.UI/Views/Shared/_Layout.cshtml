@@ -6,8 +6,8 @@
     <title>@ViewData["Title"]</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="officemart">
-    <meta name="keywords" content="officemart,officemart.az,office products,Web Page,ofis ləvazimatları,ofis levazimatlari,qələm,qelem,kağız,kaqiz,office,mart">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900%7COpen+Sans:300,300i,400,400i,600,600i,700,700i&amp;subset=cyrillic" rel="stylesheet">
+    <meta name="keywords" content="officemart, officemart.az, office products, Web Page, ofis ləvazimatları, ofis levazimatlari, qələm, qelem, kağız, kaqiz, office, mart">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900%7COpen+Sans:300,300i,400,400i,600,600i,700,700i&subset=cyrillic" rel="stylesheet">
     <link rel="stylesheet" href="~/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/css/ionicons.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="~/css/ion.rangeSlider.css">
     <link rel="stylesheet" href="~/css/jquery.mThumbnailScroller.css">
     <link rel="stylesheet" href="~/css/chosen.css">
+    <link rel="stylesheet" href="~/lib/owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/lib/owlcarousel/owl.theme.default.min.css">
     <link rel="stylesheet" href="~/css/style.css">
     <link rel="stylesheet" href="~/css/elements.css">
     <link rel="stylesheet" href="~/css/media.css">
@@ -25,243 +27,151 @@
     <link rel="stylesheet" href="~/css/index.css">
 </head>
 
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
 @inject UserManager<AppUser> _userManager
 @inject SignInManager<AppUser> SignInManager
+
+@{
+    var Email = HttpContextAccessor.HttpContext.Request.Cookies["Email"];
+}
 
 <body>
     <div id="page" class="site">
         <div class="container-fluid page-styling site-header-before">
-
             <div class="row">
-
                 <div class="col-lg-4">
-
                     <ul class="links_list links_list-align-left align-center-desktop topbar-social">
-
                         <li>
-
                             <p class="links_list-value">
-
                                 <a href="#" rel="nofollow">
-
                                     <i class="fa fa-facebook"></i>
-
                                 </a>
-
                             </p>
-
                         </li>
                         <li>
-
                             <p class="links_list-value">
-
                                 <a href="#" rel="nofollow">
-
                                     <i class="fa fa-linkedin"></i>
-
                                 </a>
-
                             </p>
-
                         </li>
                         <li>
-
                             <p class="links_list-value">
-
                                 <a href="#" rel="nofollow">
-
                                     <i class="fa fa-instagram"></i>
-
                                 </a>
-
                             </p>
-
                         </li>
-
                     </ul>
-
                 </div>
 
                 <div class="col-lg-8">
-
                     <ul class="links_list links_list-align-right align-center-desktop topbar-contacts">
-
                         <li>
-
-                            <p class="links_list-label">
-
-                                Ünvanımız:
-
-                            </p>
-
+                            <p class="links_list-label">Ünvanımız:</p>
                             <p class="links_list-value">
-
                                 <a href="https://shorturl.at/ahBFW" target="_blank" rel="nofollow">Caspian Plaza</a>
-
                             </p>
-
                         </li>
-
                         <li>
-
-                            <p class="links_list-label">
-
-                                @Localizer["Elektron Poçt"]:
-
-                            </p>
-
+                            <p class="links_list-label">@Localizer["Elektron Poçt"]:</p>
                             <p class="links_list-value">
-
                                 <a href="mailto:info@officemart.az">info@officemart.az</a>
-
                             </p>
-
                         </li>
-
                         <li>
-
-                            <p class="links_list-label">
-
-                                Əlaqə:
-                            </p>
-
+                            <p class="links_list-label">Əlaqə:</p>
                             <p class="links_list-value">
-
                                 <a href="tel:4785929899">(478)-592-9899</a>
-
                             </p>
-
                         </li>
-
                     </ul>
-
                 </div>
-
             </div>
-
         </div>
 
-
-
-
-
         <div class="site-header">
-
             <p class="h-logo">
-                <a href="/Home/Index"><img src="~/img/logo.png" alt="logo"></a>
+                <a href="/Home/Index">
+                    <img src="~/img/logo.png" alt="logo">
+                </a>
             </p>
+
             <div class="h-shop">
-                <form asp-action="Məhsullarımız" asp-controller="Məhsul" method="post" class="h-search" id="h-search">
-                    <input  name="search" type="text" id="search" placeholder="Axtarış...">
-                    <button type="submit"><i class="ion-search"></i></button>
+                <form asp-controller="Products" asp-action="ProductsList" method="post" class="h-search" id="h-search">
+                    <input name="search" type="text" id="search" placeholder="Axtarış...">
+                    <button type="submit">
+                        <i class="ion-search"></i>
+                    </button>
                 </form>
 
                 <ul class="h-shop-links">
-
-                    <li class="h-search-btn" id="h-search-btn"><i class="ion-search"></i></li>
-
-                    <li id="btnCheckout" class="h-cart">
-
-                        <a class="cart-contents" href="cart.html">
-
+                    <li class="h-search-btn" id="h-search-btn">
+                        <i class="ion-search"></i>
+                    </li>
+                    <li class="h-cart">
+                        <a class="cart-contents">
                             <p class="h-cart-icon">
-
                                 <i class="ion-android-cart"></i>
-
                                 <span id="basket-count">0</span>
-
                             </p>
-
-                            <p class="h-cart-total">₼ <span class="sum-money">0</span></p>
-
+                            <p class="h-cart-total"><span class="sum-money">0</span></p>
                         </a>
-
                         <div class="widget_shopping_cart">
-
                             <div class="widget_shopping_cart_content">
-
-                                <ul class="cart_list">
-                                </ul>
-
+                                <ul class="cart_list"></ul>
                                 <p class="buttons">
-
                                     <a id="btnCheckout" class="button">Səbətə Bax</a>
-
                                 </p>
-
                             </div>
-
                         </div>
-
                     </li>
-
-
-
                     <li class="h-menu-btn" id="h-menu-btn">
-
                         <i class="ion-navicon"></i> Menu
-
                     </li>
-
                 </ul>
-
             </div>
 
             <div class="mainmenu">
-
-
-
                 <nav id="h-menu" class="h-menu">
-
                     <ul>
-
-                        <li class="active">
-
+                        <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Home" ? "active" : "")">
                             <a asp-action="Index" asp-controller="Home">Əsas Səhifə</a>
-
                         </li>
-
-                        <li>
-
+                        <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Products" ? "active" : "")">
                             <a asp-action="Məhsullarımız" asp-controller="Məhsul">Məhsullarımız</a>
-
                         </li>
-
-                        <li>
+                        <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "About" ? "active" : "")">
                             <a asp-action="Index" asp-controller="About">Haqqımızda</a>
                         </li>
 
-                        @if (User.Identity.IsAuthenticated)
+                        @if (!string.IsNullOrEmpty(Email))
                         {
-                            var user = await _userManager.GetUserAsync(User);
-                            if (user != null)
-                            {
-                                <li class="LoginRegUser" id="dropdownMenuButton" data-toggle="dropdown">
-                                    <a>@user.Name @user.Surname <i class="fa fa-chevron-circle-down"></i></a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" onclick="location.href = '/User/Orders?stat=false';"><i class="fa fa-clock-o mr-2"></i>Gözləyən sifarişlər</a>
-                                        <a class="dropdown-item" onclick="location.href = '/User/Orders?stat=true';"><i class="fa fa-check-circle-o mr-2"></i>Təsdiqlənmiş sifarişlər</a>
-                                        <a class="dropdown-item" onclick="location.href = '/Account/Restore';"><i class="fa fa-cog mr-2"></i>Parametrlər</a>
-                                        <a class="dropdown-item" onclick="location.href = '/Account/Signout';"><i class="fa fa-sign-out mr-2"></i>Çıxış</a>
-                                    </div>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="LoginRegUser">
-                                    <a asp-action="Index" asp-controller="Account">Daxil ol / Qeydiyyat</a>
-                                </li>
-                            }
+                            <li class="LoginRegUser" id="dropdownMenuButton" data-toggle="dropdown">
+                                <a href="">
+                                    @Email
+                                    <i class="fa fa-chevron-circle-down"></i>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" onclick="location.href = '/User/Orders?stat=false';">
+                                        <i class="fa fa-clock-o mr-2"></i>Sifarişlər
+                                    </a>
+                                    <a class="dropdown-item" onclick="location.href = '/Account/Restore';">
+                                        <i class="fa fa-cog mr-2"></i>Parametrlər
+                                    </a>
+                                    <a class="dropdown-item" onclick="location.href = '/Account/Signout';">
+                                        <i class="fa fa-sign-out mr-2"></i>Çıxış
+                                    </a>
+                                </div>
+                            </li>
                         }
                         else
                         {
-                            <li class="LoginRegUser">
+                            <li class="LoginRegUser @(ViewContext.RouteData.Values["controller"].ToString() == "Account" ? "active" : "")">
                                 <a asp-action="Index" asp-controller="Account">Daxil ol / Qeydiyyat</a>
                             </li>
                         }
-                        @*<li class="menu-item-has-children">
-                            <partial name="_SelectLanguagePartial" />
-                        </li>*@
                     </ul>
                 </nav>
             </div>
@@ -269,114 +179,66 @@
 
         @RenderBody()
 
-
         <div class="container-fluid blog-sb-widgets page-styling site-footer">
-
             <div class="row">
-                <div class="col-sm-12 col-md-4  widget align-center-tablet f-logo-wrap">
-
+                <div class="col-sm-12 col-md-4 widget align-center-tablet f-logo-wrap">
                     <a href="/Home/Index" class="f-logo">
-
                         <img src="~/img/logo.png" alt="">
-
                     </a>
-
                     <p></p>
-
                     <button class="btn callback">Bizimlə Əlaqə</button>
-
                 </div>
 
-                <div class="col-xs-6 col-sm-3 col-md-2  align-center-mobile widget" style="display:none">
-
-                    <h3 class="widgettitle" >Kateqoriyalar</h3>
-
+                <div class="col-xs-6 col-sm-3 col-md-2 align-center-mobile widget" style="display:none">
+                    <h3 class="widgettitle">Kateqoriyalar</h3>
                     <ul class="menu">
-
                         <li>
-
                             <a href="#">Dəftər</a>
-
                         </li>
-
                         <li>
-
                             <a href="#">Kitab</a>
-
                         </li>
-
                         <li>
-
                             <a href="#">Qələm</a>
-
                         </li>
-
                         <li>
-
                             <a href="#">Silgi</a>
-
                         </li>
-
                     </ul>
-
                 </div>
 
                 <div class="col-xs-12 col-sm-3 col-md-2 col-md-offset-2 align-center-mobile widget">
-
                     <h3 class="widgettitle">Əlaqə Məlumatları</h3>
-
                     <ul class="menu">
-
                         <li>
-
                             <a href="catalog-gallery-full.html">Caspian Plaza</a>
-
                         </li>
                         <li>
-
                             <a href="mailto:info@officemart.az">info@officemart.az</a>
-
                         </li>
-
                         <li>
-
                             <a href="catalog-gallery.html">(478)-592-9899</a>
-
                         </li>
                     </ul>
-
                 </div>
 
                 <div class="col-xs-12 col-sm-3 col-md-2 align-center-mobile widget">
-
                     <h3 class="widgettitle">Sosial Keçidlər</h3>
-
                     <ul class="menu">
-
                         <li>
-
                             <a href="https://www.instagram.com/">İnstagram</a>
-
                         </li>
-
                         <li>
-
                             <a href="https://www.facebook.com/">Facebook</a>
-
                         </li>
                         <li>
-
                             <a href="https://www.linkedin.com/">Linkedin</a>
-
                         </li>
                     </ul>
-
                 </div>
 
                 <div class="col-xs-6 col-sm-3 col-md-2 align-center-mobile widget" id="services">
-
-                    <h3 class="widgettitle" >Xidmətlərimiz</h3>
-
+                    <h3 class="widgettitle">Xidmətlərimiz</h3>
                     <ul class="menu">
                         <li>
                             <a href="#">Ünvana Çatdırılma</a>
@@ -384,13 +246,11 @@
                         <li>
                             <a href="#">Qapıda Ödəniş</a>
                         </li>
-                        <li>
-                            <a href="#"></a>
-                        </li>
                     </ul>
                 </div>
             </div>
         </div>
+
         <div class="form-validate modal-form" id="modal-form">
             <form asp-action="Contact" asp-controller="About" method="post" class="form-validate">
                 <h4>Bizimlə Əlaqə</h4>
@@ -402,30 +262,28 @@
             </form>
         </div>
     </div>
+
     <script src="~/js/jquery-1.12.3.min.js"></script>
-
     <script src="~/js/jquery-plugins.js"></script>
-
+    <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="~/js/main.js"></script>
-
     <script src="~/js/jquery-ui.min.js"></script>
     <div class="buy-btn-wrap el-draggable">
         <a style="cursor:pointer" class="buy-btn" id="buttonTop">
             <p style="font-size:15px" class="buy-btn-val">Yuxarı</p>
         </a>
     </div>
-    <script>
-        $("#buttonTop").click(function () {
+
+    <script>$("#buttonTop").click(function () {
             $("html").animate({ scrollTop: 0 }, 1000);
         });</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
-    <script>
-        $(function () {
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>$(function () {
             $(document).on("click", ".quick-view", function (e) {
                 e.preventDefault();
-
                 var id = $(this).attr("data-quick-id");
 
                 $.ajax({
@@ -436,7 +294,7 @@
                         $(".prod-categs").text(`${res.category.categoryName}`);
                         $(".prod-price").text(`₼ ${res.price}`);
                         $(".prod-name").text(`${res.productName}`);
-                        $(".in-stock").text(`Mövcud say : ${res.count}`);
+                        $(".in-stock").text(`Mövcud say: ${res.count}`);
 
                         for (let i = 0; i < res.imagesBase64.length; i++) {
                             $(".sliderMainImg1").attr("src", `${res.imagesBase64[0]}`);
@@ -459,12 +317,8 @@
                         }
                     }
                 });
-
             });
-        });
-    </script>
-
-
+        });</script>
 
 </body>
 </html>

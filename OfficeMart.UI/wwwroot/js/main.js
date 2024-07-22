@@ -1,5 +1,340 @@
 ﻿"use strict";
 
+$(document).on("click", "#checkPrice", function (e) {
+    e.preventDefault();
+    $(".orderErrorMessage").addClass("text-danger").removeClass("text-success").text("")
+    if (!$("#isOrderPolicyAccepted").hasClass("active")) {
+        $(".orderErrorMessage").text("Sifariş şərtlərini oxuyun və qəbul edin.")
+        return
+    }
+    let cartProducts = [];
+
+    $('.prod-li').each(function () {
+        let productCode = $(this).attr('data-code');
+        let price = parseFloat($('#price-' + productCode).val());
+        let quantity = parseInt($('#count-' + productCode).val());
+        cartProducts.push({
+            ProductCode: productCode,
+            Quantity: quantity
+        });
+    });
+
+    if (cartProducts.length == 0) {
+        $(".orderErrorMessage").text("Səbət boşdur.")
+        return
+    }
+    $(".main-wrapper-for-cart").addClass("d-none")
+    $(".loading-wrapper-for-cart").removeClass("d-none")
+    fetch(`/Cart/Order`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(cartProducts)
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                $(".allprods.prod-litems").html('')
+                $(".orderErrorMessage").removeClass("text-danger").addClass("text-success").text("Sifariş uğurla təsdiq olundu")
+                $(".cart_list").html('')
+                $(".woocommerce.allprods.prod-litems.section-list").html('')
+                getkBasketCount()
+                localStorage.removeItem('basketList');
+            }
+            else {
+                $(".orderErrorMessage").text(data.message)
+            }
+            $(".main-wrapper-for-cart").removeClass("d-none")
+            $(".loading-wrapper-for-cart").addClass("d-none")
+        })
+});
+
+$(".section-sb-current a.search").on("click", function (e) {
+    e.preventDefault()
+    alert("Handler for `click` called.");
+});
+
+$(".section-sb-current .section-sb-list li a").on("click", function (e) {
+    e.preventDefault()
+    if ($(this).hasClass("subcategoried")) {
+        if ($(this).next().hasClass("active")) {
+            $(this).next().removeClass("active").hide("fast")
+            $(this).children().last().removeClass("active")
+        }
+        else {
+            $(".section-sb-current .section-sb-list li ul.subCategories.active").removeClass("active").hide("fast")
+            $(".section-sb-current .section-sb-list li a i.active").removeClass("active")
+
+            $(this).next().addClass("active").show("fast")
+            $(this).children().last().addClass("active")
+        }
+    }
+    else {
+        if ($(this).prev().prop('checked')) {
+            $(this).prev().prop('checked', !$(this).prev().prop('checked'))
+            $(this).prev().removeClass("active")
+        }
+        else {
+            $(".section-sb-current .section-sb-list input:checked").prop('checked', false)
+            $(".section-sb-current .section-sb-list input.active").removeClass("active")
+            $(this).prev().prop('checked', !$(this).prev().prop('checked'))
+            $(this).prev().addClass("active")
+        }
+        $(".errorMessageForCategory").addClass("d-none")
+    }
+});
+
+$(".section-sb-current .section-sb-list input").on("click", function () {
+    $('.section-sb-current .section-sb-list input[type="checkbox"]').not(this).prop('checked', false);
+    $(".errorMessageForCategory").addClass("d-none")
+    if ($(this).hasClass('active')) {
+        $(this).removeClass("active")
+    }
+    else {
+        $(".section-sb-current .section-sb-list input.active").removeClass("active")
+        $(this).addClass("active")
+    }
+});
+
+$("#isRegisterPolicyAccepted").on("click", function () {
+    $(this).toggleClass('active')
+});
+
+$("#isOrderPolicyAccepted").on("click", function () {
+    $(this).toggleClass('active')
+});
+
+
+
+$(".searchByCategories").on("click", function (e) {
+    e.preventDefault()
+    var $input = $('.section-sb-current .section-sb-list input[type="checkbox"]:checked')
+    if ($input.length > 0) {
+        $(".errorMessageForCategory").addClass("d-none")
+        window.location.href = $input.next().attr('href')
+    }
+    else {
+        
+        $(".errorMessageForCategory").removeClass("d-none")
+    }
+})
+
+$(document).ready(function () {
+    var decodedUrl = decodeURIComponent(window.location.href)
+    if (decodedUrl.includes("/Məhsul/Məhsullarımız?categoryGUID")) {
+        var guid = decodedUrl.split("categoryGUID=")[1]
+        var $input = $(`.productCategories a[data-category-GUID='${guid}']`).prev()
+        $input.prop('checked', true)
+        $input.addClass("active")
+        if ($input.parents(".subCategories").length > 0) {
+            $input.parents(".subCategories").addClass("active")
+            $input.parents(".subCategories").show("fast")
+        }
+    }
+});
+
+$(document).ready(function () {
+    $("#h-search").on("submit", function (event) {
+        const searchValue = $("#search").val();
+        $(this).attr("action", $(this).attr("action") + "?search=" + encodeURIComponent(searchValue));
+    });
+});
+
+function debounce(func, delay) {
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+
+
+$(document).ready(function () {
+    if ($(".prod-litems").length > 0) {
+        var firstTime = true
+        const handleScroll = debounce((isProductsPerPage) => {
+            console.log("a")
+            const scrollTop = $(window).scrollTop();
+            const clientHeight = $(window).innerHeight();
+            const scrollHeight = document.documentElement.scrollHeight;
+            const isAtBottom = (scrollTop + clientHeight) >= (scrollHeight - 700);
+            const productsPerPage = parseInt($(".section-top-sort select").val(), 10);
+            var skippedProducts = parseInt($("#skipedProducts").val(), 10);
+            const productsCount = parseInt($("#productsCount").val(), 10);
+            const basketList = localStorage.getItem('basketList');
+            var productIds = []
+            if (basketList) {
+                var beautifiedHTML = basketList
+                    .replace(/\\/g, '')
+                    .replace(/\n\s+/g, '\n')
+                    .trim()
+
+                var tempDiv = document.createElement('div');
+                tempDiv.innerHTML = beautifiedHTML;
+                var listItems = tempDiv.querySelectorAll('li');
+                listItems.forEach(function (item) {
+                    var productIdFromHtml = item.getAttribute('pro-id');
+                    var quantityFromHtml = item.querySelector('.quantity') ? parseInt(item.querySelector('.quantity').innerText.split("×")[0].trim()) : 1;
+                    if (productIdFromHtml && quantityFromHtml) {
+                        var productId = productIdFromHtml;
+                        var quantityValue = quantityFromHtml;
+                        productIds.push({ "productId": productId, "quantity": quantityValue })
+                    }
+                });
+            }
+
+            if (skippedProducts < productsCount) {
+                $(".loading-wrapper").removeClass("d-none");
+            }
+            else {
+                $(".loading-wrapper").addClass("d-none");
+            }
+
+            if (isAtBottom || isProductsPerPage || firstTime) {
+                firstTime = false
+                var guid = ""
+                const search = $("#searchInput").val()
+                var decodedUrl = decodeURIComponent(window.location.href)
+                if (decodedUrl.includes("/Məhsul/Məhsullarımız?categoryGUID")) {
+                    guid = decodedUrl.split("categoryGUID=")[1]
+                }
+
+                if (skippedProducts < productsCount) {
+
+                    $(".loading-wrapper").removeClass("d-none");
+                    fetch(`/Ajax/GetProducts?categoryGUID=${guid}&search=${encodeURIComponent(search)}`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ "skip": skippedProducts, "productsPerPage": productsPerPage })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            var cartProducts = []
+                            $('.cart_list').children('li').each(function () {
+                                var ProId = $(this).attr("pro-id");
+                                var ProCount = parseInt($(this).attr("pro-count"))
+                                var Price = parseFloat($(this).find('.per-product-money').text())
+                                var TotalPrice = (ProCount * Price)
+
+                                cartProducts.push({ "GUID": ProId, "Count": ProCount, "Price": Price, "TotalPrice": TotalPrice })
+                            });
+
+                            $.each(data.products, function (index, product) {
+                                var cartProduct = cartProducts.find(p => p.GUID === product.guid)
+                                var totalPrice = product.price
+                                var count = 1
+                                if (cartProduct) {
+                                    totalPrice = cartProduct.TotalPrice
+                                    count = cartProduct.Count
+                                }
+                                const productHtml = `
+                                    <article class="prod-li sectls">
+                                        <div class="prod-li-inner">
+                                            <a class="prod-li-img" href="/Məhsul_Haqqında/${product.guid}">
+                                                <img id="baseimage-${product.guid}" src="${product.imageUrl}" alt="${product.name}" />
+                                            </a>
+                                            <div class="prod-li-cont">
+                                                <div class="prod-li-ttl-wrap">
+                                                    <p><a href="/M%C9%99hsul/M%C9%99hsullar%C4%B1m%C4%B1z?categoryGUID=${product.categoryGUID}">${product.categoryName}</a></p>
+                                                    <h3>
+                                                        <a id="product-name-${product.guid}" href="/Məhsul_Haqqında/${product.guid}">
+                                                            ${product.name}
+                                                        </a>
+                                                    </h3>
+                                                </div>
+                                                <div class="prod-li-prices">
+                                                    <div class="prod-li-price-wrap">
+                                                        <p>Qiyməti</p>
+                                                        <p class="prod-li-price">₼ ${product.price}</p>
+                                                        <input type="hidden" id="price-${product.guid}" value="${product.price}" />
+                                                    </div>
+                                                    <div class="prod-li-qnt-wrap">
+                                                        <p class="qnt-wrap prod-li-qnt">
+                                                            <a data-id="${product.guid}" class="qnt-plus prod-li-plus">
+                                                                <i class="icon ion-arrow-up-b"></i>
+                                                            </a>
+                                                            <input type="text" id="count-${product.guid}" readonly value="${count}" />
+                                                            <a data-id="${product.guid}" class="qnt-minus prod-li-minus">
+                                                                <i class="icon ion-arrow-down-b"></i>
+                                                            </a>
+                                                        </p>
+                                                    </div>
+                                                    <div class="prod-li-total-wrap">
+                                                        <p>Cəm</p>
+                                                        <p id="total-${product.guid}" class="prod-li-total">₼ ${totalPrice}</p>
+                                                        <input type="hidden" id="total-value-${product.guid}" value="${totalPrice}" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="prod-li-info">
+                                                <p class="prod-li-add" style="cursor: pointer;">
+                                                    <a id="${product.guid}" class="button hover-label prod-addbtn">
+                                                        <i class="icon ion-android-cart"></i>
+                                                        <span>Səbətə əlavə et</span>
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </article>`;
+                                $(".prod-litems").append(productHtml);
+                            });
+                            skippedProducts += productsPerPage
+                            $("#skipedProducts").val(skippedProducts);
+                            if (skippedProducts >= productsCount) {
+                                $(".loading-wrapper").addClass("d-none");
+                            }
+
+                        })
+                        .catch(error => {
+                            console.error("Error sending POST:", error);
+                        });
+                }
+                else {
+                    $(".loading-wrapper").addClass("d-none");
+                }
+            }
+        }, 300);
+        
+        $(window).on("scroll", function () {
+            handleScroll(false);
+        });
+
+        $(".products-per-page select").on("change", function () {
+            $("#productsPerPage").val($(this).val())
+            $(".prod-litems .prod-li").remove()
+            $("#skipedProducts").val(0)
+            handleScroll(true)
+        })
+
+        //handleScroll(true)
+        
+        //setTimeout(function () {
+        //    handleScroll(true)
+        //}, 500);
+        handleScroll(true)
+    }
+});
+
+
+$(document).ready(function () {
+    $("#main .owl-carousel").owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: false,
+        dots: true,
+        margin: 25,
+        responsive: {
+            0: {
+                items: 1
+            }
+        }
+    });
+});
+
 function getkBasketCount() {
     var count = $(".cart_list li").length;
     $("#basket-count").text(count);
@@ -8,27 +343,18 @@ function getkBasketCount() {
 
 function calcPrice() {
     var totalPrice = 0;
-    $(".per-product-money").each(function () {
-        var price = $(this).text();
-        totalPrice = parseFloat(price) + totalPrice;
-    });
-    $(".sum-money").text(totalPrice.toFixed(2));
-    //if (totalPrice > 15) {
-    //    $('#checkPrice').attr('data-toggle', "modal");
-    //    $('#checkPrice').removeClass('disabled');
-    //    $('.saleBorder').css('display', 'none');
-    //}
-    //else {
-    //    $('#checkPrice').removeAttr('data-toggle');
-    //    $('#checkPrice').addClass('disabled');
-    //    $('.saleBorder').css('display', 'inline');
 
-    //}
+    $('.cart_list').children('li').each(function () {
+        var quantity = parseInt($(this).attr("pro-count"))
+        var price = parseFloat($(this).find('.per-product-money').text().replace(',', '.'))
+        totalPrice = totalPrice + (quantity * price)
+    });
+
+    $(".sum-money").text(`₼ ${totalPrice.toFixed(2)}`);
 }
 
 
 function clickForBasket(id, isArrow = false) {
-
     if ($(".cart_list li").length > 0) {
         var isDuplicate = false;
         $('.cart_list').children('li').each(function () {
@@ -46,7 +372,6 @@ function clickForBasket(id, isArrow = false) {
     } else if (!isArrow) {
         appendBask(id);
     }
-
     getkBasketCount();
 }
 
@@ -54,13 +379,16 @@ function appendBask(clickedId) {
     if (clickedId) {
         var imgSRC = $(`#baseimage-${clickedId}`).attr("src");
         var productName = $(`#product-name-${clickedId}`).text();
-        var totalPrice = $(`#total-value-${clickedId}`).val();
+        var price = $(`#price-${clickedId}`).val();
         var totalCount = $(`#count-${clickedId}`).val();
-        var element = `<li pro-count=${totalCount} pro-id=${clickedId} id="basketed-li-${clickedId}">
+        var categoryGuid = $(`a#product-name-${clickedId}`).parent().prev().children().first().attr("href").split("=")[1]
+        var categoryName = $(`a#product-name-${clickedId}`).parent().prev().children().first().text()
+
+        var element = `<li pro-count=${totalCount} pro-id=${clickedId} id="basketed-li-${clickedId}" categoryName="${categoryName}" categoryGUID="${categoryGuid}">
 
                                         <a del-id="${clickedId}" class="remove">&times;</a>
 
-                                        <a href="/ProductDetail/Index/${clickedId}">
+                                        <a href="/Məhsul_Haqqında/${clickedId}">
 
                                             <img src="${imgSRC}" alt="">
 
@@ -68,7 +396,7 @@ function appendBask(clickedId) {
 
                                         </a>
 
-                                        <span class="quantity">${totalCount} &times; ₼<span class="per-product-money">${totalPrice}</span></span>
+                                        <span class="quantity">${totalCount} &times; ₼<span class="per-product-money"> ${price}</span></span>
 
                                     </li>`;
 
@@ -90,6 +418,7 @@ $(function () {
     $(document).on("click", ".prod-addbtn", function (e) {
         e.preventDefault();
         var clickedId = $(this).attr("id");
+
         clickForBasket(clickedId);
     });
 
@@ -151,6 +480,7 @@ jQuery(document).ready(function ($) {
     var lsPoduct = localStorage.getItem('basketList');
     if (lsPoduct) {
         $(".cart_list").html(JSON.parse(lsPoduct));
+        
         getkBasketCount();
     }
     // Modal Form
@@ -169,25 +499,35 @@ jQuery(document).ready(function ($) {
 
     $(document).on("click", "#btnCheckout", function (e) {
         e.preventDefault();
-        var ids = [];
-        var counts = [];
-        $('.cart_list').children('li').each(function () {
-            var ProId = $(this).attr("pro-id");
-            var ProCount = $(this).attr("pro-count");
-            ids.push(ProId);
-            counts.push(ProCount);
-        });
-        if (ids.length > 0) {
 
-            var url = '/Cart/Checkout';
-            var form = $('<form style="visibility: hidden;" action="' + url + '" method="get">' +
-                '<input type="text" name="ids" value="' + ids + '" />' +
-                '<input type="text" name="counts" value="' + counts + '" />' +
-                '</form>');
-            $('body').append(form);
-            form.submit();
+        let data = []
+
+        $('.cart_list').children('li').each(function () {
+            var ProductCode = $(this).attr("pro-id");
+            var Quantity = parseInt($(this).attr("pro-count"))
+            var Name = $(this).find('a').last().text().trim();
+            var ImageUrl = $(this).find('a').last().find('img').attr('src');
+            var Price = parseFloat($(this).find('.per-product-money').text().replace(',', '.'))
+            var CategoryName = $(this).attr("categoryname");
+            var CategoryGUID = $(this).attr("categoryguid");
+            var TotalPrice = (Quantity * Price)
+
+            data.push({ "ProductCode": ProductCode, "Quantity": Quantity, "Name": Name, "ImageUrl": ImageUrl, "Price": Price, "TotalPrice": TotalPrice, "CategoryName": CategoryName, "CategoryGUID": CategoryGUID })
+        });
+
+        if (data.length > 0) {
+            var jsonData = JSON.stringify(data);
+            var encodedJsonData = encodeURIComponent(jsonData);
+            var url = `/Cart/Checkout?productsJson=${encodedJsonData}`;
+            window.location.href = url;
         }
     });
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
 
     $('.prod-li-add').css('cursor', 'pointer');
     $('.LoginRegUser').css('cursor', 'pointer');
@@ -672,15 +1012,17 @@ jQuery(document).ready(function ($) {
             var qnt = $(this).parent().find('input').val();
             var clickedId = $(this).attr('data-id');
             var price = $(`#price-${clickedId}`).val();
-
+            
             if ($(this).hasClass('qnt-plus')) {
                 qnt++;
             } else if ($(this).hasClass('qnt-minus')) {
                 qnt--;
             }
+
             if (qnt > 0) {
                 $(this).parent().find('input').attr('value', qnt);
-                $(`#total-${clickedId}`).text(`${(price.replace(',', '.') * qnt).toFixed(2)}₼`);
+
+                $(`#total-${clickedId}`).text(`₼ ${(price.replace(',', '.') * qnt).toFixed(2)}`);
                 $(`#total-value-${clickedId}`).val((price.replace(',', '.') * qnt).toFixed(2));
             }
             var id = $(this).attr("data-id");
@@ -943,5 +1285,28 @@ jQuery(document).ready(function ($) {
     $(document).ready(function () {
         $('.wccm-compare-table').setDraggable();
     });
-})(jQuery);
 
+    //$(document).ready(function () {
+    //    var basketList = localStorage.getItem('basketList');
+    //    if (basketList) {
+    //        var tempDiv = $('<div>').html(JSON.parse(basketList));
+    //        var listItems = tempDiv.find('li');
+    //        listItems.each(function () {
+    //            var item = $(this);
+    //            var productId = item.attr('pro-id');
+    //            var quantityElement = item.find('.quantity');
+    //            var quantity = quantityElement.length ? parseInt(quantityElement.text().split("×")[0].trim()) : 1;
+    //            if (productId && quantity) {
+    //                $(`#count-${productId}`).val(quantity);
+    //                var price = parseFloat($(`#price-${productId}`).val().replace(',', '.'))
+    //                $(`#total-${productId}`).text(`₼ ${(price * quantity).toFixed(2)}`)
+    //                $(`#total-value-${productId}`).val(`${(price * quantity).toFixed(2)}`)
+    //            }
+    //        });
+    //    }
+
+    //    document.getElementById("count-fd16ac36-30f2-11ec-a27c-000c295bf306").value = 3
+    //    console.log(document.getElementById("count-fd16ac36-30f2-11ec-a27c-000c295bf306"))
+    //});
+
+})(jQuery);

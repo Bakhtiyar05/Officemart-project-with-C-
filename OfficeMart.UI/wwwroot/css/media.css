@@ -668,9 +668,9 @@
         padding: 0 6% 0 0;
     }
     .cart-actions .order-total {
-        width: 25%;
+/*        width: 25%;
         padding: 0;
-        margin: 0 0 20px;
+        margin: 0 0 20px;*/
     }
     .cart-actions .wc-proceed-to-checkout {
         padding: 0 0 0;

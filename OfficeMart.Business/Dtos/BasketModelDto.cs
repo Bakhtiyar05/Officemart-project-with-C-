@@ -7,17 +7,13 @@ namespace OfficeMart.Business.Dtos
     public class BasketModelDto
     {
         public int ProductCount { get; set; }
-        public ProductDto Product { get; set; }
-
         public decimal Sum
         {
             get
             {
-                return ProductCount * Product.Price;
+                return 0;
             }
             set { }
         }
-
-        public OrderDto CheckoutDto { get; set; }
     }
 }

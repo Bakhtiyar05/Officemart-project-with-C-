@@ -11,7 +11,7 @@ namespace OfficeMart.Domain.Migrations
 {
     [DbContext(typeof(OfficeMartContext))]
     [Migration("20200816134846_checkoutproducttableuseriddatatypechangedtostring")]
-    partial class checkoutproducttableuseriddatatypechangedtostring
+    partial class Checkoutproducttableuseriddatatypechangedtostring
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -12,10 +12,11 @@ namespace OfficeMart.Domain.EntityConfigurations
         public void Configure(EntityTypeBuilder<Slider> builder)
         {
             builder.HasKey(x => x.Id);
-
-            builder.Property(x => x.ImageName)
-                .IsRequired()
-                .HasMaxLength(125);
+            builder.Property(x => x.ImageUrl);
+            builder.Property(x => x.Title)
+                .IsRequired();
+            builder.Property(x => x.Status)
+                .HasDefaultValue(false);
         }
     }
 }

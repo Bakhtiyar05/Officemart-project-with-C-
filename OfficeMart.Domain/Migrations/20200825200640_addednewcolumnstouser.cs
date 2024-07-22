@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OfficeMart.Domain.Migrations
 {
-    public partial class addednewcolumnstouser : Migration
+    public partial class Addednewcolumnstouser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

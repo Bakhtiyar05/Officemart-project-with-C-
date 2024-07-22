@@ -1,13 +1,15 @@
-﻿@model List<ProductDto>
+﻿@model ProductsViewModel
 @{
     ViewData["Title"] = "Məhsullarımız";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var paginationDto = Model.Select(x => x.PaginationDto).FirstOrDefault();
 }
 
+<input type="hidden" value="12" id="productsPerPage"/>
+<input type="hidden" value="@ViewBag.productsCount" id="productsCount" />
+<input type="hidden" value="0" id="skipedProducts" />
+<input type="hidden" value="@ViewBag.search" id="searchInput" />
 
 <div id="content" class="site-content">
-
     <div id="primary" class="content-area">
         <main id="main" class="site-main">
             <div class="cont maincont">
@@ -16,86 +18,56 @@
 
                     <h1 class="maincont-ttl">Məhsullar</h1>
 
-                    <div class="section-top-sort" style="display:none">
-                        <div class="section-view">
-                            <p>View</p>
-                            <div class="dropdown-wrap">
-                                <p class="dropdown-title section-view-ttl">Gallery</p>
-                                <ul class="dropdown-list">
-                                    <li>
-                                        <a href="catalog-list.html">List</a>
-                                    </li>
-                                    <li class="active">
-                                        <a href="catalog-gallery.html">Gallery</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="section-sort">
-                            <p>Sort</p>
-                            <div class="dropdown-wrap">
-                                <p class="dropdown-title section-sort-ttl">Newness</p>
-                                <ul class="dropdown-list">
-                                    <li>
-                                        <a href="#">Popularity</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Average rating</a>
-                                    </li>
-                                    <li class="active">
-                                        <a href="#">Newness</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Price: low to high</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Price: high to low</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <form method="post" class="products-per-page">
-                            <p>Per Page</p>
+                    <div class="section-top-sort">
+                        <div class="products-per-page">
+                            <p>Məhsul sayı: </p>
                             <select>
                                 <option value="12" selected="selected">12</option>
                                 <option value="24">24</option>
                                 <option value="48">48</option>
-                                <option value="-1">All</option>
                             </select>
-                        </form>
+                        </div>
                     </div>
                 </div>
-                @{
-                    if (Model.Count > 0)
-                    {
-                        <div class="section-wrap-withsb">
-                            <partial name="_CategoriesPartial" model="@Model.Select(x=>x.CategoryDtos).FirstOrDefault()"/>
-                            <div class="section-list-withsb" id="section-list-withsb">
-                                <div class="theiaStickySidebar">
+                <div class="section-wrap-withsb">
+                    <partial name="_CategoriesPartial" model="@Model.Categories" />
+                    <div class="section-list-withsb" id="section-list-withsb">
+                        <div class="theiaStickySidebar">
+                            <div class="prod-litems section-list">
+                                @{
+                                    @*if (Model.Products.Count > 0)
+                                    {
+                                        <partial name="_ProductPartial" model="Model" />
+                                    }
+                                    else
+                                    {
+                                        <div style="font-size:40px;text-align:center;margin:15px 0;">
+                                            <h1>Axtarışınıza uyğun məhsul tapılmadı!</h1>
+                                        </div>
+                                    }*@
 
-                                    <div class="prod-litems section-list">
-                                        <partial name="_ProductPartial" model="Model.ToList()" />
-                                    </div>
-
-                                    <partial name="_PaginationPartial" model="@paginationDto" />
-                                </div>
+                                    if (Model.Products.Count < 0) {
+                                        <div style="font-size:40px;text-align:center;margin:15px 0;">
+                                            <h1>Axtarışınıza uyğun məhsul tapılmadı!</h1>
+                                        </div>
+                                    }
+                                }
                             </div>
+                            @if (Model.Products.Count > 0)
+                            {
+                                <div class="loading-wrapper text-center mb-3">
+                                    <img src="/img/loading.gif" class="loading" />
+                                </div>
+                             }
                         </div>
-                    }
-                    else
-                    {
-                        <div style="font-size:40px;text-align:center;margin:15px 0;">
-                            <h1>Axtarışınıza uyğun məhsul tapılmadı!</h1>
-                        </div>
-                    }
-
-                }
-
-
+                    </div>
+                </div>
             </div>
         </main>
     </div>
 
 </div>
 
-
+<script>
+    console.log(document.querySelector(`.cart_list`).children)
+</script>

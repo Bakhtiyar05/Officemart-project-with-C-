@@ -7,10 +7,10 @@ namespace OfficeMart.Business.Dtos
     public class AppUserDto
     {
         [Required(ErrorMessage ="Sahə tələbolunandır")]
-        public string Name { get; set; }
+        public string Firstname { get; set; }
 
         [Required(ErrorMessage = "Sahə tələbolunandır")]
-        public string Surname { get; set; }
+        public string Lastname { get; set; }
 
         [Required(ErrorMessage = "Sahə tələbolunandır")]
         [EmailAddress(ErrorMessage ="Email fortmata uyğun deyil")]
@@ -20,7 +20,7 @@ namespace OfficeMart.Business.Dtos
         [MinLength(6,ErrorMessage ="Şifrənin uzunluğu minimum 6 simvoldan ibarət olmalıdır")]
         public string Password { get; set; }
 
-        public string LivinPlace { get; set; }
+        public string Adrress { get; set; }
 
         [Required(ErrorMessage = "Sahə tələbolunandır")]
         public string PhoneNumber { get; set; }
@@ -30,5 +30,7 @@ namespace OfficeMart.Business.Dtos
 
         public DateTime PasswordResetDate { get; set; }
         public bool IsPasswordReset { get; set; }
+
+        public bool IsPolicyAccepted { get; set; }
     }
 }

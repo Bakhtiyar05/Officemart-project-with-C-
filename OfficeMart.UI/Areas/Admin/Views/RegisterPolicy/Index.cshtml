@@ -1,0 +1,31 @@
+﻿@model RegisterPolicy
+<h1 class="text-center mb-3">Qeydiyyat şərtləri</h1>
+<div class="container mb-3">
+    <form method="post" class="row w-100">
+        <div class="col-12" asp-validation-summary="ModelOnly"></div>
+        <div class="col-12 mb-3">
+            <textarea asp-for="Policy" class="editor"></textarea>
+        </div>
+        <div class="col-12">
+            <input type="submit" value="Yadda saxla" class="w-100 btn btn-success" />
+        </div>
+    </form>
+</div>
+<script src="~/ckeditor5/build/ckeditor.js"></script>
+<script>ClassicEditor
+        .create(document.querySelector('.editor'), {
+        })
+        .then(editor => {
+            window.editor = editor;
+        })
+        .catch(handleSampleError);
+
+    function handleSampleError(error) {
+        const issueUrl = 'https://github.com/ckeditor/ckeditor5/issues';
+        const message = [
+            'Oops, something went wrong!',
+            `Please, report the following error on ${issueUrl} with the build id "qh9ppm5vtyn-6nkkbmh6y7ri" and the error stack trace:`
+        ].join('\n');
+        console.error(message);
+        console.error(error);
+    }</script>

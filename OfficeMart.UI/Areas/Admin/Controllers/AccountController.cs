@@ -28,7 +28,6 @@ namespace OfficeMart.UI.Areas.Admin.Controllers
         }
         public IActionResult Login()
         {
-
             return View();
         }
 

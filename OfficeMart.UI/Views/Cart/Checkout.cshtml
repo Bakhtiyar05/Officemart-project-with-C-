@@ -1,8 +1,7 @@
-﻿@model List<BasketModelDto>
+﻿@model List<CartProduct>
 @{
     ViewData["Title"] = "Səbətim";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var productsIsOrderd = ViewBag.ProductsIsOrderd;
 }
 
 @inject UserManager<AppUser> _userManager
@@ -16,55 +15,50 @@
                     <li><a asp-action="Index" asp-controller="Home">Əsas Səhifə</a></li>
                     <li>Səbət</li>
                 </ul>
-                <div class="page-styling">
-                    <div class="woocommerce allprods prod-litems section-list">
-                        @{
-                            if (Model != null)
-                            {
-                                 foreach (var item in Model)
-                                 {
-                                        <article id="bask-remove-@item.Product.Id" class="prod-li sectls">
+                <div class="main-wrapper-for-cart">
+                    <div class="page-styling">
+                        <div class="woocommerce allprods prod-litems section-list">
+                            @{
+                                if (Model != null)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <article id="bask-remove-@item.ProductCode" data-code="@item.ProductCode" class="prod-li sectls">
                                             <div class="prod-li-inner">
-                                                <a asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.Product.Id" class="prod-li-img">
-                                                    <img id="baseimage-@item.Product.Id" src="~/img/@item.Product.ProductImages.FirstOrDefault()" alt="">
+                                                <a asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.ProductCode" class="prod-li-img">
+                                                    <img id="baseimage-@item.ProductCode" src="@item.ImageUrl" alt="@item.Name">
                                                 </a>
                                                 <div class="prod-li-cont">
                                                     <div class="prod-li-ttl-wrap">
                                                         <p>
-                                                            <a href="#">@item.Product.Category.CategoryName</a>
+                                                            <a asp-controller="Products" asp-action="ProductsList" asp-route-categoryGUID="@item.CategoryGUID">@item.CategoryName</a>
                                                         </p>
-                                                        <h3><a id="product-name-@item.Product.Id" asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.Product.Id">@item.Product.ProductName</a></h3>
+                                                        <h3><a id="product-name-@item.ProductCode" asp-action="Index" asp-controller="ProductDetail" asp-route-id="@item.ProductCode">@item.Name</a></h3>
                                                     </div>
                                                     <div class="prod-li-prices">
                                                         <div class="prod-li-price-wrap">
                                                             <p>Qiyməti</p>
-                                                            @{
-                                                                if (item.Product.DiscountPrice > 0)
-                                                                {
-                                                                    <del>₼ @item.Product.DiscountPrice</del>
-                                                                }
-                                                            }
-                                                            <p class="prod-li-price">₼ @item.Product.Price</p>
-                                                            <input type="hidden" id="price-@item.Product.Id" value="@item.Product.Price" />
+                                                            <p class="prod-li-price">₼ @item.Price.ToString("F1", System.Globalization.CultureInfo.InvariantCulture)</p>
+                                                            <input type="hidden" id="price-@item.ProductCode" value="@item.Price.ToString("F1", System.Globalization.CultureInfo.InvariantCulture)" />
                                                         </div>
                                                         <div class="prod-li-qnt-wrap">
                                                             <p class="qnt-wrap prod-li-qnt">
-                                                                <a data-id="@item.Product.Id" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
-                                                                <input type="text" readonly id="count-@item.Product.Id" value="@item.ProductCount ">
-                                                                <a data-id="@item.Product.Id" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
+                                                                <a data-id="@item.ProductCode" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
+                                                                <input type="text" readonly id="count-@item.ProductCode" value="@item.Quantity">
+                                                                <a data-id="@item.ProductCode" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
                                                             </p>
                                                         </div>
                                                         <div class="prod-li-total-wrap">
                                                             <p>Cəm</p>
-                                                            <p id="total-@item.Product.Id" class="prod-li-total">@item.Sum₼</p>
-                                                            <input type="hidden" id="total-value-@item.Product.Id" value="@item.Sum">
+                                                            <p id="total-@item.ProductCode" class="prod-li-total">@item.TotalPrice.ToString("F1", System.Globalization.CultureInfo.InvariantCulture) ₼</p>
+                                                            <input type="hidden" id="total-value-@item.ProductCode" value="@item.TotalPrice.ToString("F1", System.Globalization.CultureInfo.InvariantCulture)">
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="prod-li-info">
                                                     <p class="prod-li-add">
-                                                        <a del-id="@item.Product.Id" class="button hover-label prod-addbtn remove">
+                                                        <a del-id="@item.ProductCode" class="button hover-label prod-addbtn remove">
                                                             <i class="icon ion-close-round"></i><span>Sil</span>
                                                         </a>
                                                     </p>
@@ -72,36 +66,52 @@
                                                 </div>
                                             </div>
                                         </article>
-
-                                 }
-                                
-
+                                    }
+                                }
                             }
-                        }
-                    </div>
-
-                </div>
-
-                <div class="cart-actions">
-                    <div style="display:none;" class="coupon">
-                        <input type="text" placeholder="Coupon code">
-                        <input type="submit" class="button" value="Apply">
-                    </div>
-                    <div class="cart-collaterals">
-                        <span class="saleBorder" style="color:red; font-weight:bold; display:none;">Sifariş üçün minimal məbləğ 15 AZN olamlıdır</span>
-                        <a id="checkPrice" class="checkout-button button" data-toggle="modal" data-target="#exampleModal">Sifarişi Təsdiqlə</a>
-                        <div class="order-total" style="display:flex">
-                            <p class="cart-totals-ttl">Cəmi : </p>
-                            <p class="cart-totals-val" style="margin-left:4px"> ₼ <span class="sum-money">0</span></p>
                         </div>
                     </div>
+
+                    <div class="cart-actions">
+                        <div class="cart-collaterals d-flex justify-content-end align-items-center">
+                            <div class="order-total">
+                                <p class="cart-totals-ttl m-0 mr-3">Cəmi : <span class="sum-money cart-totals-val">0</span></p>
+                                @*<p class="cart-totals-val" style="margin-left:4px"> ₼ <span class="sum-money">0</span></p>*@
+                            </div>
+                            <a id="checkPrice" class="checkout-button button">Sifarişi Təsdiqlə</a>
+                        </div>
+                        <p class="orderErrorMessage text-danger font-weight-bold"></p>
+                    </div>
+                    <p class="d-flex align-items-center mb-5 mt-2">
+                        <input class="mr-2" type="checkbox" id="isOrderPolicyAccepted">
+                        Sifariş<a href="#" class="border-0 px-1 orderPolicyLink" data-toggle="modal" data-target="#orderPolicyModal"> şərtlərini </a>oxudum və qəbul edirəm.
+                    </p>
+                </div>
+                <div class="loading-wrapper-for-cart text-center mb-5 d-none">
+                    <img src="/img/loading.gif" class="loading" />
                 </div>
             </div>
         </main>
     </div>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="orderPolicyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header align-items-center">
+                <h5 class="modal-title" id="exampleModalLabel"> Sifariş şərtləri </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @Html.Raw(ViewBag.policy)
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -131,10 +141,10 @@
                             </div>
                             <div class="form-group">
                                 <label for="message-text" class="col-form-label">Əlaqə Nömrəsi</label>
-                                <input class="form-control" id="phone" placeholder="(0**)-***-****" value="@user.PhoneNumber"/>
+                                <input class="form-control" id="phone" placeholder="(0**)-***-****" value="@user.PhoneNumber" />
                                 <span class="phone-error-message text-danger"></span>
                             </div>
-                            <input style="visibility:hidden" value="@user.Id" id="userId"/>
+                            <input style="visibility:hidden" value="@user.Id" id="userId" />
                         }
                         else
                         {
@@ -166,32 +176,29 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="~/js/Checkout.js"></script>
 <partial name="_ValidationScriptsPartial" />
 <script>
-    document.getElementById('phone').addEventListener('input', function (e) {
-        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-    });
-    
+    //document.getElementById('phone').addEventListener('input', function (e) {
+    //    var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+    //    e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+    //});
 </script>
 
-@{ 
-    if(productsIsOrderd == true)
+@{
+    @*if (productsIsOrderd == true)
     {
-        <script>
-            swal("Sifarişiniz qeydə alındı", "Yaxın zamanda sizinlə əlaqə saxlanılacaq", "success")
-            .then(willRedirect => {
-                if (willRedirect) {
-                    window.location.href = "/Home/Index";
-                }
-            });
+        <script>swal("Sifarişiniz qeydə alındı", "Yaxın zamanda sizinlə əlaqə saxlanılacaq", "success")
+                .then(willRedirect => {
+                    if (willRedirect) {
+                        window.location.href = "/Home/Index";
+                    }
+                });
 
-            localStorage.removeItem('basketList');
-        </script>
-    }
+            localStorage.removeItem('basketList');</script>
+    }*@
 }

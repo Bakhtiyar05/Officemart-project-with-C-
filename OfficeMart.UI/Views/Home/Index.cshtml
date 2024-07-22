@@ -1,226 +1,92 @@
-﻿@model IEnumerable<CategoryDto>
+﻿@model HomeViewModel
 
 @{
     ViewData["Title"] = Localizer["OfficeMart"];
-    var specialProduct = Model.Select(x => x.ProductDto).FirstOrDefault();
-    var imagePath = specialProduct?.ProductImages.Select(x => x).FirstOrDefault();
-    var sliderImages = Model.Select(x => x.SliderDtos).FirstOrDefault();
 }
 
 <div id="content" class="site-content">
     <div id="primary" class="content-area width-full">
         <main id="main" class="site-main">
-            <div class="maincont page-styling page-full">
-                <div class="heroblock">
-                    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel" data-interval="2500">
-                        <div class="carousel-inner">
-                            @{
-                                if (sliderImages != null && sliderImages.Count != 0)
-                                {
-                                    var counter = 1;
-                                    foreach (var item in sliderImages)
-                                    {
-                                        if (counter == 1)
-                                        {
-                                            <div class="carousel-item active">
-                                                <img style="max-height:60vh" class="d-block w-100" src="~/img/@item.ImageName" alt="First slide">
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="carousel-item">
-                                                <img style="max-height:60vh" class="d-block w-100" src="~/img/@item.ImageName" alt="First slide">
-                                            </div>
-                                        }
-                                        counter++;
-                                    }
-                                }
-                            }
-                        </div>
-                    </div>
-                </div>
 
-
-                <div class="container mb60 page-styling row-wrap-container row-wrap-nottl">
-                    <h2 class="mb35 heading-multishop">@Localizer["Kateqoriyalar"]</h2>
-                    <div class="row prod-items prod-items-3">
-                        @{
-                            foreach (var item in Model)
-                            {
-                                <article class="cf-sm-6 cf-md-4 cf-lg-4 col-xs-6 col-sm-6 col-md-4 col-lg-4 sectgl-item">
-                                    <div class="sectgl prod-i" style="cursor:pointer">
-                                        <div class="prod-i-top">
-                                            <a class="prod-i-img" asp-action="CategoryProducts" asp-controller="Products" asp-route-id="@item.Id">
-                                                <img src="~/img/@item.ImageName" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="prod-i-bot">
-                                            <h3 class="prod-i-ttl">
-                                                <a asp-action="Məhsullar" asp-controller="Kateqoriya" asp-route-id="@item.Id">@item.CategoryName</a>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </article>
-                            }
-                        }
-                    </div>
-                    <p class="special-more" style="display:none">
-                        <a class="special-more-btn" href="#">Daha Çox</a>
-                    </p>
-                </div>
-
-
-                <div class="container mb40 page-styling row-wrap-container row-wrap-nottl front-icons">
-                    <div class="row">
-                        <div class="cf-lg-4 col-sm-4">
-                            <div class="iconbox-item iconbox-i">
-                                <div class="iconbox-i-top">
-                                    <p class="iconbox-i-img withimg">
-                                        <img src="~/img/1/front/1.png" alt="">
-                                    </p>
-                                    <h3>@Localizer["Siz Seçin"]!</h3>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="cf-lg-4 col-sm-4">
-                            <div class="iconbox-item iconbox-i">
-                                <div class="iconbox-i-top">
-                                    <p class="iconbox-i-img withimg">
-                                        <img src="~/img/1/front/2.png" alt="">
-                                    </p>
-                                    <h3>@Localizer["Sifariş Edin"]!</h3>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="cf-lg-4 col-sm-4">
-                            <div class="iconbox-item iconbox-i">
-                                <div class="iconbox-i-top">
-                                    <p class="iconbox-i-img withimg">
-                                        <img src="~/img/1/front/3.png" alt="">
-                                    </p>
-                                    <h3>@Localizer["Biz Çatdıraq"]!</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                @{
-                    if (specialProduct != null)
+            <div class="owl-carousel-wrapper">
+                <div class="owl-carousel">
+                    @foreach (var item in Model.sliders)
                     {
-                        <div class="page-styling row-wrap-full front-image-half">
-                            <section class="image-half image-half-right">
-                                <div class="image-half-img" >
-                                    <img src="~/img/@imagePath" alt="" style="display:block;padding-top:2%;height:31.5vh;width:60%" id="specialProductImg">
-                                </div>
-                                
-                                <div class="cont image-half-cont">
-                                    <div class="image-half-inner">
-                                        <p class="maincont-subttl">Xüsusi Təklif</p>
-                                        <h2 id="specialProductName">@specialProduct.ProductName</h2>
-                                        <div class="wpb_text_column wpb_content_element ">
-                                            <div class="wpb_wrapper">
-                                                <p>@specialProduct.Description</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-
-                        <div class="page-styling row-wrap-full align-center front-title-block">
-                            <h2>Məhsula keçid</h2>
-                            <a style="margin-right:5px" class="mb40 btn-multishop" asp-action="Index" asp-controller="ProductDetail" asp-route-id="@specialProduct.Id">Ətraflı Baxış</a>
+                        <div class="item" style="background-image: url(@item.ImageUrl)">
+                            <a href="@(string.IsNullOrEmpty(item.UrlPath) ? "javascript:void(0)" : item.UrlPath)">
+                                <h1>@item.Title</h1>
+                            </a>
                         </div>
                     }
-                }
+                </div>
+            </div>
+
+            <div class="container mb60 page-styling row-wrap-container row-wrap-nottl">
+                <h2 class="mb35 heading-multishop">@Localizer["Kateqoriyalar"]</h2>
+                <div class="row prod-items prod-items-3">
+                    @{
+                        foreach (var item in Model.categories)
+                        {
+                            <article class="cf-sm-6 cf-md-4 cf-lg-4 col-xs-6 col-sm-6 col-md-4 col-lg-4 sectgl-item">
+                                <div class="sectgl prod-i" style="cursor:pointer">
+                                    <div class="prod-i-top">
+                                        <a class="prod-i-img" asp-controller="Products" asp-action="ProductsList" asp-route-categoryGUID="@item.GUID" data-category-GUID="@item.GUID">
+                                            <img src="@item.ImageUrl" alt="@item.Name">
+                                        </a>
+                                    </div>
+                                    <div class="prod-i-bot">
+                                        <h3 class="prod-i-ttl">
+                                            <a asp-controller="Products" asp-action="ProductsList" asp-route-categoryGUID="@item.GUID" data-category-GUID="@item.GUID">@item.Name</a>
+                                        </h3>
+                                    </div>
+                                </div>
+                            </article>
+                        }
+                    }
+                </div>
+                <p class="special-more" style="display:none">
+                    <a class="special-more-btn" href="#">Daha Çox</a>
+                </p>
+            </div>
+
+            <div class="container mb40 page-styling row-wrap-container row-wrap-nottl front-icons">
+                <div class="row">
+                    <div class="cf-lg-4 col-sm-4">
+                        <div class="iconbox-item iconbox-i">
+                            <div class="iconbox-i-top">
+                                <p class="iconbox-i-img withimg">
+                                    <img src="~/img/1/front/1.png" alt="">
+                                </p>
+                                <h3>@Localizer["Siz Seçin"]!</h3>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="cf-lg-4 col-sm-4">
+                        <div class="iconbox-item iconbox-i">
+                            <div class="iconbox-i-top">
+                                <p class="iconbox-i-img withimg">
+                                    <img src="~/img/1/front/2.png" alt="">
+                                </p>
+                                <h3>@Localizer["Sifariş Edin"]!</h3>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="cf-lg-4 col-sm-4">
+                        <div class="iconbox-item iconbox-i">
+                            <div class="iconbox-i-top">
+                                <p class="iconbox-i-img withimg">
+                                    <img src="~/img/1/front/3.png" alt="">
+                                </p>
+                                <h3>@Localizer["Biz Çatdıraq"]!</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-<script>
-
-    $(function () {
-
-        $(document).on("click", ".quick-view", function (e) {
-            e.preventDefault();
-            var id = $(this).attr("data-id");
-            $(".slides").remove();
-
-            $.ajax({
-                url: "/Ajax/GetByIdForQuickView/" + id,
-                type: "GET",
-                success: function (res) {
-
-                    var bottomSliderParent = $("#prod-thumbs");
-                    var sliderParentTag = "<ul class='slides' id='slider-bottom'></ul>";
-                    bottomSliderParent.append(sliderParentTag);
-
-                    var topSliderParent = $("#prod-slider");
-                    var sliderParentTagTop = "<ul class='slides' id='slider-top'></ul>";
-                    topSliderParent.append(sliderParentTagTop);
-
-                    var sliderBottom = $("#slider-bottom");
-                    var sliderTop = $("#slider-top");
-                    var productName = $(".product-name");
-                    var productCategory = $(".product-category");
-                    var productPrice = $(".prod-price");
-
-                    let counter = 0;
-                    for (let photo of res.imagesBase64) {
-                        var price = "₼" + " " + res.price;
-                        productName.text(res.productName);
-                        productCategory.text(res.category.categoryName);
-                        productPrice.text(price);
-
-                        counter++;
-                        if (counter == 1) {
-                            var sliderElementBottom = "<li class='slider-li' style='width: 114.4px; margin-right: 0px; float: left; display: block;'><img src=" + photo + " alt='' class='slider-bottom-element'  data=" + counter + "/><li/>";
-                            sliderBottom.append(sliderElementBottom);
-                            var sliderElementTop = "<li class='slider-li' object-fit='cover' style='width: 100%; float: left; margin-right: -100%; position: relative; display: block; z-index: 2;'><img style='width:100%;display:block' src=" + photo + " alt='' class='top-photo' data-top=" + counter + "/><li/>";
-                            sliderTop.append(sliderElementTop);
-                        }
-                        else {
-                            var sliderElementBottom = "<li class='slider-li' style='width: 114.4px; margin-right: 0px; float: left; display: block;'><img src=" + photo + " alt='' class='slider-bottom-element'  data=" + counter + "/><li/>";
-                            sliderBottom.append(sliderElementBottom);
-                            var sliderElementTop = "<li class='slider-li' object-fit='cover' style='width: 100%; float: left; margin-right: -100%; position: relative; display: block; z-index: 2;'><img style='width:100%;display:none' src=" + photo + " alt='' class='top-photo' data-top=" + counter + "/><li/>";
-                            sliderTop.append(sliderElementTop);
-                        }
-                    }
-
-
-                }
-            })
-
-        })
-
-        $(document).on("click", ".slider-bottom-element", function (e) {
-            e.preventDefault();
-            var data = $(this).attr("data");
-
-            $("img").each(function () {
-                var dataTop = $(this).attr("data-top");
-
-
-                if (data == dataTop) {
-                    console.log($(this))
-
-                    $(this).css("display", "block");
-                }
-                else {
-                    if ($(this).hasClass("top-photo")) {
-                        $(this).css("display", "none");
-                    }
-                }
-
-            });
-        })
-    });
-
-
-</script>

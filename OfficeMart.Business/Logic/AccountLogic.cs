@@ -12,58 +12,7 @@ namespace OfficeMart.Business.Logic
 {
     public class AccountLogic
     {
-        public async Task<AppUserDto> RegistrationAppUser(AppUserDto appUserDto,
-            UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager)
-        {
-            appUserDto.LogicResult = new LogicResult();
-            var appUser = new AppUser
-            {
-                Name = appUserDto.Name,
-                Surname = appUserDto.Surname,
-                UserName = appUserDto.Email,
-                LivingPlace = appUserDto.LivinPlace,
-                PhoneNumber = appUserDto.PhoneNumber
-            };
-
-            var userResult = await userManager.CreateAsync(appUser, appUserDto.Password);
-
-            if (userResult.Succeeded)
-            {
-                var result = await signInManager.PasswordSignInAsync(appUserDto.Email, appUserDto.Password, true , false);
-                if (result.Succeeded)
-                {
-                    appUserDto.LogicResult.OperationIsSuccessfull = true;
-                    return appUserDto;
-                }  
-            }
-
-            if(userResult.Errors.Count() != 0)
-            {
-                var isDuplicate = userResult.Errors.Where(x => x.Code == "DuplicateUserName").FirstOrDefault();
-                appUserDto.LogicResult.ErrorMessage = isDuplicate != null ? "Email artıq istifadə olunur" : null;
-                return appUserDto;
-            }
-            return appUserDto;
-        }
-
-        public async Task<LogicResult> Login(LoginDto loginDto,SignInManager<AppUser> signInManager)
-        {
-            var logicResult = new LogicResult();
-            var result = await signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password, true, false);
-
-            if (result.Succeeded)
-                logicResult.OperationIsSuccessfull = true;
-            else
-            {
-                logicResult.OperationIsSuccessfull = false;
-                logicResult.ErrorMessage = "Email yaxud şifrəniz yanlışdır";
-            }
-
-            return logicResult;
-        }
-
-        public async Task<LogicResult> AdminLogin(LoginDto loginDto, SignInManager<AppUser> signInManager,UserManager<AppUser> userManager)
+        public async Task<LogicResult> AdminLogin(LoginDto loginDto, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
         {
             var logicResult = new LogicResult();
 
@@ -78,7 +27,7 @@ namespace OfficeMart.Business.Logic
                     logicResult.ErrorMessage = "Email yaxud şifrəniz yanlışdır";
                     return logicResult;
                 }
-                else if(PasswordVerificationResult.Success == checkPasswordAdmin)
+                else if (PasswordVerificationResult.Success == checkPasswordAdmin)
                 {
                     var result = await signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password, true, false);
 
@@ -88,7 +37,6 @@ namespace OfficeMart.Business.Logic
                     return logicResult;
                 }
             }
-
             throw new Exception("Not Admin");
         }
     }
